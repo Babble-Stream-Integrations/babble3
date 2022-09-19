@@ -10,20 +10,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-    - name: Install front-end dependencies
-      run: npm ci
-    - name: Install back-end dependencies
-      run: npm install --legacy-peer-deps
-      working-directory: functions
-    - name: Run front-end ESLint
-      run: npm run lint
-    - name: Run back-end ESLint
-      if: always()
-      run: npm run lint
-      working-directory: functions
-    
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - name: Install front-end dependencies
+        run: npm ci
+      - name: Run front-end ESLint
+        run: npm run lint
+
