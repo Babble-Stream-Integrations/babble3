@@ -1,4 +1,7 @@
-# Babble3
+# Babble
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Babble-Stream-Integrations/babble3/Deploy%20to%20Firebase%20Hosting%20on%20merge)
+![GitHub issues](https://img.shields.io/github/issues-raw/Babble-Stream-Integrations/babble3)
+![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/Babble-Stream-Integrations/babble3)
 
 Babble is a way for Twitch and YouTube Live streamers to level up and increase the interaction between them and their viewers.
 
