@@ -1,37 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Client } from "tmi.js";
-import { formatEmotes } from "./emotes";
-export default function TwitchChat(props: { streamer: { name: string } }) {
-  //show last 10 chat messages
-  const [messages, setMessages] = useState<any[]>([]);
+import React, { useState } from "react";
+import TwitchChat from "./twitchChat";
+
+export default function ChatComponent(props: {
+  streamer: { name: string; id: string; platform: string };
+}) {
+  //type for chat messages
   type message = {
     username: string | undefined;
     message: string;
     color: string | undefined;
   };
-  //twitch chat client
-  const client = new Client({
-    channels: [props.streamer.name],
-  });
-  useEffect(() => {
-    client.connect();
 
-    client.on("message", (_channel, tags, message) => {
-      const newMessage: message = {
-        username: tags["display-name"],
-        message: formatEmotes(message, tags.emotes),
-        color: tags.color,
-      };
-      setMessages((messages) => [...messages, newMessage]);
-    });
-  }, []);
+  //usestate for chat messages
+  const [messages, setMessages] = useState<message[]>([]);
 
-  //remove first message if more than 30 messages
-  useEffect(() => {
-    if (messages.length > 30) {
-      setMessages((messages) => messages.slice(1));
-    }
-  }, [messages]);
+  //futureproofing for youtube chat
+  if (props.streamer.platform === "twitch") {
+    TwitchChat({ streamer: props.streamer, messages, setMessages });
+  }
+  if (props.streamer.platform === "youtube") {
+    TwitchChat({ streamer: props.streamer, messages, setMessages });
+  }
 
   return (
     <div className="w-72 overflow-hidden rounded-xl bg-babbleDarkgray pb-2">
@@ -40,6 +29,7 @@ export default function TwitchChat(props: { streamer: { name: string } }) {
           <h1>{props.streamer.name}</h1>
           <h2>10.000.000</h2>
         </div>
+        {/* map over messages to display a list of messages */}
         {messages.map((message, index) => {
           return (
             <div key={index} className="px-4">
