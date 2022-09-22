@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import TwitchChat from "./twitchChat";
+import TwitchViewcount from "./twitchViewcount";
 
 export default function ChatComponent(props: {
-  streamer: { name: string; id: string; platform: string };
+  streamer: {
+    name: string;
+    id: string;
+    platform: string;
+  };
 }) {
   //type for chat messages
   type message = {
@@ -14,9 +19,13 @@ export default function ChatComponent(props: {
   //usestate for chat messages
   const [messages, setMessages] = useState<message[]>([]);
 
+  //usestate for viewcount
+  const [viewCount, setViewCount] = useState<string>("");
+
   //futureproofing for youtube chat
   if (props.streamer.platform === "twitch") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
+    TwitchViewcount({ streamer: props.streamer, setViewCount });
   }
   if (props.streamer.platform === "youtube") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
@@ -27,7 +36,7 @@ export default function ChatComponent(props: {
       <div className="inline-block h-[80vh] w-72 overflow-hidden text-ellipsis rounded-xl bg-babbleDarkgray text-white">
         <div className="mb-2 flex justify-between bg-gradient-to-tr from-twitchDark to-twitchLight px-4 py-1 ">
           <h1>{props.streamer.name}</h1>
-          <h2>10.000.000</h2>
+          <h2>{viewCount}</h2>
         </div>
         {/* map over messages to display a list of messages */}
         {messages.map((message, index) => {
