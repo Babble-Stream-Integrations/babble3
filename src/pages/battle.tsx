@@ -35,7 +35,9 @@ export default function Battle() {
         <ChatComponent streamer={streamer} />
       </div>
       <div className="absolute left-8 bottom-8">
-        <img src={logo} className="h-10 w-10" alt="logo" />
+        <Link to="/">
+          <img src={logo} className="h-10 w-10" alt="logo" />
+        </Link>
       </div>
     </div>
   );
