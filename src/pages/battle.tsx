@@ -26,7 +26,7 @@ export default function Battle() {
 
   return (
     <div className="bg-babbleBlack">
-      <div className="absolute top-8 left-16 h-11 w-min whitespace-nowrap rounded-full bg-white px-5 text-xl font-bold">
+      <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
         <div className="flex h-full items-center justify-center">
           <Link to="/"> Quit game </Link>
         </div>
@@ -34,9 +34,9 @@ export default function Battle() {
       <div className="flex h-screen flex-1 items-center justify-evenly">
         <ChatComponent streamer={streamer} />
       </div>
-      <div className="absolute left-8 bottom-8">
+      <div className="absolute left-[50px] bottom-[50px]">
         <Link to="/">
-          <img src={logo} className="h-10 w-10" alt="logo" />
+          <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
         </Link>
       </div>
     </div>
