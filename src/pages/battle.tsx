@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo-small.png";
 import ChatComponent from "../components/chatComponent/chatComponent";
 
@@ -25,6 +26,11 @@ export default function Battle() {
 
   return (
     <div className="bg-babbleBlack">
+      <div className="absolute top-8 left-16 h-11 w-min whitespace-nowrap rounded-full bg-white px-5 text-xl font-bold">
+        <div className="flex h-full items-center justify-center">
+          <Link to="/"> Quit game </Link>
+        </div>
+      </div>
       <div className="flex h-screen flex-1 items-center justify-evenly">
         <ChatComponent streamer={streamer} />
       </div>
