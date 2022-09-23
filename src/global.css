@@ -6,3 +6,6 @@
     @apply dark:bg-babbleBlack;
   }
 }
+img {
+  display: inline;
+}

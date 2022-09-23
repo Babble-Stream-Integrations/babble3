@@ -1,53 +1,85 @@
 import React, { useEffect } from "react";
-import { Client } from "tmi.js";
-import { formatEmotes } from "./emotes";
+import tmi from "tmi.js";
+import { parseBadges, parseEmotes } from "emotettv";
+import { Message } from "../../pages/battle";
 
-//configuring
 interface Props {
   streamer: {
     name: string;
     id: string;
     platform: string;
   };
-  messages: message[];
-  setMessages: React.Dispatch<React.SetStateAction<any>>;
+  messages: Message[];
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 }
-type message = {
-  username: string | undefined;
-  message: string;
-  color: string | undefined;
-};
 export default function TwitchChat({ streamer, messages, setMessages }: Props) {
-  type message = {
-    username: string | undefined;
-    message: string;
-    color: string | undefined;
-  };
+  //get username color if not set
+  const default_colors = [
+    ["Red", "#FF0000"],
+    ["Blue", "#0000FF"],
+    ["Green", "#00FF00"],
+    ["FireBrick", "#B22222"],
+    ["Coral", "#FF7F50"],
+    ["YellowGreen", "#9ACD32"],
+    ["OrangeRed", "#FF4500"],
+    ["SeaGreen", "#2E8B57"],
+    ["GoldenRod", "#DAA520"],
+    ["Chocolate", "#D2691E"],
+    ["CadetBlue", "#5F9EA0"],
+    ["DodgerBlue", "#1E90FF"],
+    ["HotPink", "#FF69B4"],
+    ["BlueViolet", "#8A2BE2"],
+    ["SpringGreen", "#00FF7F"],
+  ];
+  function Color(name: string | undefined, color: string | undefined) {
+    if (color) {
+      console.log(color);
+      color === "#000000" ? (color = "#808080") : color;
+      return color;
+    }
+    if (name === undefined) {
+      return default_colors[
+        Math.floor(Math.random() * default_colors.length)
+      ][1];
+    } else {
+      const n = name.charCodeAt(0) + name.charCodeAt(name.length - 1);
+      const color = default_colors[n % default_colors.length][1];
+      return color;
+    }
+  }
 
   //connect to twitch chat
-  const client = new Client({
+  const channelId = streamer.id;
+  const client = new tmi.Client({
     channels: [streamer.name],
   });
   useEffect(() => {
     client.connect();
 
-    //add new message to messages, parse emotes
-    client.on("message", (_channel, tags, message) => {
-      const newMessage: message = {
-        username: tags["display-name"],
-        message: formatEmotes(message, tags.emotes),
-        color: tags.color,
+    const options = {
+      channelId,
+    };
+
+    //add new message to messages, parse emotes and badgers
+    client.on("message", async (_channel, tags, message) => {
+      const parsedMessage = await parseEmotes(message, tags.emotes, options);
+      const parsedBadges = await parseBadges(tags.badges as never, options);
+      const htmlMessage = parsedMessage.toHtml();
+      const htmlBadges = parsedBadges.toHtml();
+      const color = Color(tags["display-name"], tags["color"]);
+      const newMessage = {
+        username: `${htmlBadges} ${tags["display-name"]}`,
+        message: `${htmlMessage}`,
+        color: color,
       };
-      setMessages((messages: never) => [...messages, newMessage]);
+      setMessages((messages) => [...messages, newMessage]);
     });
   }, []);
 
   //remove first message if there are more than 30 messages
   useEffect(() => {
-    if (messages.length > 30) {
-      setMessages((messages: string | unknown[]) => messages.slice(1));
+    if (messages.length > 38) {
+      setMessages((messages) => messages.slice(1));
     }
   }, [messages]);
-
-  return;
 }
