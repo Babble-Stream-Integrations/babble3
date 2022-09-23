@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-small.png";
+import BattleComponent from "../components/battleComponent/battleComponent";
 import ChatComponent from "../components/chatComponent/chatComponent";
 
 export interface Message {
@@ -19,7 +20,7 @@ export default function Battle() {
 
   //hardcoded streamer data
   const [streamer] = useState<Streamer>({
-    name: "esl_csgo",
+    name: "don kaaklijn",
     id: "56951019",
     platform: "twitch",
   });
@@ -31,8 +32,9 @@ export default function Battle() {
           <Link to="/"> Quit game </Link>
         </div>
       </div>
-      <div className="flex h-screen flex-1 items-center justify-evenly">
+      <div className="flex h-screen flex-1 items-center justify-center gap-[50px]">
         <ChatComponent streamer={streamer} />
+        <BattleComponent />
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
         <Link to="/">

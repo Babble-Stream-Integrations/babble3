@@ -30,7 +30,7 @@ export default function ChatComponent(props: {
 
   return (
     <div className="h-screen w-[450px] overflow-hidden rounded-[25px] py-[50px]">
-      <div className="mb-[25px] h-full overflow-hidden text-ellipsis rounded-[25px] bg-babbleDarkgray text-white">
+      <div className="mb-[25px] h-full overflow-hidden text-ellipsis rounded-[25px] bg-babbleDarkGray text-white">
         <div className="z-40 flex h-[40px] items-center justify-between bg-gradient-to-tr from-twitchDark to-twitchLight px-[50px] font-[1000] shadow-lg shadow-babbleBlack drop-shadow-lg">
           <div className=" flex items-center justify-end gap-2 text-[18px] italic">
             <ImTwitch />{" "}
