@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-interface Props {
+type Props = {
   streamer: {
     name: string;
     id: string;
     platform: string;
   };
   setViewCount: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 export default function TwitchViewCount({ streamer, setViewCount }: Props) {
   const myHeaders = new Headers();

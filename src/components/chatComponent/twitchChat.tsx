@@ -3,7 +3,7 @@ import tmi from "tmi.js";
 import { parseBadges, parseEmotes } from "emotettv";
 import { Message } from "../../pages/quiz";
 
-interface Props {
+type Props = {
   streamer: {
     name: string;
     id: string;
@@ -11,7 +11,7 @@ interface Props {
   };
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
-}
+};
 export default function TwitchChat({ streamer, messages, setMessages }: Props) {
   //get username color if not set
   const default_colors = [
