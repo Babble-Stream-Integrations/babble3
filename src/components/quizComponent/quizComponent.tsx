@@ -15,7 +15,7 @@ export type Answer = {
 
 export default function QuizComponent() {
   const [quiz] = useState<Quiz>({
-    qAmount: 2,
+    qAmount: 10,
     questions: [
       {
         qNumber: 1,
@@ -58,8 +58,19 @@ export default function QuizComponent() {
   return (
     // display the question and answers
     <div className="flex h-full w-[570px] flex-col gap-[10px] overflow-hidden pt-[50px] text-center text-[30px] font-[500] text-white">
-      <div className="flex h-[150px] items-center rounded-b-lg rounded-t-3xl bg-babbleDarkGray p-4">
-        <div className="p-[80px]">{quiz.questions[0].question}</div>
+      <div className="flex h-[150px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4">
+        <h1 className="px-4">{quiz.questions[0].question}</h1>
+        <div className="flex w-full justify-evenly pt-3">
+          {/* make row number for every quiz question */}
+          {Array.from({ length: quiz.qAmount }, (_, i) => (
+            <div
+              key={i}
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-twitchDark to-twitchLight text-sm first:bg-gradient-to-tr"
+            >
+              <h3>{i + 1}</h3>
+            </div>
+          ))}
+        </div>
       </div>
       {/* map over possible answers */}
       {quiz.questions[0].answers.map((answer, index) => {
