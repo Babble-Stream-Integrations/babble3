@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-small.png";
-import BattleComponent from "../components/battleComponent/battleComponent";
+import QuizComponent from "../components/quizComponent/quizComponent";
 import ChatComponent from "../components/chatComponent/chatComponent";
 
 export interface Message {
@@ -10,7 +10,7 @@ export interface Message {
   color: string | undefined;
 }
 
-export default function Battle() {
+export default function Quiz() {
   //usestate for streamer data
   type Streamer = {
     name: string;
@@ -34,7 +34,7 @@ export default function Battle() {
       </div>
       <div className="flex h-screen flex-1 items-center justify-center gap-[50px]">
         <ChatComponent streamer={streamer} />
-        <BattleComponent />
+        <QuizComponent />
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
         <Link to="/">

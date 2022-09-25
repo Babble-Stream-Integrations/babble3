@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import tmi from "tmi.js";
 import { parseBadges, parseEmotes } from "emotettv";
-import { Message } from "../../pages/battle";
+import { Message } from "../../pages/quiz";
 
 interface Props {
   streamer: {

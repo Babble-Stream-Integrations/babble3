@@ -8,7 +8,7 @@ export interface Answer {
   answer: string;
 }
 
-export default function BattleComponent() {
+export default function QuizComponent() {
   const [quiz] = useState<Quiz>({
     question: "Wie heeft de meeste volgers op Twitch?",
     answers: [
