@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo-small.png";
 import ChatComponent from "../components/chatComponent/chatComponent";
 
-export interface Message {
+export type Message = {
   username: string;
   message: string;
   color: string | undefined;
-}
+};
 
-export default function Battle() {
+export default function Quiz() {
   //usestate for streamer data
   type Streamer = {
     name: string;
@@ -19,7 +19,7 @@ export default function Battle() {
 
   //hardcoded streamer data
   const [streamer] = useState<Streamer>({
-    name: "esl_csgo",
+    name: "Puxque",
     id: "56951019",
     platform: "twitch",
   });
