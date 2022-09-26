@@ -23,6 +23,7 @@ app.get("/view-count/:broadcaster", (req, res) => {
       }
     )
     .then((response) => {
+      res.set("Access-Control-Allow-Origin", "*");
       res.json({
         count: response.data.data[0].viewer_count,
       });
