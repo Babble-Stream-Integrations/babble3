@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { Streamer } from "../../pages/quiz";
+
 type Props = {
-  streamer: {
-    name: string;
-    id: string;
-    platform: string;
-  };
+  streamer: Streamer;
   setViewCount: React.Dispatch<React.SetStateAction<string>>;
 };
 

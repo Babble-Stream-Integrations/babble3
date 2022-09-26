@@ -4,14 +4,9 @@ import TwitchViewCount from "./twitchViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch } from "react-icons/im";
 import { Message } from "../../pages/quiz";
+import { Streamer } from "../../pages/quiz";
 
-export default function ChatComponent(props: {
-  streamer: {
-    name: string;
-    id: string;
-    platform: string;
-  };
-}) {
+export default function ChatComponent(props: { streamer: Streamer }) {
   //usestate for chat messages
   const [messages, setMessages] = useState<Message[]>([]);
 

@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import tmi from "tmi.js";
 import { parseBadges, parseEmotes } from "emotettv";
 import { Message } from "../../pages/quiz";
+import { Streamer } from "../../pages/quiz";
 
 type Props = {
-  streamer: {
-    name: string;
-    id: string;
-    platform: string;
-  };
+  streamer: Streamer;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 };
