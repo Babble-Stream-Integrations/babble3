@@ -1,21 +1,19 @@
-import { Link } from "react-router-dom";
-import logo from "./assets/logo-small.png";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import "./global.css";
+import Quiz from "./pages/quiz";
+import Login from "./pages/login";
+import Test from "./pages/test";
 
-function App() {
+export default function App() {
   return (
-    <header className="App-header bg-babbleBlack">
-      <div className="flex h-screen flex-1 flex-col items-center justify-center">
-        <Link to="/quiz">
-          <div className="rounded bg-gradient-to-bl from-babbleRed via-babbleOrange to-babbleYellow py-2 px-4 font-bold text-white">
-            Start game
-          </div>
-        </Link>
-      </div>
-      <div className="absolute left-8 bottom-8">
-        <img src={logo} className="h-10 w-10" alt="logo" />
-      </div>
-    </header>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/test" element={<Test />} />
+      </Routes>
+    </div>
   );
 }
-
-export default App;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo-small.png";
 import QuizComponent from "../components/quizComponent/quizComponent";
 import ChatComponent from "../components/chatComponent/chatComponent";
@@ -14,27 +14,23 @@ export type Message = {
 export type Streamer = {
   name: string;
   id: string;
-  platform: string;
 };
 
 export default function Quiz() {
-  //hardcoded streamer data
-  const [streamer] = useState<Streamer>({
-    name: "esl_csgo",
-    id: "56951019",
-    platform: "twitch",
-  });
-
   const [initialTimer] = useState(10);
+  const location = useLocation();
+  console.log(location);
+  const streamer = location.state.streamer;
+  const platform = location.state.platform;
   return (
-    <div className="bg-babbleBlack" data-theme={streamer.platform}>
+    <div className="bg-babbleBlack" data-theme={platform}>
       <div className="absolute top-[50px] left-[50px] z-0 h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
         <div className="flex h-full items-center justify-center">
           <Link to="/"> Quit game </Link>
         </div>
       </div>
       <div className="z-10 flex h-screen  flex-1 items-center justify-center gap-[50px]">
-        <ChatComponent streamer={streamer} />
+        <ChatComponent streamer={streamer} platform={platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent />
           <TimerComponent initialTimer={initialTimer} />

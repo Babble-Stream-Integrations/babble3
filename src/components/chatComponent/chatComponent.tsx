@@ -6,7 +6,10 @@ import { ImTwitch, ImYoutube } from "react-icons/im";
 import { Message } from "../../pages/quiz";
 import { Streamer } from "../../pages/quiz";
 
-export default function ChatComponent(props: { streamer: Streamer }) {
+export default function ChatComponent(props: {
+  streamer: Streamer;
+  platform: string;
+}) {
   //usestate for chat messages
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -14,11 +17,11 @@ export default function ChatComponent(props: { streamer: Streamer }) {
   const [viewCount, setViewCount] = useState<string>("");
 
   //futureproofing for youtube chat
-  if (props.streamer.platform === "twitch") {
+  if (props.platform === "twitch") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
     TwitchViewCount({ streamer: props.streamer, setViewCount });
   }
-  if (props.streamer.platform === "youtube") {
+  if (props.platform === "youtube") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
     TwitchViewCount({ streamer: props.streamer, setViewCount });
   }
@@ -28,11 +31,7 @@ export default function ChatComponent(props: { streamer: Streamer }) {
       <div className="mb-[25px] h-full overflow-hidden text-ellipsis rounded-[25px] bg-babbleDarkGray text-white">
         <div className="z-40 flex h-[40px] items-center justify-between bg-gradient-to-tr from-platformDark to-platformLight px-[50px] font-[1000] shadow-lg shadow-babbleBlack drop-shadow-lg">
           <div className=" flex items-center justify-end gap-2 text-[18px] italic">
-            {props.streamer.platform === "twitch" ? (
-              <ImTwitch />
-            ) : (
-              <ImYoutube />
-            )}
+            {props.platform === "twitch" ? <ImTwitch /> : <ImYoutube />}
             <h1 className="text-md uppercase">{props.streamer.name}</h1>
           </div>
           <div className=" flex items-center justify-end gap-2 font-bold">
