@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import tmi from "tmi.js";
 import { parseBadges, parseEmotes } from "emotettv";
 import { Message } from "../../pages/quiz";
+import { Streamer } from "../../pages/quiz";
 
 type Props = {
-  streamer: {
-    name: string;
-    id: string;
-    platform: string;
-  };
+  streamer: Streamer;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 };
@@ -33,7 +30,6 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
   ];
   function Color(name: string | undefined, color: string | undefined) {
     if (color) {
-      console.log(color);
       color === "#000000" ? (color = "#808080") : color;
       return color;
     }
