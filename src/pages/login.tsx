@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { Streamer } from "./quiz";
 export default function Login() {
   const navigate = useNavigate();
   const [streamer, setStreamer] = useState<Streamer>({
-    name: "esl_csgo",
+    name: "qucee",
     id: "56951019",
   });
 
@@ -53,10 +53,9 @@ export default function Login() {
       <div className="absolute right-20 top-16">
         <img src={logoBig} className="h-10"></img>
       </div>
-      <div className="absolute bottom-0 ">
+      <div className="absolute bottom-0 left-0">
         <input
           type="text"
-          className="border-2 border-babbleRed bg-babbleBlack text-center text-babbleWhite"
           value={streamer.name}
           onChange={(e) => handleChange(e)}
         />
