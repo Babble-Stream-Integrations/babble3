@@ -1,48 +1,33 @@
 import React, { useEffect } from "react";
+import axios from "axios";
+import { Streamer } from "../../pages/quiz";
+
 type Props = {
-  streamer: {
-    name: string;
-    id: string;
-    platform: string;
-  };
+  streamer: Streamer;
   setViewCount: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function TwitchViewCount({ streamer, setViewCount }: Props) {
-  const myHeaders = new Headers();
-  myHeaders.append("Client-Id", "<CLIENT-ID>");
-  myHeaders.append("Authorization", "Bearer <OAUTH-TOKEN>");
-
-  fetch(`https://api.twitch.tv/helix/streams?user_login=${streamer.name}`, {
-    method: "GET",
-    headers: myHeaders,
-    mode: "cors",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      setViewCount(
-        new Intl.NumberFormat("en", { notation: "compact" }).format(
-          data.data[0].viewer_count
-        )
-      );
-    });
-
+export default async function TwitchViewCount({
+  streamer,
+  setViewCount,
+}: Props) {
+  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/${streamer.name}`;
+  //first call
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const interval = setInterval(() => {
-      fetch(`https://api.twitch.tv/helix/streams?user_login=${streamer.name}`, {
-        method: "GET",
-        headers: myHeaders,
-        mode: "cors",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setViewCount(
-            new Intl.NumberFormat("en", { notation: "compact" }).format(
-              data.data[0].viewer_count
-            )
-          );
-        });
-    }, 10000);
+    setTimeout(async () => {
+      const res = await axios.get(url);
+      setViewCount(res.data.count.toString());
+    }, 1000);
   }, []);
+  //repeat call every 30 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      setInterval(async () => {
+        const res = await axios.get(url);
+        setViewCount(res.data.count.toString());
+      }, 30000);
+    }, 1000);
+  }, []);
+
+  return;
 }

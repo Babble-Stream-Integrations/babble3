@@ -38,10 +38,10 @@ module.exports = {
         quizTurqoiseDark: "#015E5E",
         quizBrownLight: "#FF8370",
         quizBrownDark: "#8F1B09",
-        //#E42256, #9F002B
-        //#FDC74C, #A87603
-        //#00B1B0, #015E5E
-        //#FF8370, #8F1B09
+        //varable colors
+        platform: "var(--platform-color)",
+        platformLight: "var(--platform-light)",
+        platformDark: "var(--platform-dark)",
       },
     },
   },

@@ -9,18 +9,17 @@ export type Message = {
   message: string;
   color: string | undefined;
 };
+//usestate for streamer data
+export type Streamer = {
+  name: string;
+  id: string;
+  platform: string;
+};
 
 export default function Quiz() {
-  //usestate for streamer data
-  type Streamer = {
-    name: string;
-    id: string;
-    platform: string;
-  };
-
   //hardcoded streamer data
   const [streamer] = useState<Streamer>({
-    name: "don kaaklijn",
+    name: "esl_csgo",
     id: "56951019",
     platform: "twitch",
   });
