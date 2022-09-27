@@ -59,7 +59,7 @@ export default function QuizComponent() {
   });
   return (
     // display the question and answers
-    <div className="flex h-full w-[570px] flex-col gap-[10px] overflow-hidden pt-[50px] text-center text-[30px] font-[500] text-white">
+    <div className="flex h-full w-[570px] flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-white">
       <div className="flex h-[150px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4">
         <h1 className="px-4">{quiz.questions[0].question}</h1>
         <div className="flex w-full justify-evenly pt-3">

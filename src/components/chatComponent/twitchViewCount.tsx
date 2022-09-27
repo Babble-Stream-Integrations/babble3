@@ -25,7 +25,7 @@ export default async function TwitchViewCount({
       setInterval(async () => {
         const res = await axios.get(url);
         setViewCount(res.data.count.toString());
-      }, 30000);
+      }, 300000);
     }, 1000);
   }, []);
 

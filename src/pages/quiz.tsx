@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo-small.png";
 import QuizComponent from "../components/quizComponent/quizComponent";
 import ChatComponent from "../components/chatComponent/chatComponent";
+import TimerComponent from "../components/timerComponent/timerComponent";
 
 export type Message = {
   username: string;
@@ -24,6 +25,7 @@ export default function Quiz() {
     platform: "twitch",
   });
 
+  const [initialTimer] = useState(10);
   return (
     <div className="bg-babbleBlack" data-theme={streamer.platform}>
       <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
@@ -33,7 +35,10 @@ export default function Quiz() {
       </div>
       <div className="flex h-screen flex-1 items-center justify-center gap-[50px]">
         <ChatComponent streamer={streamer} />
-        <QuizComponent />
+        <div className="flex flex-col gap-8">
+          <QuizComponent />
+          <TimerComponent initialTimer={initialTimer} />
+        </div>
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
         <Link to="/">
