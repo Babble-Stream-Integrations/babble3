@@ -43,6 +43,9 @@ module.exports = {
         platformLight: "var(--platform-light)",
         platformDark: "var(--platform-dark)",
       },
+      animation: {
+        "ping-short": "ping 0.7s linear 3",
+      },
     },
   },
   plugins: [],
