@@ -28,14 +28,14 @@ export default function Quiz() {
   const [initialTimer] = useState(10);
   return (
     <div className="bg-babbleBlack" data-theme={streamer.platform}>
-      <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
+      <div className="absolute top-[50px] left-[50px] z-0 h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
         <div className="flex h-full items-center justify-center">
           <Link to="/"> Quit game </Link>
         </div>
       </div>
-      <div className="flex h-screen flex-1 items-center justify-center gap-[50px]">
+      <div className="z-10 flex h-screen  flex-1 items-center justify-center gap-[50px]">
         <ChatComponent streamer={streamer} />
-        <div className="flex flex-col gap-8">
+        <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent />
           <TimerComponent initialTimer={initialTimer} />
         </div>
