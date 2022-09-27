@@ -5,4 +5,19 @@
   :root {
     @apply dark:bg-babbleBlack;
   }
+  [data-theme="twitch"] {
+    --platform-color: #9146ff;
+    --platform-light: #9146ff;
+    --platform-dark: #4503a8;
+  }
+
+  [data-theme="youtube"] {
+    --platform-color: #ff0000;
+    --platform-light: #ff2e2e;
+    --platform-dark: #b50b0b;
+  }
+}
+
+img {
+  display: inline;
 }

@@ -1,17 +1,18 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import logo from "./assets/logo-small.png";
 
 function App() {
   return (
     <header className="App-header bg-babbleBlack">
-      <div className="flex flex-1 justify-center h-screen items-center flex-col">
-        <h1 className="font-bold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-babbleRed to-babbleYellow">
-          Babble
-        </h1>
-        <h2 className="text-white">test</h2>
+      <div className="flex h-screen flex-1 flex-col items-center justify-center">
+        <Link to="/quiz">
+          <div className="rounded bg-gradient-to-bl from-babbleRed via-babbleOrange to-babbleYellow py-2 px-4 font-bold text-white">
+            Start game
+          </div>
+        </Link>
       </div>
       <div className="absolute left-8 bottom-8">
-        <img src={logo} className="w-10 h-10" alt="logo" />
+        <img src={logo} className="h-10 w-10" alt="logo" />
       </div>
     </header>
   );
