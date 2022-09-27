@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./quizComponent.css";
+import { Streamer } from "../../pages/quiz";
+
 export type Quiz = {
   qAmount: number;
   questions: Question[];
@@ -65,7 +67,7 @@ export default function QuizComponent() {
           {Array.from({ length: quiz.qAmount }, (_, i) => (
             <div
               key={i}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-twitchDark to-twitchLight text-sm first:bg-gradient-to-tr"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-platformDark to-platformLight text-sm first:bg-gradient-to-tr"
             >
               <h3>{i + 1}</h3>
             </div>

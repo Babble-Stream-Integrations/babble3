@@ -25,7 +25,7 @@ export default function Quiz() {
   });
 
   return (
-    <div className="bg-babbleBlack">
+    <div className="bg-babbleBlack" data-theme={streamer.platform}>
       <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
         <div className="flex h-full items-center justify-center">
           <Link to="/"> Quit game </Link>
