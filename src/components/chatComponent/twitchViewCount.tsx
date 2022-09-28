@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { Streamer } from "../../pages/quiz";
+import { Streamer } from "../../pages/quiz/quiz";
 
 type Props = {
   streamer: Streamer;
@@ -21,6 +21,7 @@ export default async function TwitchViewCount({
         setViewCount(res.data.count.toString());
       } catch (error) {
         clearInterval(interval);
+        setViewCount("Offline");
       }
     }, 1000);
     //repeat call every 30 seconds
