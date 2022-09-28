@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
-import { Streamer } from "./quiz";
+import { Streamer } from "./quiz/quiz";
 
 export default function Login() {
   const navigate = useNavigate();
   const [streamer, setStreamer] = useState<Streamer>({
-    name: "esl_csgo",
+    name: "ESL_CSGO",
     id: "56951019",
   });
 
@@ -16,7 +16,7 @@ export default function Login() {
   };
 
   function ButtonClicked(platform: string) {
-    navigate("/quiz", { state: { streamer: streamer, platform } });
+    navigate("/quizStart", { state: { streamer: streamer, platform } });
   }
 
   return (
