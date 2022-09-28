@@ -1,32 +1,28 @@
-#A,
-#E {
+#A {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
-  --tw-gradient-from: #e42256;
+  --tw-gradient-from: var(--A-light);
   --tw-gradient-to: rgb(228 34 86 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  --tw-gradient-to: #9f002b;
+  --tw-gradient-to: var(--A-dark);
 }
-#B,
-#F {
+#B {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
-  --tw-gradient-from: #fdc74c;
+  --tw-gradient-from: var(--B-light);
   --tw-gradient-to: rgb(228 34 86 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  --tw-gradient-to: #a87603;
+  --tw-gradient-to: var(--B-dark);
 }
-#C,
-#G {
+#C {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
-  --tw-gradient-from: #00b1b0;
+  --tw-gradient-from: var(--C-light);
   --tw-gradient-to: rgb(228 34 86 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  --tw-gradient-to: #015e5e;
+  --tw-gradient-to: var(--C-dark);
 }
-#D,
-#H {
+#D {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
-  --tw-gradient-from: #ff8370;
+  --tw-gradient-from: var(--D-light);
   --tw-gradient-to: rgb(228 34 86 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  --tw-gradient-to: #8f1b09;
+  --tw-gradient-to: var(--D-dark);
 }
