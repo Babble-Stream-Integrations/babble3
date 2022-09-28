@@ -32,7 +32,7 @@ export default function Login() {
           className="flex h-12 w-96 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-youtubeDark to-youtubeLight text-xl font-bold text-babbleWhite  hover:to-youtubeDark"
         >
           <ImYoutube />
-          Connect to youtube
+          Connect to Youtube
         </button>
         <button
           onClick={() => {
@@ -41,7 +41,7 @@ export default function Login() {
           className="flex h-12 w-96 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-twitchDark to-twitchLight text-xl font-bold text-babbleWhite  hover:to-twitchDark"
         >
           <ImTwitch />
-          Connect to twitch
+          Connect to Twitch
         </button>
       </div>
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed ">

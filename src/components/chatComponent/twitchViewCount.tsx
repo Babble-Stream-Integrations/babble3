@@ -12,21 +12,26 @@ export default async function TwitchViewCount({
   setViewCount,
 }: Props) {
   const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/${streamer.name}`;
-  //first call
+  //get viewCount
   useEffect(() => {
+    //retrieve viewCount for the first time and check if online. if not online stop the function
     setTimeout(async () => {
-      const res = await axios.get(url);
-      setViewCount(res.data.count.toString());
-    }, 1000);
-  }, []);
-  //repeat call every 30 seconds
-  useEffect(() => {
-    setTimeout(() => {
-      setInterval(async () => {
+      try {
         const res = await axios.get(url);
         setViewCount(res.data.count.toString());
-      }, 30000);
+      } catch (error) {
+        clearInterval(interval);
+      }
     }, 1000);
+    //repeat call every 30 seconds
+    const interval = setInterval(async () => {
+      try {
+        const res = await axios.get(url);
+        setViewCount(res.data.count.toString());
+      } catch (error) {
+        clearInterval(interval);
+      }
+    }, 30000);
   }, []);
 
   return;

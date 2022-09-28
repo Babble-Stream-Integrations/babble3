@@ -19,7 +19,6 @@ export type Streamer = {
 export default function Quiz() {
   const [initialTimer] = useState(10);
   const location = useLocation();
-  console.log(location);
   const streamer = location.state.streamer;
   const platform = location.state.platform;
   return (
