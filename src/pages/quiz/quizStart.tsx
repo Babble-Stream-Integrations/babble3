@@ -15,16 +15,22 @@ export default function QuizStart() {
 
   return (
     <header className="flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
-      <div className="z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-lg bg-babbleGray">
+      <div className="z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-lg bg-babbleGray text-center">
         <h1 className=" py pb-8 text-4xl font-bold text-babbleWhite">
-          Hi {streamer.name}
+          Hi {streamer.name},
         </h1>
-        <p className="pb-2 text-babbleLightGray">Succes with your quiz </p>
+        <p className="px-16 pb-2 text-babbleLightGray">
+          When the game starts you&apos;Il get a series of 10 trivia questions.
+          You and your chat may answer by typing A, B, C or D in chat.
+        </p>
+        <p className="px-16 pb-2 font-thin text-babbleLightGray">
+          Good luck, and have fun!
+        </p>
         <button
           onClick={() => {
             ButtonClicked();
           }}
-          className="flex h-12 items-center  justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-8 text-xl font-bold uppercase text-babbleWhite  hover:from-babbleOrange hover:to-babbleRed"
+          className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-8 text-xl font-[900] uppercase text-babbleGray  hover:from-babbleOrange hover:to-babbleRed"
         >
           Start Game
         </button>
