@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
+import YoutubeChat from "./youtubeChat";
+import YoutubeViewCount from "./youtubeViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { Message } from "../../pages/quiz/quiz";
@@ -15,15 +17,23 @@ export default function ChatComponent(props: {
 
   //usestate for viewcount
   const [viewCount, setViewCount] = useState<string>("");
+  const [liveChatId, setLiveChatId] = useState<string>("");
 
   //futureproofing for youtube chat
   if (props.platform === "twitch") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
-    TwitchViewCount({ streamer: props.streamer, setViewCount });
+    TwitchViewCount({
+      streamer: props.streamer,
+      setViewCount,
+    });
   }
   if (props.platform === "youtube") {
-    TwitchChat({ streamer: props.streamer, messages, setMessages });
-    TwitchViewCount({ streamer: props.streamer, setViewCount });
+    YoutubeViewCount({
+      streamer: props.streamer,
+      setViewCount,
+      setLiveChatId,
+    });
+    YoutubeChat({ liveChatId, messages, setMessages });
   }
 
   return (
