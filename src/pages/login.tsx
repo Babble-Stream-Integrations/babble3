@@ -20,8 +20,8 @@ export default function Login() {
   }
 
   return (
-    <header className="flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
-      <div className="z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-lg bg-babbleGray">
+    <div className="flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
+      <div className=" z-10 flex h-[404px] w-[551px]  flex-col items-center justify-center gap-4 rounded-babble bg-babbleGray drop-shadow-xl">
         <h1 className=" py pb-8 text-4xl font-bold text-babbleWhite">
           Select platform
         </h1>
@@ -29,7 +29,7 @@ export default function Login() {
           onClick={() => {
             ButtonClicked("youtube");
           }}
-          className="flex h-12 w-96 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-youtubeDark to-youtubeLight text-xl font-bold text-babbleWhite  hover:to-youtubeDark"
+          className="text-l flex h-[45px] w-[350px] items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-youtubeDark to-youtubeLight font-[900] uppercase text-babbleWhite hover:to-youtubeDark"
         >
           <ImYoutube />
           Connect to Youtube
@@ -38,12 +38,15 @@ export default function Login() {
           onClick={() => {
             ButtonClicked("twitch");
           }}
-          className="flex h-12 w-96 items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-twitchDark to-twitchLight text-xl font-bold text-babbleWhite  hover:to-twitchDark"
+          className="text-l flex h-[45px] w-[350px] items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-twitchDark to-twitchLight font-bold uppercase text-babbleWhite hover:to-twitchDark"
         >
           <ImTwitch />
           Connect to Twitch
         </button>
       </div>
+      <h1 className="absolute bottom-[100px] text-babbleWhite">
+        © 2022 Babble stream integrations
+      </h1>
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed ">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-br-full bg-babbleBlack"></div>
       </div>
@@ -61,6 +64,6 @@ export default function Login() {
           onChange={(e) => handleChange(e)}
         />
       </div>
-    </header>
+    </div>
   );
 }

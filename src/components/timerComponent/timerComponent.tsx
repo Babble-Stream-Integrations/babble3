@@ -19,12 +19,12 @@ export default function TimerComponent(props: { initialTimer: number }) {
   counter === 0 ? (timerColor = "red") : (timerColor = "white");
 
   return (
-    <div className="flex items-center gap-2 rounded-[25px] bg-babbleDarkGray p-8 text-3xl text-white">
+    <div className="flex items-center gap-2 rounded-babble bg-babbleDarkGray p-8 text-3xl text-babbleWhite">
       <MdTimer
         className={
           counter === 0
             ? "animate-ping-short text-5xl text-[red]"
-            : "text-5xl text-white"
+            : "text-5xl text-babbleWhite"
         }
       />
       <div className="relative left-6 mr-8 flex h-10 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray">

@@ -39,7 +39,6 @@ function Width(index: number) {
 }
 //check what answer is correct, and if it is correct, show the checkmark
 function RightAnswer(index: number) {
-  console.log(index);
   const rightAnswer: number | null = null;
   if (rightAnswer === null) {
     return "hidden";
@@ -78,7 +77,7 @@ export default function QuizComponent() {
   return (
     // display the question and answers
     <div className="relative w-[570px]">
-      <div className="flex flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-white">
+      <div className="flex flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
         <div className="flex h-[150px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4">
           <h1 className="px-4">{quiz.questions[0].question}</h1>
           <div className="flex w-full justify-evenly pt-[10px]">
@@ -121,7 +120,7 @@ export default function QuizComponent() {
           return (
             <div
               key={index}
-              className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-white"
+              className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
               style={{ visibility: RightAnswer(index) }}
             >
               <ImCheckmark />

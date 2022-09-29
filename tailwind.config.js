@@ -8,6 +8,9 @@ module.exports = {
       sans: ["Gotham", "sans-serif"],
     },
     extend: {
+      borderRadius: {
+        babble: "25px",
+      },
       //add default babble colors
       colors: {
         //greys
