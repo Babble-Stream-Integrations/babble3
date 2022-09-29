@@ -39,6 +39,7 @@
     url("../public/fonts/Gotham-Medium.woff") format("woff"),
     url("../public/fonts/GothamMedium.ttf") format("truetype");
 }
+
 img {
   display: inline;
 }
