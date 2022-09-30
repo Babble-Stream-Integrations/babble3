@@ -3,10 +3,13 @@ import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
-import { Message } from "../../pages/quiz";
-import { Streamer } from "../../pages/quiz";
+import { Message } from "../../pages/quiz/quiz";
+import { Streamer } from "../../pages/quiz/quiz";
 
-export default function ChatComponent(props: { streamer: Streamer }) {
+export default function ChatComponent(props: {
+  streamer: Streamer;
+  platform: string;
+}) {
   //usestate for chat messages
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -14,28 +17,21 @@ export default function ChatComponent(props: { streamer: Streamer }) {
   const [viewCount, setViewCount] = useState<string>("");
 
   //futureproofing for youtube chat
-  if (props.streamer.platform === "twitch") {
+  if (props.platform === "twitch") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
     TwitchViewCount({ streamer: props.streamer, setViewCount });
   }
-  if (props.streamer.platform === "youtube") {
+  if (props.platform === "youtube") {
     TwitchChat({ streamer: props.streamer, messages, setMessages });
     TwitchViewCount({ streamer: props.streamer, setViewCount });
   }
 
   return (
-    <div
-      data-theme={props.streamer.platform}
-      className="h-screen w-[450px] overflow-hidden rounded-[25px] py-[50px]"
-    >
-      <div className="mb-[25px] h-full overflow-hidden text-ellipsis rounded-[25px] bg-babbleDarkgray text-white">
+    <div className="h-screen w-[450px] overflow-hidden rounded-babble py-[50px]">
+      <div className="mb-[25px] h-full overflow-hidden text-ellipsis rounded-babble bg-babbleDarkGray text-babbleWhite">
         <div className="z-40 flex h-[40px] items-center justify-between bg-gradient-to-tr from-platformDark to-platformLight px-[50px] font-[1000] shadow-lg shadow-babbleBlack drop-shadow-lg">
           <div className=" flex items-center justify-end gap-2 text-[18px] italic">
-            {props.streamer.platform === "twitch" ? (
-              <ImTwitch />
-            ) : (
-              <ImYoutube />
-            )}
+            {props.platform === "twitch" ? <ImTwitch /> : <ImYoutube />}
             <h1 className="text-md uppercase">{props.streamer.name}</h1>
           </div>
           <div className=" flex items-center justify-end gap-2 font-bold">
@@ -50,13 +46,13 @@ export default function ChatComponent(props: { streamer: Streamer }) {
               return (
                 <div key={index} className="px-[25px]">
                   <span
-                    className="break-words font-bold"
+                    className="break-all font-bold"
                     style={{ color: message.color }}
                     dangerouslySetInnerHTML={{ __html: message.username }}
                   />
                   :{" "}
                   <span
-                    className=" break-words"
+                    className=" break-all "
                     dangerouslySetInnerHTML={{ __html: message.message }}
                   />
                 </div>

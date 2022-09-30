@@ -5,16 +5,19 @@ module.exports = {
   theme: {
     //change font family
     fontFamily: {
-      sans: ["Montserrat", "sans-serif"],
+      sans: ["Gotham", "sans-serif"],
     },
     extend: {
+      borderRadius: {
+        babble: "25px",
+      },
       //add default babble colors
       colors: {
         //greys
         babbleBlack: "#0E0E10",
-        babbleDarkgray: "#1A1A1D",
+        babbleDarkGray: "#1A1A1D",
         babbleGray: "#212125",
-        babbleLightgray: "#D0D0D2",
+        babbleLightGray: "#D0D0D2",
         babbleWhite: "#F2F2F4",
         //colors
         babbleRed: "#FF0000",
@@ -29,9 +32,30 @@ module.exports = {
         youtube: "#FF0000",
         youtubeLight: "#FF2E2E",
         youtubeDark: "#B50B0B",
+        //quizColors
+        quizPinkLight: "#E42256",
+        quizPinkDark: "#9F002B",
+        quizGoldLight: "#FDC74C",
+        quizGoldDark: "#A87603",
+        quizTurqoiseLigt: "#00B1B0",
+        quizTurqoiseDark: "#015E5E",
+        quizBrownLight: "#FF8370",
+        quizBrownDark: "#8F1B09",
+        //varable colors
         platform: "var(--platform-color)",
         platformLight: "var(--platform-light)",
         platformDark: "var(--platform-dark)",
+        ALight: "var(--A-light)",
+        ADark: "var(--A-dark)",
+        BLight: "var(--B-light)",
+        BDark: "var(--B-dark)",
+        CLight: "var(--C-light)",
+        CDark: "var(--C-dark)",
+        DLight: "var(--D-light)",
+        DDark: "var(--D-dark)",
+      },
+      animation: {
+        "ping-short": "ping 0.7s linear 3",
       },
     },
   },
