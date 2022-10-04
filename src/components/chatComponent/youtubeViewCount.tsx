@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Streamer } from "../../pages/quiz/quiz";
 
@@ -13,9 +13,7 @@ export default async function YoutubeViewCount({
   setViewCount,
   setLiveChatId,
 }: Props) {
-  const [videoId, setVideoId] = useState("");
   const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/youtube/viewcount/${streamer.name}`;
-  const efficientUrl = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/youtube/efficientviewcount/${videoId}`;
   //get viewCount
 
   useEffect(() => {
@@ -23,7 +21,6 @@ export default async function YoutubeViewCount({
     setTimeout(async () => {
       try {
         const res = await axios.get(url);
-        setVideoId(res.data.videoId);
         setViewCount(res.data.count.toString());
         setLiveChatId(res.data.liveChatId);
         console.log(res.data.videoId);

@@ -1,12 +1,14 @@
 import express from "express";
 import axios from "axios";
+import { youtubeConfig } from "../config/youtube.js";
+
 const router = express.Router();
 
 router.get("/viewcount/:broadcaster", (req, res) => {
   //get channel Id
   axios
     .get(
-      `https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&maxResults=1&q=${req.params.broadcaster}&type=channel&key=AIzaSyD8gRwTRdYMfeF7oJf1NPiBvVgjVlLEb5g`
+      `https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&maxResults=1&q=${req.params.broadcaster}&type=channel&key=${youtubeConfig.apiKey}`
     )
     .then((response) => {
       console.log(response.data);
@@ -14,14 +16,14 @@ router.get("/viewcount/:broadcaster", (req, res) => {
       //get video Id
       axios
         .get(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live&key=AIzaSyD8gRwTRdYMfeF7oJf1NPiBvVgjVlLEb5g&`
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=live&key=${youtubeConfig.apiKey}&`
         )
         .then((response) => {
           const videoId = response.data.items[0].id.videoId;
           //get viewerCount and LiveChatId
           axios
             .get(
-              `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyD8gRwTRdYMfeF7oJf1NPiBvVgjVlLEb5g&part=liveStreamingDetails`
+              `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${youtubeConfig.apiKey}&part=liveStreamingDetails`
             )
             .then((response) => {
               const viewerCount =
@@ -42,7 +44,7 @@ router.get("/viewcount/:broadcaster", (req, res) => {
 router.get("/efficientviewcount/:videoId", (req, res) => {
   axios
     .get(
-      `https://www.googleapis.com/youtube/v3/videos?id=${req.params.videoId}&key=AIzaSyD8gRwTRdYMfeF7oJf1NPiBvVgjVlLEb5g&part=liveStreamingDetails`
+      `https://www.googleapis.com/youtube/v3/videos?id=${req.params.videoId}&key=${youtubeConfig.apiKey}&part=liveStreamingDetails`
     )
     .then((response) => {
       const viewerCount =
@@ -58,7 +60,7 @@ export default router;
 
 // axios
 //   .get(
-//     `https://youtube.googleapis.com/youtube/v3/liveChat/messages?liveChatId=${chatId}&part=snippet%2CauthorDetails&key=AIzaSyD8gRwTRdYMfeF7oJf1NPiBvVgjVlLEb5g&maxResults=5`
+//     `https://youtube.googleapis.com/youtube/v3/liveChat/messages?liveChatId=${chatId}&part=snippet%2CauthorDetails&key=${youtubeConfig.apiKey}&maxResults=5`
 //   )
 //   .then((response) => {
 //     res.set("Access-Control-Allow-Origin", "*");
