@@ -29,3 +29,16 @@ export type QuizComponentData = {
   rightAnswer: string;
   percentages: Percentages[];
 };
+
+export type TimeProp = {
+  timeProp: {
+    time: number;
+    initialTime: number;
+  };
+  setTime: React.Dispatch<
+    React.SetStateAction<{
+      time: number;
+      initialTime: number;
+    }>
+  >;
+};

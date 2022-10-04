@@ -14,8 +14,14 @@ export default function Quiz() {
   const location = useLocation();
   const streamer: Streamer = location.state.streamer;
   const platform = location.state.platform;
+
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
+  const [timeState, setTimeState] = useState({
+    time: 0,
+    initialTime: 0,
+  });
+
   //get quiz from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
     question: "",
@@ -31,7 +37,7 @@ export default function Quiz() {
       channel: streamer.name,
       startAfter: 5,
       questionAmount: 5,
-      timePerQuestion: 5,
+      timePerQuestion: 10,
       timeInBetween: 5,
     });
 
@@ -39,9 +45,14 @@ export default function Quiz() {
     socket.on("game-starting", (quiz) => {
       console.log("Event: game-starting");
       console.log(quiz);
-      setQuiz((prevState) => ({
+      // setQuiz((prevState) => ({
+      //   ...prevState,
+      //   time: quiz.in,
+      // }));
+      setTimeState((prevState) => ({
         ...prevState,
         time: quiz.in,
+        initialTime: quiz.in,
       }));
       //confirm the connection with back-end
       setStart(true);
@@ -54,9 +65,13 @@ export default function Quiz() {
         ...prevState,
         question: quiz.question,
         possibilities: quiz.possibilities,
-        time: quiz.time,
         rightAnswer: "",
         percentages: [],
+      }));
+      setTimeState((prevState) => ({
+        ...prevState,
+        time: quiz.time,
+        initialTime: quiz.time,
       }));
     });
 
@@ -95,7 +110,9 @@ export default function Quiz() {
             rightAnswer={quiz.rightAnswer}
             percentages={quiz.percentages}
           />
-          {start && <TimerComponent time={quiz.time} />}
+          {start && (
+            <TimerComponent timeProp={timeState} setTime={setTimeState} />
+          )}
         </div>
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
