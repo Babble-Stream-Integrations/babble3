@@ -1,6 +1,6 @@
 import "./quizComponent.css";
 import { ImCheckmark } from "react-icons/im";
-import { Percentages } from "../../pages/quiz/quiz";
+import { Percentages, QuizComponentData } from "../../types";
 
 // calculate width based on the percentage of people that gave that answer
 function Width(index: number, percentages: Percentages[]) {
@@ -22,20 +22,15 @@ function RightAnswer(answer: string, rightAnswer: string) {
   }
 }
 
-export default function QuizComponent(q: {
-  question: string;
-  answers: string[];
-  rightAnswer: string;
-  percentages: Percentages[];
-}) {
+export default function QuizComponent(quiz: QuizComponentData) {
   return (
     // display the question and answers
     <div className="relative w-[570px]">
       <div className="flex flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-[150px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4">
+        <div className="flex h-[150px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4 text-[10px]">
           <h1
             className="px-4"
-            dangerouslySetInnerHTML={{ __html: q.question }}
+            dangerouslySetInnerHTML={{ __html: quiz.question }}
           />
           <div className="flex w-full justify-evenly pt-[10px]">
             {/* make row number for every quiz question */}
@@ -50,7 +45,7 @@ export default function QuizComponent(q: {
           </div>
         </div>
         {/* map over possible answers */}
-        {q.answers.map((answer, index) => {
+        {quiz.answers.map((answer, index) => {
           const letter = String.fromCharCode(65 + index);
 
           return (
@@ -61,7 +56,7 @@ export default function QuizComponent(q: {
               <div
                 className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic"
                 id={letter}
-                style={{ width: Width(index, q.percentages) }}
+                style={{ width: Width(index, quiz.percentages) }}
               >
                 <h1>{letter}</h1>
               </div>
@@ -71,12 +66,12 @@ export default function QuizComponent(q: {
         })}
       </div>
       <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
-        {q.answers.map((answer, index) => {
+        {quiz.answers.map((answer, index) => {
           return (
             <div
               key={index}
               className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
-              style={{ visibility: RightAnswer(answer, q.rightAnswer) }}
+              style={{ visibility: RightAnswer(answer, quiz.rightAnswer) }}
             >
               <ImCheckmark />
             </div>

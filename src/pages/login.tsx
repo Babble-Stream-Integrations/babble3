@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
-import { Streamer } from "./quiz/quiz";
+import { Streamer } from "../types";
 
 export default function Login() {
   const navigate = useNavigate();
