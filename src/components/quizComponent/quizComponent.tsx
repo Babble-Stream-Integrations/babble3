@@ -1,5 +1,6 @@
 import "./quizComponent.css";
 import { ImCheckmark } from "react-icons/im";
+import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 
 // calculate width based on the percentage of people that gave that answer
@@ -27,14 +28,16 @@ export default function QuizComponent(quiz: QuizComponentData) {
     // display the question and answers
     <div className="relative w-[570px]">
       <div className="flex flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-[150px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4 text-[10px]">
-          <h1
-            className="px-4"
-            dangerouslySetInnerHTML={{ __html: quiz.question }}
-          />
+        <div className="flex h-[150px] w-[570px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4 text-[10rem]">
+          <div className="h-[90px] px-4">
+            <AutoTextSize
+              multiline={true}
+              dangerouslySetInnerHTML={{ __html: quiz.question }}
+            />
+          </div>
           <div className="flex w-full justify-evenly pt-[10px]">
             {/* make row number for every quiz question */}
-            {Array.from({ length: 10 }, (_, i) => (
+            {Array.from({ length: quiz.qAmount }, (_, i) => (
               <div
                 key={i}
                 className="flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-platformDark to-platformLight text-sm first:bg-gradient-to-tr"
