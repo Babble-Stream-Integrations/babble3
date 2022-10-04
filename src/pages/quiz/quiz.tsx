@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/logo-small.png";
-import QuizComponent from "../../components/quizComponent/quizComponent";
-import ChatComponent from "../../components/chatComponent/chatComponent";
-import TimerComponent from "../../components/timerComponent/timerComponent";
 import { io, Socket } from "socket.io-client";
-import { QuizBackend, Streamer } from "../../types";
+import ChatComponent from "../../components/chatComponent/chatComponent";
+import QuizComponent from "../../components/quizComponent/quizComponent";
+import TimerComponent from "../../components/timerComponent/timerComponent";
+import { QuizBackend, Streamer, TriviaSettings } from "../../types";
+import logo from "../../assets/logo-small.png";
 
 export default function Quiz() {
   //connect with socket.io
   const socket: Socket = io("ws://localhost:3001");
+
   //get streamer quiz from previous page
   const location = useLocation();
   const streamer: Streamer = location.state.streamer;
   const platform = location.state.platform;
+
+  //initial settings
+  // TODO: link to settings page
+  const [triviaSettings, setTriviaSettings] = useState<TriviaSettings>({
+    streamer: streamer.name,
+    startAfter: 5,
+    questionAmount: 10,
+    timePerQuestion: 10,
+    timeInBetween: 10,
+  });
 
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
@@ -22,33 +33,23 @@ export default function Quiz() {
     initialTime: 0,
   });
 
-  //get quiz from back-end
+  //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
-    question: "",
+    question: "type your answer in chat, just the letter!",
     possibilities: [],
     time: 0,
     rightAnswer: "",
     percentages: [],
   });
 
+  //WebSocket logic
   useEffect(() => {
     //on first connection, send quiz to back-end
-    socket.emit("trivia-start", {
-      channel: streamer.name,
-      startAfter: 5,
-      questionAmount: 5,
-      timePerQuestion: 10,
-      timeInBetween: 5,
-    });
+    socket.emit("trivia-start", triviaSettings);
 
     //give countdown before first question
     socket.on("game-starting", (quiz) => {
       console.log("Event: game-starting");
-      console.log(quiz);
-      // setQuiz((prevState) => ({
-      //   ...prevState,
-      //   time: quiz.in,
-      // }));
       setTimeState((prevState) => ({
         ...prevState,
         time: quiz.in,
@@ -105,6 +106,7 @@ export default function Quiz() {
         <ChatComponent streamer={streamer} platform={platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent
+            qAmount={triviaSettings.questionAmount}
             question={quiz.question}
             answers={quiz.possibilities}
             rightAnswer={quiz.rightAnswer}
