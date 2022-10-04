@@ -5,36 +5,19 @@ import QuizComponent from "../../components/quizComponent/quizComponent";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import TimerComponent from "../../components/timerComponent/timerComponent";
 import { io, Socket } from "socket.io-client";
-
-export type Message = {
-  username: string;
-  message: string;
-  color: string | undefined;
-};
-//usestate for streamer data
-export type Streamer = {
-  name: string;
-  id: string;
-};
-export type Q = {
-  question: string;
-  possibilities: string[];
-  time: number;
-  rightAnswer: string;
-  percentages: Percentages[];
-};
-
-export type Percentages = {
-  percentage: number;
-};
+import { QuizBackend, Streamer } from "../../types";
 
 export default function Quiz() {
-  const socket: Socket = io("ws://backend-sdjmg6ndkq-ew.a.run.app");
+  //connect with socket.io
+  const socket: Socket = io("ws://localhost:3001");
+  //get streamer quiz from previous page
   const location = useLocation();
   const streamer: Streamer = location.state.streamer;
   const platform = location.state.platform;
+  //start timer on first connection with back-end
   const [start, setStart] = useState(false);
-  const [q, setQ] = useState<Q>({
+  //get quiz from back-end
+  const [quiz, setQuiz] = useState<QuizBackend>({
     question: "",
     possibilities: [],
     time: 0,
@@ -43,46 +26,57 @@ export default function Quiz() {
   });
 
   useEffect(() => {
+    //on first connection, send quiz to back-end
     socket.emit("trivia-start", {
       channel: streamer.name,
-      startAfter: 1,
+      startAfter: 5,
       questionAmount: 5,
       timePerQuestion: 5,
       timeInBetween: 5,
     });
 
-    socket.on("game-starting", (data) => {
+    //give countdown before first question
+    socket.on("game-starting", (quiz) => {
       console.log("Event: game-starting");
-      setQ((prevState) => ({
+      console.log(quiz);
+      setQuiz((prevState) => ({
         ...prevState,
-        time: data.in,
+        time: quiz.in,
       }));
+      //confirm the connection with back-end
       setStart(true);
     });
-    socket.on("question-new", (data) => {
+
+    //when getting a new question, update the quiz
+    socket.on("question-new", (quiz) => {
       console.log("Event: question-new");
-      setQ((prevState) => ({
+      setQuiz((prevState) => ({
         ...prevState,
-        question: data.question,
-        possibilities: data.possibilities,
-        time: data.time,
+        question: quiz.question,
+        possibilities: quiz.possibilities,
+        time: quiz.time,
         rightAnswer: "",
         percentages: [],
       }));
     });
-    socket.on("question-finished", (data) => {
+
+    //after {timePerQuestion} show the right answer and the percentages
+    socket.on("question-finished", (quiz) => {
       console.log("Event: question-finished");
-      setQ((prevState) => ({
+      setQuiz((prevState) => ({
         ...prevState,
-        rightAnswer: data.rightAnswer,
-        percentages: data.percentages,
+        rightAnswer: quiz.rightAnswer,
+        percentages: quiz.percentages,
       }));
     });
+
+    //when the game is finished, disconnect from the back-end
     socket.on("game-finished", () => {
       console.log("Event: game-finished");
       socket.disconnect();
     });
   }, []);
+
   return (
     <div className="bg-babbleBlack" data-theme={platform}>
       <Link to="/">
@@ -96,12 +90,12 @@ export default function Quiz() {
         <ChatComponent streamer={streamer} platform={platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent
-            question={q.question}
-            answers={q.possibilities}
-            rightAnswer={q.rightAnswer}
-            percentages={q.percentages}
+            question={quiz.question}
+            answers={quiz.possibilities}
+            rightAnswer={quiz.rightAnswer}
+            percentages={quiz.percentages}
           />
-          {start && <TimerComponent time={q.time} />}
+          {start && <TimerComponent time={quiz.time} />}
         </div>
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
