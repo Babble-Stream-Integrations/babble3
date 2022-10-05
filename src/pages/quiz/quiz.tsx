@@ -9,7 +9,7 @@ import logo from "../../assets/logo-small.png";
 
 export default function Quiz() {
   //connect with socket.io
-  const socket: Socket = io("ws://localhost:3001");
+  const socket: Socket = io("ws://backend-sdjmg6ndkq-ew.a.run.app");
 
   //get streamer quiz from previous page
   const location = useLocation();
