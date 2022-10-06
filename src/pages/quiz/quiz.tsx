@@ -8,9 +8,6 @@ import { QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
 
 export default function Quiz() {
-  //connect with socket.io
-  const socket: Socket = io("ws://backend-sdjmg6ndkq-ew.a.run.app");
-
   //get streamer quiz from previous page
   const location = useLocation();
   const streamer: Streamer = location.state.streamer;
@@ -44,45 +41,49 @@ export default function Quiz() {
 
   //WebSocket logic
   useEffect(() => {
+    //connect with socket.io
+    const socket: Socket = io("ws://backend-sdjmg6ndkq-ew.a.run.app");
     //on first connection, send quiz to back-end
     socket.emit("trivia-start", triviaSettings);
 
     //give countdown before first question
-    socket.on("game-starting", (quiz) => {
+    socket.on("game-starting", (data) => {
       console.log("Event: game-starting");
       setTimeState((prevState) => ({
         ...prevState,
-        time: quiz.in,
-        initialTime: quiz.in,
+        time: data.in,
+        initialTime: data.in,
       }));
       //confirm the connection with back-end
       setStart(true);
     });
 
-    //when getting a new question, update the quiz
-    socket.on("question-new", (quiz) => {
+    //when getting a new question, update the data
+    socket.on("question-new", (data) => {
       console.log("Event: question-new");
       setQuiz((prevState) => ({
         ...prevState,
-        question: quiz.question,
-        possibilities: quiz.possibilities,
+        question: data.question,
+        possibilities: data.possibilities,
         rightAnswer: "",
         percentages: [],
       }));
       setTimeState((prevState) => ({
         ...prevState,
-        time: quiz.time,
-        initialTime: quiz.time,
+        time: data.time,
+        initialTime: data.time,
       }));
     });
 
     //after {timePerQuestion} show the right answer and the percentages
-    socket.on("question-finished", (quiz) => {
+    socket.on("question-finished", (data) => {
       console.log("Event: question-finished");
+      console.log(data);
+
       setQuiz((prevState) => ({
         ...prevState,
-        rightAnswer: quiz.rightAnswer,
-        percentages: quiz.percentages,
+        rightAnswer: data.rightAnswer,
+        percentages: data.percentages,
       }));
     });
 
