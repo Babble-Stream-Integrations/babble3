@@ -37,6 +37,7 @@ export default function Quiz() {
     time: 0,
     rightAnswer: "",
     percentages: [],
+    questionIndex: 0,
   });
 
   //WebSocket logic
@@ -112,6 +113,7 @@ export default function Quiz() {
             answers={quiz.possibilities}
             rightAnswer={quiz.rightAnswer}
             percentages={quiz.percentages}
+            questionIndex={quiz.questionIndex}
           />
           {start && (
             <TimerComponent timeProp={timeState} setTime={setTimeState} />

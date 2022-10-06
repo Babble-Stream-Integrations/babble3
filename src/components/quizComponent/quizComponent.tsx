@@ -40,7 +40,10 @@ export default function QuizComponent(quiz: QuizComponentData) {
             {Array.from({ length: quiz.qAmount }, (_, i) => (
               <div
                 key={i}
-                className="flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-platformDark to-platformLight text-sm first:bg-gradient-to-tr"
+                //if the current question is the same as the row number, color it
+                className={`flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-platformDark to-platformLight text-sm  ${
+                  quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
+                }`}
               >
                 <h3>{i + 1}</h3>
               </div>

@@ -30,7 +30,7 @@ export type QuizBackend = {
   time: number;
   rightAnswer: string;
   percentages: Percentages[];
-  //TODO questionNumber: number;
+  questionIndex: number;
 };
 
 export type QuizComponentData = {
@@ -39,7 +39,7 @@ export type QuizComponentData = {
   answers: string[];
   rightAnswer: string;
   percentages: Percentages[];
-  //TODO questionNumber: number;
+  questionIndex: number;
 };
 
 //type for timer
