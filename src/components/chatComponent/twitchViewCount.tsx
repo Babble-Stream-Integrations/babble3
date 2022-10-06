@@ -11,7 +11,7 @@ export default async function TwitchViewCount({
   streamer,
   setViewCount,
 }: Props) {
-  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/${streamer.name}`;
+  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/twitch/viewcount/${streamer.name}`;
   //get viewCount
   useEffect(() => {
     //retrieve viewCount for the first time and check if online. if not online stop the function

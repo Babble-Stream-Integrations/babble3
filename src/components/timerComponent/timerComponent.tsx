@@ -23,7 +23,7 @@ export default function TimerComponent(props: { initialTimer: number }) {
       <MdTimer
         className={
           counter === 0
-            ? "animate-ping-short text-5xl text-[red]"
+            ? "animation-delay-1000 w-12 animate-ping-short text-5xl text-[red] delay-1000"
             : "text-5xl text-babbleWhite"
         }
       />
@@ -39,7 +39,7 @@ export default function TimerComponent(props: { initialTimer: number }) {
           {counter}
         </div>
         <div
-          className="absolute left-0 h-10 rounded-full rounded-r-none bg-gradient-to-r from-platformDark to-platformLight"
+          className="transition-width absolute left-0 h-10 rounded-full rounded-r-none bg-gradient-to-r from-platformDark to-platformLight duration-1000 ease-linear"
           style={{ width: barWidth }}
         ></div>
       </div>
