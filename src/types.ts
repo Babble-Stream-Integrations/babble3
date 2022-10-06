@@ -21,6 +21,7 @@ export type TriviaSettings = {
 };
 
 export type Percentages = {
+  amount: number;
   percentage: number;
 };
 

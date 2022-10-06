@@ -68,6 +68,7 @@ export default function Quiz() {
         possibilities: data.possibilities,
         rightAnswer: "",
         percentages: [],
+        questionIndex: data.questionIndex,
       }));
       setTimeState((prevState) => ({
         ...prevState,
