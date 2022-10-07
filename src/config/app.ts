@@ -1,3 +1,3 @@
 export const appConfig = {
-  backendUrl: "ws://backend-sdjmg6ndkq-ew.a.run.app",
+  backendUrl: "https://backend-sdjmg6ndkq-ew.a.run.app",
 };

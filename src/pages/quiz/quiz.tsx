@@ -14,7 +14,6 @@ export default function Quiz() {
   const streamer: Streamer = location.state.streamer;
   const platform = location.state.platform;
 
-  console.log(streamer.name);
   //initial settings
   // TODO: link to settings page
   const [triviaSettings] = useState<TriviaSettings>({
@@ -51,7 +50,6 @@ export default function Quiz() {
 
     //give countdown before first question
     socket.on("game-starting", (data) => {
-      console.log("Event: game-starting");
       setTimeState((prevState) => ({
         ...prevState,
         time: data.in,
@@ -63,7 +61,6 @@ export default function Quiz() {
 
     //when getting a new question, update the data
     socket.on("question-new", (data) => {
-      console.log("Event: question-new");
       setQuiz((prevState) => ({
         ...prevState,
         question: data.question,
@@ -81,9 +78,6 @@ export default function Quiz() {
 
     //after {timePerQuestion} show the right answer and the percentages
     socket.on("question-finished", (data) => {
-      console.log("Event: question-finished");
-      console.log(data);
-
       setQuiz((prevState) => ({
         ...prevState,
         rightAnswer: data.rightAnswer,
@@ -93,7 +87,6 @@ export default function Quiz() {
 
     //when the game is finished, disconnect from the back-end
     socket.on("game-finished", () => {
-      console.log("Event: game-finished");
       socket.disconnect();
     });
   }, []);
