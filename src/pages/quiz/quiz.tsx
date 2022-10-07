@@ -6,6 +6,7 @@ import QuizComponent from "../../components/quizComponent/quizComponent";
 import TimerComponent from "../../components/timerComponent/timerComponent";
 import { QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
+import { appConfig } from "../../config/app";
 
 export default function Quiz() {
   //get streamer quiz from previous page
@@ -16,7 +17,7 @@ export default function Quiz() {
   console.log(streamer.name);
   //initial settings
   // TODO: link to settings page
-  const [triviaSettings, setTriviaSettings] = useState<TriviaSettings>({
+  const [triviaSettings] = useState<TriviaSettings>({
     channel: streamer.name,
     startAfter: 5,
     questionAmount: 10,
@@ -44,7 +45,7 @@ export default function Quiz() {
   //WebSocket logic
   useEffect(() => {
     //connect with socket.io
-    const socket: Socket = io("ws://backend-sdjmg6ndkq-ew.a.run.app");
+    const socket: Socket = io(appConfig.backendUrl);
     //on first connection, send quiz to back-end
     socket.emit("trivia-start", triviaSettings);
 
@@ -110,7 +111,7 @@ export default function Quiz() {
         <ChatComponent streamer={streamer} platform={platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent
-            qAmount={triviaSettings.questionAmount}
+            questionAmount={triviaSettings.questionAmount}
             question={quiz.question}
             answers={quiz.possibilities}
             rightAnswer={quiz.rightAnswer}
