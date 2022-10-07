@@ -15,7 +15,7 @@ export default function Login() {
     setStreamer({ ...streamer, name: e.target.value });
   };
 
-  function ButtonClicked(platform: string) {
+  function buttonClicked(platform: string) {
     navigate("/quizStart", { state: { streamer: streamer, platform } });
   }
 
@@ -27,7 +27,7 @@ export default function Login() {
         </h1>
         <button
           onClick={() => {
-            ButtonClicked("youtube");
+            buttonClicked("youtube");
           }}
           className="text-l flex h-[45px] w-[350px] items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-youtubeDark to-youtubeLight font-[900] uppercase text-babbleWhite hover:to-youtubeDark"
         >
@@ -36,7 +36,7 @@ export default function Login() {
         </button>
         <button
           onClick={() => {
-            ButtonClicked("twitch");
+            buttonClicked("twitch");
           }}
           className="text-l flex h-[45px] w-[350px] items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-twitchDark to-twitchLight font-bold uppercase text-babbleWhite hover:to-twitchDark"
         >

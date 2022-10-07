@@ -4,16 +4,11 @@ import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 
 // calculate width based on the percentage of people that gave that answer
-function Width(index: number, percentages: Percentages[]) {
-  if (percentages[index] === undefined) {
-    return 0;
-  } else {
-    const percentage = percentages[index].percentage + 10;
-    return `${percentage}%`;
-  }
+function width(index: number, percentages: Percentages[]) {
+  return `${percentages[index].percentage + 10}%`;
 }
 //check what answer is correct, and if it is correct, show the checkmark
-function RightAnswer(answer: string, rightAnswer: string) {
+function rightAnswer(answer: string, rightAnswer: string) {
   if (rightAnswer === "") {
     return "hidden";
   } else if (answer === rightAnswer) {
@@ -37,7 +32,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
           </div>
           <div className="flex w-full justify-evenly pt-[10px]">
             {/* make row number for every quiz question */}
-            {Array.from({ length: quiz.qAmount }, (_, i) => (
+            {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
                 key={i}
                 //if the current question is the same as the row number, color it
@@ -62,7 +57,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
               <div
                 className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic"
                 id={letter}
-                style={{ width: Width(index, quiz.percentages) }}
+                style={{ width: width(index, quiz.percentages) }}
               >
                 <h1>{letter}</h1>
               </div>
@@ -77,7 +72,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
             <div
               key={index}
               className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
-              style={{ visibility: RightAnswer(answer, quiz.rightAnswer) }}
+              style={{ visibility: rightAnswer(answer, quiz.rightAnswer) }}
             >
               <ImCheckmark />
             </div>

@@ -35,7 +35,7 @@ export type QuizBackend = {
 };
 
 export type QuizComponentData = {
-  qAmount: number;
+  questionAmount: number;
   question: string;
   answers: string[];
   rightAnswer: string;
