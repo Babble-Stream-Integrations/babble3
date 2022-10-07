@@ -13,10 +13,11 @@ export default function Quiz() {
   const streamer: Streamer = location.state.streamer;
   const platform = location.state.platform;
 
+  console.log(streamer.name);
   //initial settings
   // TODO: link to settings page
   const [triviaSettings, setTriviaSettings] = useState<TriviaSettings>({
-    streamer: streamer.name,
+    channel: streamer.name,
     startAfter: 5,
     questionAmount: 10,
     timePerQuestion: 10,

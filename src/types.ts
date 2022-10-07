@@ -13,7 +13,7 @@ export type Streamer = {
 
 //types for Quiz
 export type TriviaSettings = {
-  streamer: string;
+  channel: string;
   startAfter: number;
   questionAmount: number;
   timePerQuestion: number;
