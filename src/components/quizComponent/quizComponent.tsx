@@ -5,7 +5,11 @@ import { Percentages, QuizComponentData } from "../../types";
 
 // calculate width based on the percentage of people that gave that answer
 function width(index: number, percentages: Percentages[]) {
-  return `${percentages[index].percentage + 10}%`;
+  if (percentages[index] === undefined) {
+    return 0;
+  } else {
+    return `${percentages[index].percentage + 10}%`;
+  }
 }
 //check what answer is correct, and if it is correct, show the checkmark
 function rightAnswer(answer: string, rightAnswer: string) {
