@@ -21,7 +21,7 @@ export default function TimerComponent({ timeProp, setTime }: TimeProp) {
   }, [time]);
 
   //calculate percentage: seconds left / by total amount of time x 100
-  const percentage = (time / initialTime) * 100;
+  const percentage = ((time - 1) / (initialTime - 1)) * 100;
 
   //making a string with % from a number
   const barWidth = `${percentage}%`;
@@ -35,8 +35,8 @@ export default function TimerComponent({ timeProp, setTime }: TimeProp) {
       <MdTimer
         className={
           time === 0 && initialTime > 5
-            ? "w-12 animate-ping-short text-5xl text-[red] delay-1000 animation-delay-1000"
-            : "text-5xl text-babbleWhite"
+            ? "w-12 animate-ping-short text-5xl text-[red]"
+            : "W-12 text-5xl text-babbleWhite"
         }
       />
       <div className="relative left-6 mr-8 flex h-10 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray">
