@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import tmi from "tmi.js";
 import { parseBadges, parseEmotes } from "emotettv";
-import { Message } from "../../pages/quiz/quiz";
-import { Streamer } from "../../pages/quiz/quiz";
+import { Message, Streamer } from "../../types";
 
 type Props = {
   streamer: Streamer;
@@ -28,7 +27,7 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
     ["BlueViolet", "#8A2BE2"],
     ["SpringGreen", "#00FF7F"],
   ];
-  function Color(name: string | undefined, color: string | undefined) {
+  function generateColor(name: string | undefined, color: string | undefined) {
     if (color) {
       color === "#000000" ? (color = "#808080") : color;
       return color;
@@ -62,7 +61,7 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
       const parsedBadges = await parseBadges(tags.badges as never, options);
       const htmlMessage = parsedMessage.toHtml();
       const htmlBadges = parsedBadges.toHtml();
-      const color = Color(tags["display-name"], tags["color"]);
+      const color = generateColor(tags["display-name"], tags["color"]);
       const newMessage = {
         username: `${htmlBadges} ${tags["display-name"]}`,
         message: `${htmlMessage}`,
