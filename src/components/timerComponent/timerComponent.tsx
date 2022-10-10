@@ -23,7 +23,7 @@ export default function TimerComponent(props: { initialTimer: number }) {
       <MdTimer
         className={
           counter === 0
-            ? "animation-delay-1000 w-12 animate-ping-short text-5xl text-[red] delay-1000"
+            ? "w-12 animate-ping-short text-5xl text-[red] delay-1000 animation-delay-1000"
             : "text-5xl text-babbleWhite"
         }
       />
