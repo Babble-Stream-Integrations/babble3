@@ -1,20 +1,40 @@
 import React, { useState } from "react";
 import logoBig from "../assets/logo-full.png";
-import { Link } from "react-router-dom";
-import { TriviaSettings } from "../types";
+import { Colors, TriviaSettings } from "../types";
 
 export default function Settings() {
-  const quizSettings: TriviaSettings = {
+  const [quizSettings, setQuizSettings] = useState<TriviaSettings>({
     channel: "test",
     startAfter: 10,
     questionAmount: 10,
     timePerQuestion: 20,
     timeInBetween: 8,
-  };
-  const [colors, setColors] = useState<any>({
-    a: "047FCC",
-    b: "004AAB",
   });
+
+  const [colors, setColors] = useState<Colors>({
+    a: "#047fcc",
+    b: "#ff0000",
+    c: "#007031",
+    d: "#001a3d",
+  });
+
+  function handleChange(p: string, e: React.ChangeEvent<HTMLInputElement>) {
+    setQuizSettings((prevState) => ({
+      ...prevState,
+      [p]: e.target.value,
+    }));
+    console.log(quizSettings);
+  }
+  function handleColorChange(
+    letter: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setColors((prevState) => ({
+      ...prevState,
+      [letter]: e.target.value,
+    }));
+    console.log(colors);
+  }
 
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
@@ -31,7 +51,10 @@ export default function Settings() {
                   <input
                     className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
                     type={"number"}
+                    onChange={(e) => handleChange("questionAmount", e)}
                     value={quizSettings.questionAmount}
+                    min={1}
+                    max={50}
                   ></input>
                 </div>
               </div>
@@ -56,7 +79,9 @@ export default function Settings() {
                 <input
                   className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
                   type={"number"}
+                  onChange={(e) => handleChange("timePerQuestion", e)}
                   value={quizSettings.timePerQuestion}
+                  min={1}
                 ></input>
               </div>
             </div>
@@ -66,27 +91,37 @@ export default function Settings() {
                 <input
                   className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
                   type={"number"}
+                  onChange={(e) => handleChange("timeInBetween", e)}
                   value={quizSettings.timeInBetween}
+                  min={1}
                 ></input>
               </div>
             </div>
           </div>
           <div className="flex h-full w-full flex-col items-start font-bold text-white">
             <h2 className="pb-[15px]">Quiz colors</h2>
-            <div className="flex pb-[15px]">
-              <span className="mr-[15px] inline-flex text-3xl font-bold italic">
-                A
-              </span>
-              <input
-                type="text"
-                className="mr-[15px] h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-2 text-center"
-              ></input>
-              <input
-                type="color"
-                value={"#047FCC"}
-                className="h-[36px] w-[36px] cursor-pointer appearance-none border-none bg-transparent bg-babbleGray text-center"
-              ></input>
-            </div>
+            {/* //map over uesstate colors, and return letters and colors */}
+            {Object.keys(colors).map((letter) => (
+              <div key={letter} className="flex pb-[15px]">
+                {/* //letter */}
+                <h2 className="mr-[15px] inline-flex text-3xl font-bold italic">
+                  {letter.toUpperCase()}
+                </h2>
+                {/* //color */}
+                <input
+                  type="text"
+                  className="mr-[15px] h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-2 text-center"
+                  value={colors[letter]}
+                  onChange={(e) => handleColorChange(letter, e)}
+                ></input>
+                <input
+                  type={"color"}
+                  onChange={(e) => handleColorChange(letter, e)}
+                  value={colors[letter]}
+                  className="h-[36px] w-[36px] cursor-pointer appearance-none border-none bg-transparent bg-babbleGray text-center"
+                ></input>
+              </div>
+            ))}
           </div>
         </div>
         <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed">

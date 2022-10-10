@@ -56,3 +56,7 @@ export type TimeProp = {
     }>
   >;
 };
+
+export type Colors = {
+  [key: string]: string;
+};
