@@ -3,8 +3,7 @@ import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
-import { Message } from "../../pages/quiz/quiz";
-import { Streamer } from "../../pages/quiz/quiz";
+import { Message, Streamer } from "../../types";
 
 export default function ChatComponent(props: {
   streamer: Streamer;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { Streamer } from "../../pages/quiz/quiz";
+import { Streamer } from "../../types";
 
 type Props = {
   streamer: Streamer;

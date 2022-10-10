@@ -7,7 +7,7 @@ export default function QuizStart() {
   const location = useLocation();
   const streamer = location.state.streamer;
 
-  function ButtonClicked() {
+  function buttonClicked() {
     navigate("/quiz", {
       state: { streamer: streamer, platform: location.state.platform },
     });
@@ -28,7 +28,7 @@ export default function QuizStart() {
         </p>
         <button
           onClick={() => {
-            ButtonClicked();
+            buttonClicked();
           }}
           className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed"
         >
