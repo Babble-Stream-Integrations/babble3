@@ -43,3 +43,25 @@
 img {
   display: inline;
 }
+
+::-webkit-color-swatch {
+  border-radius: 50%;
+  border: 3px white solid;
+  appearance: none;
+  width: 100%;
+}
+::-webkit-color-swatch-wrapper {
+  border-radius: 50%;
+  padding: 0;
+}
+
+::-moz-color-swatch {
+  border-radius: 50%;
+  border: 3px white solid;
+  appearance: none;
+  width: 100%;
+}
+::-moz-color-swatch-wrapper {
+  border-radius: 50%;
+  padding: 0;
+}
