@@ -1,30 +1,40 @@
-import React, { useState } from "react";
 import logoBig from "../assets/logo-full.png";
 import { Colors, TriviaSettings } from "../types";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function Settings() {
-  const [quizSettings, setQuizSettings] = useState<TriviaSettings>({
-    channel: "test",
-    startAfter: 10,
-    questionAmount: 10,
-    timePerQuestion: 20,
-    timeInBetween: 8,
-  });
+  const [quizSettings, setQuizSettings] = useLocalStorageState<TriviaSettings>(
+    "quizSettings",
+    {
+      defaultValue: {
+        channel: "test",
+        startAfter: 10,
+        questionAmount: 10,
+        timePerQuestion: 20,
+        timeInBetween: 8,
+      },
+    }
+  );
 
-  const [colors, setColors] = useState<Colors>({
-    a: "#047fcc",
-    b: "#ff0000",
-    c: "#007031",
-    d: "#001a3d",
-  });
+  const [colors, setColors, { removeItem }] = useLocalStorageState<Colors>(
+    "colors",
+    {
+      defaultValue: {
+        a: "#ad1fff",
+        b: "#ea9148",
+        c: "#95b418",
+        d: "#5d576b",
+      },
+    }
+  );
 
   function handleChange(p: string, e: React.ChangeEvent<HTMLInputElement>) {
     setQuizSettings((prevState) => ({
       ...prevState,
       [p]: e.target.value,
     }));
-    console.log(quizSettings);
   }
+
   function handleColorChange(
     letter: string,
     e: React.ChangeEvent<HTMLInputElement>
@@ -33,7 +43,6 @@ export default function Settings() {
       ...prevState,
       [letter]: e.target.value,
     }));
-    console.log(colors);
   }
 
   return (
@@ -126,6 +135,12 @@ export default function Settings() {
         </div>
         <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed">
           Save
+        </button>
+        <button
+          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed"
+          onClick={() => removeItem()}
+        >
+          Reset
         </button>
       </div>
       <h1 className="absolute bottom-[100px] text-babbleWhite">
