@@ -2,6 +2,8 @@ import "./quizComponent.css";
 import { ImCheckmark } from "react-icons/im";
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
+import useLocalStorageState from "use-local-storage-state";
+import hexToHSLGradient from "./hexToHSLGradient";
 
 // calculate width based on the percentage of people that gave that answer
 function width(index: number, percentages: Percentages[]) {
@@ -11,6 +13,16 @@ function width(index: number, percentages: Percentages[]) {
     return `${percentages[index].percentage + 10}%`;
   }
 }
+
+//get color from localstorage and convert to gradient with HSL
+function color(letter: string) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const colors: any = useLocalStorageState("colors");
+  const hex: string = colors[0][letter.toLowerCase()];
+  const hslGradient = hexToHSLGradient(hex, "right", "darker");
+  return hslGradient;
+}
+
 //check what answer is correct, and if it is correct, show the checkmark
 function rightAnswer(answer: string, rightAnswer: string) {
   if (rightAnswer === "") {
@@ -59,9 +71,11 @@ export default function QuizComponent(quiz: QuizComponentData) {
               className="relative flex h-[75px] items-center overflow-hidden rounded-lg rounded-bl-3xl bg-babbleDarkGray text-center"
             >
               <div
-                className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic"
-                id={letter}
-                style={{ width: width(index, quiz.percentages) }}
+                className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic text-white"
+                style={{
+                  width: width(index, quiz.percentages),
+                  backgroundImage: color(letter),
+                }}
               >
                 <h1>{letter}</h1>
               </div>
