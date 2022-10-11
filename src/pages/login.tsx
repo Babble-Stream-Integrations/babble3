@@ -1,14 +1,16 @@
-import React, { useState } from "react";
 import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import useLocalStorageState from "use-local-storage-state";
 import { Streamer } from "../types";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [streamer, setStreamer] = useState<Streamer>({
-    name: "ESL_CSGO",
-    id: "56951019",
+  const [streamer, setStreamer] = useLocalStorageState<Streamer>("streamer", {
+    defaultValue: {
+      name: "ESL_CSGO",
+      id: "56951019",
+    },
   });
 
   const handleChange = (e: { target: { name: unknown; value: string } }) => {
