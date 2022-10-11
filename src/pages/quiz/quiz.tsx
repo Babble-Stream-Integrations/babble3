@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
+import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
 import TimerComponent from "../../components/timerComponent/timerComponent";
@@ -15,15 +16,22 @@ export default function Quiz() {
   const platform = location.state.platform;
 
   //initial settings
-  // TODO: link to settings page
-  const [triviaSettings] = useState<TriviaSettings>({
-    channel: streamer.name,
-    startAfter: 5,
-    questionAmount: 10,
-    timePerQuestion: 10,
-    timeInBetween: 10,
-  });
+  const [triviaSettings, setTriviaSettings] =
+    useLocalStorageState<TriviaSettings>("quizSettings", {
+      defaultValue: {
+        channel: "",
+        startAfter: 6,
+        questionAmount: 9,
+        timePerQuestion: 12,
+        timeInBetween: 8,
+      },
+    });
 
+  //set channel to streamer channel (temporary)
+  setTriviaSettings((prevState) => ({
+    ...prevState,
+    channel: streamer.name,
+  }));
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
   const [timeState, setTimeState] = useState({
@@ -104,7 +112,7 @@ export default function Quiz() {
         <ChatComponent streamer={streamer} platform={platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent
-            questionAmount={triviaSettings.questionAmount}
+            questionAmount={triviaSettings ? triviaSettings.questionAmount : 0}
             question={quiz.question}
             answers={quiz.possibilities}
             rightAnswer={quiz.rightAnswer}
