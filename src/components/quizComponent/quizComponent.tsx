@@ -5,36 +5,35 @@ import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
 import hexToHSLGradient from "./hexToHSLGradient";
 
-// calculate width based on the percentage of people that gave that answer
-function width(index: number, percentages: Percentages[]) {
-  if (percentages[index] === undefined) {
-    return 0;
-  } else {
-    return `${percentages[index].percentage + 10}%`;
-  }
-}
-
-//get color from localstorage and convert to gradient with HSL
-function color(letter: string) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const colors: any = useLocalStorageState("colors");
-  const hex: string = colors[0][letter.toLowerCase()];
-  const hslGradient = hexToHSLGradient(hex, "right", "darker");
-  return hslGradient;
-}
-
-//check what answer is correct, and if it is correct, show the checkmark
-function rightAnswer(answer: string, rightAnswer: string) {
-  if (rightAnswer === "") {
-    return "hidden";
-  } else if (answer === rightAnswer) {
-    return "visible";
-  } else {
-    return "hidden";
-  }
-}
-
 export default function QuizComponent(quiz: QuizComponentData) {
+  // calculate width based on the percentage of people that gave that answer
+  function width(index: number, percentages: Percentages[]) {
+    if (percentages[index] === undefined) {
+      return 0;
+    } else {
+      return `${percentages[index].percentage + 10}%`;
+    }
+  }
+
+  //get color from localstorage and convert to gradient with HSL
+  const colors: any = useLocalStorageState("colors")[0];
+  function color(letter: string) {
+    const hex: string = colors[letter.toLowerCase()];
+    const hslGradient = hexToHSLGradient(hex, "right", "darker");
+    return hslGradient;
+  }
+
+  //check what answer is correct, and if it is correct, show the checkmark
+  function rightAnswer(answer: string, rightAnswer: string) {
+    if (rightAnswer === "") {
+      return "hidden";
+    } else if (answer === rightAnswer) {
+      return "visible";
+    } else {
+      return "hidden";
+    }
+  }
+
   return (
     // display the question and answers
     <div className="relative w-[570px]">
