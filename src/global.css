@@ -38,6 +38,16 @@
   src: url("../public/fonts/Gotham-Medium.woff2") format("woff2"),
     url("../public/fonts/Gotham-Medium.woff") format("woff"),
     url("../public/fonts/GothamMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham";
+  src: url("../public/fonts/GothamBook.woff2") format("woff2"),
+    url("../public/fonts/GothamBook.woff") format("woff"),
+    url("../public/fonts/GothamBook.ttf") format("ttf");
+  font-weight: 100;
+  font-display: swap;
 }
 
 img {

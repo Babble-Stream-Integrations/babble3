@@ -9,15 +9,18 @@ module.exports = {
     },
     extend: {
       borderRadius: {
-        babble: "25px",
+        babble: "15px",
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       //add default babble colors
       colors: {
         //greys
         babbleBlack: "#0E0E10",
         babbleDarkGray: "#1A1A1D",
-        babbleGray: "#212125",
-        babbleLightGray: "#D0D0D2",
+        babbleGray: "#808085",
+        babbleLightGray: "#E6E6E6",
         babbleWhite: "#F2F2F4",
         //colors
         babbleRed: "#FF0000",
