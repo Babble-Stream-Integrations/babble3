@@ -27,8 +27,8 @@ export default function Login() {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
-          client_id: "lp5z7l78vdolqfi1c4jv6u68fzx4dx",
-          client_secret: "6r75956e0hq509t0fatlerwa7vqrvd",
+          client_id: "6tpb2txpozzl7oy4wwnjxwvvw1bggy",
+          client_secret: "xhrizc0pn2g6ge2cro9qgzh6y5vzqi",
           code: new URLSearchParams(window.location.search)
             .get("code")!
             .toString(),
@@ -44,7 +44,7 @@ export default function Login() {
             method: "GET",
             headers: {
               authorization: "Bearer " + data.access_token,
-              "client-id": "lp5z7l78vdolqfi1c4jv6u68fzx4dx",
+              "client-id": "6tpb2txpozzl7oy4wwnjxwvvw1bggy",
             },
           })
             .then((data) => {
@@ -61,7 +61,7 @@ export default function Login() {
         });
     } else {
       window.open(
-        "https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=lp5z7l78vdolqfi1c4jv6u68fzx4dx&redirect_uri=http://localhost:3000/&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671"
+        "https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=6tpb2txpozzl7oy4wwnjxwvvw1bggy&redirect_uri=http://localhost:3000/&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671"
       );
     }
   }
