@@ -1,4 +1,3 @@
-import React from "react";
 import logoBig from "../../assets/logo-full.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -15,7 +14,7 @@ export default function QuizStart() {
 
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
-      <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleGray text-center drop-shadow-xl">
+      <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleDarkGray text-center drop-shadow-xl">
         <h1 className="text-4xl font-bold text-babbleWhite">
           Hi {streamer.name},
         </h1>
@@ -30,7 +29,7 @@ export default function QuizStart() {
           onClick={() => {
             buttonClicked();
           }}
-          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed"
+          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed"
         >
           Start Game
         </button>
