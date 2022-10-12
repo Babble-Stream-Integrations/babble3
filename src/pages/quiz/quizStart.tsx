@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function QuizStart() {
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location);
   const streamer = location.state.streamer;
 
   function buttonClicked() {
@@ -16,9 +17,7 @@ export default function QuizStart() {
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
       <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleGray text-center drop-shadow-xl">
-        <h1 className="text-4xl font-bold text-babbleWhite">
-          Hi {streamer.name},
-        </h1>
+        <h1 className="text-4xl font-bold text-babbleWhite">Hi {streamer},</h1>
         <p className="px-16 pb-2 font-thin italic text-babbleWhite">
           When the game starts you&apos;Il get a series of 10 trivia questions.
           You and your chat may answer by typing A, B, C or D in chat.

@@ -3,51 +3,9 @@ import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { Streamer } from "../types";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  OAuthProvider,
-  signInWithRedirect,
-} from "firebase/auth";
 
 export default function Login() {
-  const auth = getAuth();
-
-  const provider = new OAuthProvider("oidc.twitch");
-
-  const [authing, setAuthing] = useState(false);
   const navigate = useNavigate();
-
-  async function SignInWithTwitch() {
-    setAuthing(true);
-    signInWithRedirect(auth, provider)
-      .then((result) => {
-        const credential = OAuthProvider.credentialFromResult(result);
-        console.log(credential);
-        navigate("/quizresults");
-      })
-      .catch((error) => {
-        console.log(error);
-        setAuthing(false);
-      });
-  }
-
-  async function SignInWithGoogle() {
-    setAuthing(true);
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then((result) => {
-        console.log(result);
-        navigate("/quizstart", {
-          state: { streamer: result.user.displayName, platform: "youtube" },
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        setAuthing(false);
-      });
-  }
-
   const [streamer, setStreamer] = useState<Streamer>({
     name: "ESL_CSGO",
     id: "56951019",
@@ -57,9 +15,9 @@ export default function Login() {
     setStreamer({ ...streamer, name: e.target.value });
   };
 
-  // function buttonClicked(platform: string) {
-  //   navigate("/quizStart", { state: { streamer: streamer, platform } });
-  // }
+  function ButtonClicked(platform: string) {
+    navigate("/quizStart", { state: { streamer: streamer, platform } });
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
@@ -69,9 +27,8 @@ export default function Login() {
         </h1>
         <button
           onClick={() => {
-            SignInWithGoogle();
+            ButtonClicked("youtube");
           }}
-          disabled={authing}
           className="text-l flex h-[45px] w-[350px] items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-youtubeDark to-youtubeLight font-[900] uppercase text-babbleWhite hover:to-youtubeDark"
         >
           <ImYoutube />
@@ -79,7 +36,7 @@ export default function Login() {
         </button>
         <button
           onClick={() => {
-            SignInWithTwitch();
+            ButtonClicked("twitch");
           }}
           className="text-l flex h-[45px] w-[350px] items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-twitchDark to-twitchLight font-bold uppercase text-babbleWhite hover:to-twitchDark"
         >

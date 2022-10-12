@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logoBig from "../../assets/logo-full.png";
+import { connectAuthEmulator, getAuth, signOut } from "firebase/auth";
 
 export default function QuizResults() {
+  const auth = getAuth();
+
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-babbleBlack">
       <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleGray drop-shadow-xl">
@@ -15,12 +18,14 @@ export default function QuizResults() {
             Play Again
           </button>
         </Link>{" "}
-        <Link
-          to={"/"}
+        <button
+          onClick={() => {
+            signOut(auth);
+          }}
           className="absolute bottom-[-50px] flex text-babbleWhite"
         >
           Log out
-        </Link>
+        </button>
       </div>
       <h1 className="absolute bottom-[100px] text-babbleWhite">
         © 2022 Babble stream integrations

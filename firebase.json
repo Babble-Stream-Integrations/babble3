@@ -2,7 +2,11 @@
   "hosting": {
     "site": "babble3",
     "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
         "source": "**",
@@ -18,5 +22,19 @@
       "firebase-debug.log",
       "firebase-debug.*.log"
     ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    },
+    "auth": {
+      "port": 9099
+    }
   }
 }
