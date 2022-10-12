@@ -20,17 +20,50 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function SignInWithTwitch() {
-    setAuthing(true);
-    signInWithRedirect(auth, provider)
-      .then((result) => {
-        const credential = OAuthProvider.credentialFromResult(result);
-        console.log(credential);
-        navigate("/quizresults");
+    if (new URLSearchParams(window.location.search).has("code")) {
+      fetch("https://id.twitch.tv/oauth2/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          client_id: "lp5z7l78vdolqfi1c4jv6u68fzx4dx",
+          client_secret: "6r75956e0hq509t0fatlerwa7vqrvd",
+          code: new URLSearchParams(window.location.search)
+            .get("code")!
+            .toString(),
+          grant_type: "authorization_code",
+          redirect_uri: "http://localhost:3000/",
+        }),
       })
-      .catch((error) => {
-        console.log(error);
-        setAuthing(false);
-      });
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          fetch("https://api.twitch.tv/helix/users", {
+            method: "GET",
+            headers: {
+              authorization: "Bearer " + data.access_token,
+              "client-id": "lp5z7l78vdolqfi1c4jv6u68fzx4dx",
+            },
+          })
+            .then((data) => {
+              return data.json();
+            })
+            .then((data) => {
+              navigate("/quizstart", {
+                state: {
+                  streamer: data.data[0].display_name,
+                  platform: "twitch",
+                },
+              });
+            });
+        });
+    } else {
+      window.open(
+        "https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=lp5z7l78vdolqfi1c4jv6u68fzx4dx&redirect_uri=http://localhost:3000/&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671"
+      );
+    }
   }
 
   async function SignInWithGoogle() {
