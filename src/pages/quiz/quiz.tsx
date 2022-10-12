@@ -8,6 +8,7 @@ import TimerComponent from "../../components/timerComponent/timerComponent";
 import { QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
 import { appConfig } from "../../config/app";
+import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 
 export default function Quiz() {
   //get streamer quiz from previous page
@@ -47,6 +48,7 @@ export default function Quiz() {
     rightAnswer: "",
     percentages: [],
     questionIndex: 0,
+    firstToAnswer: "",
   });
 
   //WebSocket logic
@@ -90,6 +92,7 @@ export default function Quiz() {
         ...prevState,
         rightAnswer: data.rightAnswer,
         percentages: data.percentages,
+        firstToAnswer: data.firstToAnswer,
       }));
     });
 
@@ -122,6 +125,7 @@ export default function Quiz() {
           {start && (
             <TimerComponent timeProp={timeState} setTime={setTimeState} />
           )}
+          <AnnouncementFeedComponent firstToAnswer={quiz.firstToAnswer} />
         </div>
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
