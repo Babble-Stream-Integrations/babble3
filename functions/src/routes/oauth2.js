@@ -1,13 +1,10 @@
 import express from "express";
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.sendStatus(400);
-});
+import { handleCallback, getRedirectionUrl } from "../controllers/oauth2.js";
 
 // oAuth2 callback end-point
-router.get("/callback/:platform(google|twitch)", (req, res) => {
-  res.json(req.params);
-});
+router.get("/callback/:platform(google|twitch)", handleCallback);
+router.get("/redirection/:platform(google|twitch)", getRedirectionUrl);
 
 export default router;

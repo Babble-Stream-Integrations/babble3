@@ -5,11 +5,7 @@ const router = express.Router();
 import axios from "axios";
 
 // Import Twitch Helix configuration
-import { helixConfig } from "../config/helix.js";
-
-router.get("/", (req, res) => {
-  res.send("Invalid parameter");
-});
+import { helixConfig } from "../config/twitch.js";
 
 router.get("/:broadcaster", (req, res) => {
   axios
