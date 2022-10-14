@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import { Message, Streamer } from "../../types";
+import React from "react";
+import { Message } from "../../types";
 
 type Props = {
   liveChatId: string;
