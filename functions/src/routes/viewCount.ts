@@ -1,9 +1,13 @@
-import express from "express";
-import axios from "axios";
-import { helixConfig } from "../config/helix.js";
+import * as express from "express";
 const router = express.Router();
 
-router.get("/viewcount/:broadcaster", (req, res) => {
+// Import Axios
+import axios from "axios";
+
+// Import Twitch Helix configuration
+import { helixConfig } from "../config/twitch.js";
+
+router.get("/:broadcaster", (req, res) => {
   axios
     .get(
       `https://api.twitch.tv/helix/streams?user_login=${req.params.broadcaster}`,
@@ -15,11 +19,12 @@ router.get("/viewcount/:broadcaster", (req, res) => {
       }
     )
     .then((response) => {
-      console.log(response.data[0]);
       res.set("Access-Control-Allow-Origin", "*");
       res.json({
         count: response.data.data[0].viewer_count,
       });
     });
 });
+
 export default router;
+

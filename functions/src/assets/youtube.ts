@@ -1,5 +1,5 @@
-import express from "express";
 import axios from "axios";
+import * as express from "express";
 import { youtubeConfig } from "../config/youtube.js";
 
 const router = express.Router();

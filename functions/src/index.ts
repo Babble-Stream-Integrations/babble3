@@ -1,7 +1,7 @@
 // Import configuration files
-import functions from "firebase-functions";
-import youtube from "./src/assets/youtube.js";
-import twitch from "./src/assets/twitch.js";
+import * as functions from "firebase-functions";
+import youtube from "./assets/youtube";
+import twitch from "./assets/twitch";
 
 // Import and set-up Express
 import express from "express";
@@ -10,8 +10,8 @@ app.use("/youtube", youtube);
 app.use("/twitch", twitch);
 
 // Import routing files
-import viewCountRoutes from "./src/routes/viewCount.js";
-import oAuth2Routes from "./src/routes/oauth2.js";
+import viewCountRoutes from "./routes/viewCount";
+import oAuth2Routes from "./routes/oauth2";
 
 // Declare routes
 app.use("/view-count", viewCountRoutes);
