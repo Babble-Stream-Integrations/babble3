@@ -1,13 +1,14 @@
 // Import configuration files
 import * as functions from "firebase-functions";
-import youtube from "./assets/youtube";
-import twitch from "./assets/twitch";
+
+//import routes
+import ViewCount from "./routes/viewCount";
 
 // Import and set-up Express
 import express from "express";
 const app = express();
-app.use("/youtube", youtube);
-app.use("/twitch", twitch);
+
+app.use("/viewcount", ViewCount);
 
 // Import routing files
 import viewCountRoutes from "./routes/viewCount";
