@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { Message } from "../../pages/quiz/quiz";
-import { Streamer } from "../../pages/quiz/quiz";
+import { Message, Streamer } from "../../types";
 
 type Props = {
   liveChatId: string;
