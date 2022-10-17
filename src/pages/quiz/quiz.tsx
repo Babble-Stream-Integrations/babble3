@@ -105,7 +105,7 @@ export default function Quiz() {
   return (
     <div className="bg-babbleBlack" data-theme={platform}>
       <Link to="/">
-        <div className="absolute top-[50px] left-[50px] z-0 h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
+        <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
           <div className="flex h-full items-center justify-center">
             Quit game
           </div>
