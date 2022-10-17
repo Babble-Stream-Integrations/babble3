@@ -10,6 +10,7 @@
     "auto-text-size": "^0.1.2",
     "axios": "^1.1.2",
     "emotettv": "^0.0.16",
+    "firebase-functions": "^3.24.1",
     "googleapis": "^108.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
