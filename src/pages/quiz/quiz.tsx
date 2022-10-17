@@ -9,6 +9,7 @@ import { QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
 import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
+import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeComponent";
 
 export default function Quiz() {
   //get streamer quiz from previous page
@@ -54,53 +55,55 @@ export default function Quiz() {
   //WebSocket logic
   useEffect(() => {
     //connect with socket.io
-    const socket: Socket = io(appConfig.backendUrl);
-    //on first connection, send quiz to back-end
-    socket.emit("trivia-start", triviaSettings);
+    if (start === true) {
+      const socket: Socket = io(appConfig.backendUrl);
+      //on first connection, send quiz to back-end
+      socket.emit("trivia-start", triviaSettings);
 
-    //give countdown before first question
-    socket.on("game-starting", (data) => {
-      setTimeState((prevState) => ({
-        ...prevState,
-        time: data.in,
-        initialTime: data.in,
-      }));
-      //confirm the connection with back-end
-      setStart(true);
-    });
+      //give countdown before first question
+      socket.on("game-starting", (data) => {
+        setTimeState((prevState) => ({
+          ...prevState,
+          time: data.in,
+          initialTime: data.in,
+        }));
+        //confirm the connection with back-end
+        setStart(true);
+      });
 
-    //when getting a new question, update the data
-    socket.on("question-new", (data) => {
-      setQuiz((prevState) => ({
-        ...prevState,
-        question: data.question,
-        possibilities: data.possibilities,
-        rightAnswer: "",
-        percentages: [],
-        questionIndex: data.questionIndex,
-      }));
-      setTimeState((prevState) => ({
-        ...prevState,
-        time: data.time,
-        initialTime: data.time,
-      }));
-    });
+      //when getting a new question, update the data
+      socket.on("question-new", (data) => {
+        setQuiz((prevState) => ({
+          ...prevState,
+          question: data.question,
+          possibilities: data.possibilities,
+          rightAnswer: "",
+          percentages: [],
+          questionIndex: data.questionIndex,
+        }));
+        setTimeState((prevState) => ({
+          ...prevState,
+          time: data.time,
+          initialTime: data.time,
+        }));
+      });
 
-    //after {timePerQuestion} show the right answer and the percentages
-    socket.on("question-finished", (data) => {
-      setQuiz((prevState) => ({
-        ...prevState,
-        rightAnswer: data.rightAnswer,
-        percentages: data.percentages,
-        firstToAnswer: data.firstToAnswer,
-      }));
-    });
+      //after {timePerQuestion} show the right answer and the percentages
+      socket.on("question-finished", (data) => {
+        setQuiz((prevState) => ({
+          ...prevState,
+          rightAnswer: data.rightAnswer,
+          percentages: data.percentages,
+          firstToAnswer: data.firstToAnswer,
+        }));
+      });
 
-    //when the game is finished, disconnect from the back-end
-    socket.on("game-finished", () => {
-      socket.disconnect();
-    });
-  }, []);
+      //when the game is finished, disconnect from the back-end
+      socket.on("game-finished", () => {
+        socket.disconnect();
+      });
+    }
+  }, [start]);
 
   return (
     <div className="bg-babbleBlack" data-theme={platform}>
@@ -122,10 +125,14 @@ export default function Quiz() {
             percentages={quiz.percentages}
             questionIndex={quiz.questionIndex}
           />
-          {start && (
+          {start ? (
             <TimerComponent timeProp={timeState} setTime={setTimeState} />
+          ) : (
+            <PlayPauzeComponent setStart={setStart} />
           )}
-          <AnnouncementFeedComponent firstToAnswer={quiz.firstToAnswer} />
+          {quiz.firstToAnswer && (
+            <AnnouncementFeedComponent firstToAnswer={quiz.firstToAnswer} />
+          )}
         </div>
       </div>
       <div className="absolute left-[50px] bottom-[50px]">
