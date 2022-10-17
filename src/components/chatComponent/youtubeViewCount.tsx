@@ -5,13 +5,11 @@ import { Streamer } from "../../types";
 type Props = {
   streamer: Streamer;
   setViewCount: React.Dispatch<React.SetStateAction<string>>;
-  setLiveChatId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default async function YoutubeViewCount({
   streamer,
   setViewCount,
-  setLiveChatId,
 }: Props) {
   const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/youtube/${streamer.name}`;
   //get viewCount
@@ -22,7 +20,6 @@ export default async function YoutubeViewCount({
       try {
         const res = await axios.get(url);
         setViewCount(res.data.count.toString());
-        setLiveChatId(res.data.liveChatId);
         console.log(res.data.videoId);
       } catch (error) {
         // clearInterval(interval);
