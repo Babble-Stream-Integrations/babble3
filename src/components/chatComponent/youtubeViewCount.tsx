@@ -13,7 +13,7 @@ export default async function YoutubeViewCount({
   setViewCount,
   setLiveChatId,
 }: Props) {
-  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/youtube/viewcount/${streamer.name}`;
+  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/youtube/${streamer.name}`;
   //get viewCount
 
   useEffect(() => {
