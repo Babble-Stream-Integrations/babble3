@@ -42,17 +42,20 @@ export default function Login() {
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
         <div className="flex gap-[50px] py-[50px]">
-          <button className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-youtubeDark/10 hover:to-youtubeLight/30 focus:border-2 focus:border-youtube focus:bg-gradient-to-tr focus:from-youtubeDark/10 focus:to-youtubeLight/30 focus:text-babbleLightGray ">
+          <button
+            onFocus={() => setPlatform("youtube")}
+            className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-youtubeDark/10 hover:to-youtubeLight/30 focus:border-2 focus:border-youtube focus:bg-gradient-to-tr focus:from-youtubeDark/10 focus:to-youtubeLight/30 focus:text-babbleLightGray "
+          >
             <ImYoutube className="text-[50px]" />
           </button>
           <button
-            onClick={() => setPlatform("twitch")}
+            onFocus={() => setPlatform("twitch")}
             className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-twitchDark/10 hover:to-twitchLight/30 focus:border-2 focus:border-twitch focus:bg-gradient-to-tr focus:from-twitchDark/10 focus:to-twitchLight/30 focus:text-babbleLightGray"
           >
             <ImTwitch className="text-[50px]" />
           </button>
           <button
-            onClick={() => setPlatform("twitch")}
+            onFocus={() => setPlatform("tiktok")}
             className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-[#69C9D0]/10 hover:to-[#EE1D52]/30 focus:border-2 focus:border-[#EE1D52] focus:bg-gradient-to-tr focus:from-[#69C9D0]/10 focus:to-[#EE1D52]/30 focus:text-babbleLightGray"
           >
             <IoLogoTiktok className="text-[50px]" />
@@ -70,10 +73,11 @@ export default function Login() {
         <button
           onClick={() => {
             buttonClicked(platform);
+            console.log(platform);
           }}
           className="mt-[75px] w-[200px] rounded-xl bg-babbleLightGray py-4"
         >
-          <h1 className="text-xl font-bold text-babbleBlack">CONTINUE</h1>
+          <h1 className="z-10 text-xl font-bold text-babbleBlack">CONTINUE</h1>
         </button>
       </div>
       <div className="absolute bottom-[75px] flex w-screen flex-col items-center">
