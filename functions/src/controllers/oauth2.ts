@@ -35,6 +35,7 @@ export const getRedirectionUrl = (req: any, res: any) => {
   }
 
   // Return redirection URL
+  res.set("Access-Control-Allow-Origin", "*");
   res.json({
     url: url,
   });
