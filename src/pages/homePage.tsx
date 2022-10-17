@@ -24,6 +24,22 @@ export default function Login() {
     navigate("/quizStart", { state: { streamer: streamer, platform } });
   }
 
+  //define different sign in methods
+  const signinOptions = [
+    {
+      name: "Twitch",
+      icon: <ImTwitch size={50} />,
+    },
+    {
+      name: "Youtube",
+      icon: <ImYoutube size={50} />,
+    },
+    {
+      name: "TikTok",
+      icon: <IoLogoTiktok size={50} />,
+    },
+  ];
+
   return (
     <div className="flex min-h-screen w-screen items-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
       <div className="py pb-8 pl-[140px] font-thin">
@@ -42,24 +58,24 @@ export default function Login() {
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
         <div className="flex gap-[50px] py-[50px]">
-          <button
-            onFocus={() => setPlatform("youtube")}
-            className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-youtubeDark/10 hover:to-youtubeLight/30 focus:border-2 focus:border-youtube focus:bg-gradient-to-tr focus:from-youtubeDark/10 focus:to-youtubeLight/30 focus:text-babbleLightGray "
-          >
-            <ImYoutube className="text-[50px]" />
-          </button>
-          <button
-            onFocus={() => setPlatform("twitch")}
-            className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-twitchDark/10 hover:to-twitchLight/30 focus:border-2 focus:border-twitch focus:bg-gradient-to-tr focus:from-twitchDark/10 focus:to-twitchLight/30 focus:text-babbleLightGray"
-          >
-            <ImTwitch className="text-[50px]" />
-          </button>
-          <button
-            onFocus={() => setPlatform("tiktok")}
-            className="flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-[#69C9D0]/10 hover:to-[#EE1D52]/30 focus:border-2 focus:border-[#EE1D52] focus:bg-gradient-to-tr focus:from-[#69C9D0]/10 focus:to-[#EE1D52]/30 focus:text-babbleLightGray"
-          >
-            <IoLogoTiktok className="text-[50px]" />
-          </button>
+          {signinOptions.map((option) => {
+            const name = option.name.toLowerCase();
+            return (
+              <label key={option.name}>
+                <input
+                  type="radio"
+                  name="option"
+                  className="peer hidden"
+                  onChange={() => setPlatform(name)}
+                />
+                <div
+                  className={`flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
+                >
+                  {option.icon}
+                </div>
+              </label>
+            );
+          })}
         </div>
         <div className="mb-[50px] flex items-center">
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
