@@ -9,28 +9,18 @@
     --platform-color: #9146ff;
     --platform-light: #9146ff;
     --platform-dark: #4503a8;
-    --A-light: #ad1fff;
-    --A-dark: #8e00e0;
-    --B-light: #ea9148;
-    --B-dark: #db711a;
-    --C-light: #95b418;
-    --C-dark: #878c2c;
-    --D-light: #5d576b;
-    --D-dark: #625c70;
   }
 
   [data-theme="youtube"] {
     --platform-color: #ff0000;
     --platform-light: #ff2e2e;
     --platform-dark: #b50b0b;
-    --A-light: #e42256;
-    --A-dark: #9f002b;
-    --B-light: #fdc74c;
-    --B-dark: #a87603;
-    --C-light: #00b1b0;
-    --C-dark: #015e5e;
-    --D-light: #ff8370;
-    --D-dark: #8f1b09;
+  }
+
+  [data-theme="tiktok"] {
+    --platform-color: #ee1d52;
+    --platform-dark: #ee1d52;
+    --platform-light: #69c9d0;
   }
 }
 @font-face {
