@@ -39,7 +39,7 @@ export default function TimerComponent({ timeProp, setTime }: TimeProp) {
             : "W-12 text-5xl text-babbleWhite"
         }
       />
-      <div className="relative left-6 mr-8 flex h-10 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray">
+      <div className="relative left-6 mr-8 flex h-10 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray/20">
         <div
           className={
             time <= 5 && time > 0 ? "z-10 animate-ping text-xl" : "z-10"

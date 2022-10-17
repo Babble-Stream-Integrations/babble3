@@ -48,7 +48,7 @@ export default function QuizSettings() {
             <h2 className="pb-[15px]">Amount of questions</h2>
             <div>
               <input
-                className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
+                className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray py-1 text-center"
                 type={"number"}
                 onChange={(e) => handleChange("questionAmount", e)}
                 value={quizSettings.questionAmount}
@@ -63,7 +63,7 @@ export default function QuizSettings() {
           <div>
             <select
               name="difficulty"
-              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
+              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray py-1 text-center"
               id=""
             >
               <option value="easy">Easy</option>
@@ -77,7 +77,7 @@ export default function QuizSettings() {
           <div>
             <select
               name="category"
-              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
+              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray py-1 text-center"
               id=""
             >
               <option>General Knowledge</option>
@@ -125,7 +125,7 @@ export default function QuizSettings() {
           <h2 className="pb-[15px]">Time to answer sec</h2>
           <div>
             <input
-              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
+              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray py-1 text-center"
               type={"number"}
               onChange={(e) => handleChange("timePerQuestion", e)}
               value={quizSettings.timePerQuestion}
@@ -137,7 +137,7 @@ export default function QuizSettings() {
           <h2 className="pb-[15px]">Time till next question sec</h2>
           <div>
             <input
-              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-1 text-center"
+              className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray py-1 text-center"
               type={"number"}
               onChange={(e) => handleChange("timeInBetween", e)}
               value={quizSettings.timeInBetween}
@@ -158,7 +158,7 @@ export default function QuizSettings() {
             {/* //color */}
             <input
               type="text"
-              className="mr-[15px] h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleGray py-2 text-center"
+              className="mr-[15px] h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray py-2 text-center"
               value={colors[letter]}
               onChange={(e) => handleColorChange(letter, e)}
             ></input>
@@ -166,7 +166,7 @@ export default function QuizSettings() {
               type={"color"}
               onChange={(e) => handleColorChange(letter, e)}
               value={colors[letter]}
-              className="h-[36px] w-[36px] cursor-pointer appearance-none border-none bg-transparent bg-babbleGray text-center"
+              className="h-[36px] w-[36px] cursor-pointer appearance-none border-none bg-transparent bg-babbleDarkGray text-center"
             ></input>
           </div>
         ))}

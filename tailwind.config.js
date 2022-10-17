@@ -18,7 +18,8 @@ module.exports = {
       colors: {
         //greys
         babbleBlack: "#0E0E10",
-        babbleDarkGray: "#1A1A1D",
+        babbleDarkerGray: "#1A1A1D",
+        babbleDarkGray: "#212125",
         babbleGray: "#808085",
         babbleLightGray: "#E6E6E6",
         babbleWhite: "#F2F2F4",

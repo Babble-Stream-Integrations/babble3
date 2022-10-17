@@ -4,16 +4,16 @@ import QuizSettings from "../components/quizComponent/quizSettings";
 export default function Settings() {
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
-      <div className="relative z-10 flex min-h-[664px] min-w-[883px] flex-col items-center gap-4 rounded-babble bg-babbleGray py-[50px] text-center drop-shadow-xl">
+      <div className="relative z-10 flex min-h-[664px] min-w-[883px] flex-col items-center gap-4 rounded-babble bg-babbleDarkGray py-[50px] text-center drop-shadow-xl">
         <h1 className="pb-[25px] text-4xl font-bold text-babbleWhite">
           Settings
         </h1>
         <QuizSettings />
-        <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed">
+        <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed">
           Save
         </button>
         <button
-          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed"
+          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed"
           onClick={() => console.log("clicked")}
         >
           Reset
