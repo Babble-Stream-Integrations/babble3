@@ -7,6 +7,7 @@ module.exports = {
     fontFamily: {
       sans: ["Gotham", "sans-serif"],
     },
+
     extend: {
       borderRadius: {
         babble: "15px",
@@ -36,6 +37,9 @@ module.exports = {
         youtube: "#FF0000",
         youtubeLight: "#FF2E2E",
         youtubeDark: "#B50B0B",
+        tiktok: "#EE1D52",
+        tiktokLight: "#EE1D52",
+        tiktokDark: "#69C9D0",
         //quizColors
         quizPinkLight: "#E42256",
         quizPinkDark: "#9F002B",
@@ -63,6 +67,25 @@ module.exports = {
       },
     },
   },
+  //save classes from purging, so they can be used as variables.
+  // example: `hover:from-${platform}Dark/10`
+  safelist: [
+    "hover:from-twitchDark/10",
+    "hover:from-youtubeDark/10",
+    "hover:from-tiktokDark/10",
+    "hover:to-twitchLight/30",
+    "hover:to-youtubeLight/30",
+    "hover:to-tiktokLight/30",
+    "peer-checked:border-twitch",
+    "peer-checked:border-youtube",
+    "peer-checked:border-tiktok",
+    "peer-checked:from-twitchDark/10",
+    "peer-checked:from-youtubeDark/10",
+    "peer-checked:from-tiktokDark/10",
+    "peer-checked:to-twitchLight/30",
+    "peer-checked:to-youtubeLight/30",
+    "peer-checked:to-tiktokLight/30",
+  ],
   // eslint-disable-next-line no-undef
   plugins: [require("tailwindcss-animation-delay")],
 };
