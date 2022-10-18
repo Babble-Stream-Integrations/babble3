@@ -4,7 +4,9 @@ export const helixConfig = {
 };
 
 export const twitchApplication = {
-  client_secret: "",
-  client_id: "",
+  clientSecret: "",
+  clientId: "",
   scopes: ["user_read"],
+  callbackUrl:
+    "",
 };
