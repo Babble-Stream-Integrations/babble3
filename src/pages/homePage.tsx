@@ -70,10 +70,10 @@ export default function Login() {
                   onChange={() => setPlatform(name)}
                 />
                 <div
-                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray transition duration-300 hover:bg-gradient-to-tr hover:text-white hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
+                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray text-babbleGray transition duration-300 hover:bg-gradient-to-tr hover:border-${name} hover:text-white hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
                 >
                   <div
-                    className={`absolute inset-0 h-full w-full bg-gradient-to-tr from-${name}Dark/10 to-${name}Light/30 rounded-babble  opacity-0 transition duration-300 hover:opacity-100`}
+                    className={`absolute inset-0 h-full w-full bg-gradient-to-tr from-${name}Dark/10 to-${name}Light/30  opacity-0 transition duration-300 hover:opacity-100`}
                   />
                   <div className="z-10 flex items-center justify-center">
                     {option.icon}
