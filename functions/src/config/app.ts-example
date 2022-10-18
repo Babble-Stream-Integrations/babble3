@@ -1,3 +1,4 @@
 export const appConfig = {
   port: 3000,
+  webAppUrl: "https://babble3.web.app",
 };
