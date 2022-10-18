@@ -17,10 +17,10 @@ export default function QuizSettings() {
 
   const [colors, setColors] = useLocalStorageState<Colors>("colors", {
     defaultValue: {
-      a: "#ad1fff",
-      b: "#ea9148",
-      c: "#95b418",
-      d: "#5d576b",
+      a: "#E42256",
+      b: "#FDC74C",
+      c: "#00B1B0",
+      d: "#FF8370",
     },
   });
 
