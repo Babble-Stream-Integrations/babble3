@@ -25,6 +25,7 @@ export default function Quiz() {
         questionAmount: 9,
         timePerQuestion: 12,
         timeInBetween: 8,
+        elimination: false,
       },
     });
 
