@@ -57,9 +57,10 @@ export default function Login() {
           <div className="h-[1px] w-full rounded-full bg-babbleGray" />
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
-        <div className="flex gap-[50px] py-[50px]">
-          {signinOptions.map((option) => {
+        <div className="flex gap-[50px] py-[50px] ">
+          {signinOptions.map((option, index) => {
             const name = option.name.toLowerCase();
+            console.log(index);
             return (
               <label key={option.name}>
                 <input
@@ -69,9 +70,14 @@ export default function Login() {
                   onChange={() => setPlatform(name)}
                 />
                 <div
-                  className={`flex h-[200px] w-[200px] items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray hover:bg-gradient-to-tr hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
+                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 rounded-babble border border-babbleGray text-babbleGray transition duration-500 hover:bg-gradient-to-tr hover:text-white hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
                 >
-                  {option.icon}
+                  <div
+                    className={`absolute inset-0 h-full w-full bg-gradient-to-tr from-${name}Dark/10 to-${name}Light/30 rounded-babble  opacity-0 transition duration-300 hover:opacity-100`}
+                  />
+                  <div className="z-10 flex items-center justify-center">
+                    {option.icon}
+                  </div>
                 </div>
               </label>
             );
