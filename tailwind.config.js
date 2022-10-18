@@ -64,9 +64,9 @@ module.exports = {
       },
       animation: {
         "ping-short": "ping 0.7s linear 3",
-        "fade-in-0": "fade-in 0.3s ease-in-out",
-        "fade-in-1": "fade-in 0.5s ease-in-out",
-        "fade-in-2": "fade-in 0.7s ease-in-out",
+        "fade-in-0": "fade-in 0.5s ease-in-out",
+        "fade-in-1": "fade-in 0.7s ease-in-out",
+        "fade-in-2": "fade-in 0.9s ease-in-out",
       },
       keyframes: {
         "fade-in": {
