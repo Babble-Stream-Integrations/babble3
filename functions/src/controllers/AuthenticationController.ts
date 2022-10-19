@@ -118,8 +118,6 @@ const handleTwitchCallback = (req: any, res: any) => {
 
           redirectUrl.searchParams.append("babbleToken", token.babbleToken);
 
-          res.send(redirectUrl);
-
           await setDoc(accountReference, accountDocument).then(() => {
             res.redirect(redirectUrl);
           });
