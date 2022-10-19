@@ -146,6 +146,7 @@ const handleTwitchCallback = (req: any, res: any) => {
               accountDocumentId
             );
 
+            // Merge the new information with the existing document
             setDoc(
               documentReference,
               {
@@ -155,6 +156,7 @@ const handleTwitchCallback = (req: any, res: any) => {
                 merge: true,
               }
             ).then(() => {
+              // Redirect back to the front-end application
               res.redirect(redirectUrl);
             });
 
@@ -163,9 +165,9 @@ const handleTwitchCallback = (req: any, res: any) => {
             // Account does not yet exist, lets create it before redirecting
 
             await setDoc(accountReference, accountDocument).then(() => {
+              // Redirect back to the front-end application
               res.redirect(redirectUrl);
             });
-            return;
           }
         });
     });
