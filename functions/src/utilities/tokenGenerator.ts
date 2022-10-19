@@ -3,7 +3,7 @@
  * @param length
  * @returns string
  */
-export function generateToken(length: number = 64): string {
+export function generateToken(length = 64): string {
   let token = "";
 
   const pool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -14,4 +14,3 @@ export function generateToken(length: number = 64): string {
 
   return token;
 }
-
