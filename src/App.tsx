@@ -25,17 +25,23 @@ export default function App() {
     const auth = { token: session.babbleToken };
     return auth.token ? <Outlet /> : <Navigate to="/login" />;
   };
+  const PublicRoutes = () => {
+    const auth = { token: session.babbleToken };
+    return auth.token ? <Navigate to="/" /> : <Outlet />;
+  };
 
   {
     return (
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/callback"
-              element={<Callback setSession={setSession} />}
-            />
+            <Route element={<PublicRoutes />}>
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/callback"
+                element={<Callback setSession={setSession} />}
+              />
+            </Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/" element={<Home />} />
               <Route path="/quiz" element={<Quiz />} />
