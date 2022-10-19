@@ -11,7 +11,7 @@ export default function Login() {
   const [streamer, setStreamer] = useLocalStorageState<Streamer>("streamer", {
     defaultValue: {
       name: "ESL_CSGO",
-      id: "56951019",
+      id: "",
     },
   });
   const [platform, setPlatform] = useState("");
@@ -21,7 +21,13 @@ export default function Login() {
   };
 
   function buttonClicked(platform: string) {
-    navigate("/quizStart", { state: { streamer: streamer, platform } });
+    const url = `http://localhost:5001/babble-d6ef3/europe-west1/default/oauth2/redirection/${platform}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        window.location.href = data.url;
+      });
+    // navigate("/quizStart", { state: { streamer: streamer, platform } });
   }
 
   //define different sign in methods
