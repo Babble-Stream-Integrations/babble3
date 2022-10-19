@@ -37,11 +37,11 @@ export default function App() {
           <Routes>
             <Route element={<PublicRoutes />}>
               <Route path="/login" element={<Login />} />
-              <Route
-                path="/callback"
-                element={<Callback setSession={setSession} />}
-              />
             </Route>
+            <Route
+              path="/callback"
+              element={<Callback session={session} setSession={setSession} />}
+            />
             <Route element={<PrivateRoutes />}>
               <Route path="/" element={<Home />} />
               <Route path="/quiz" element={<Quiz />} />
