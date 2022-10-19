@@ -58,7 +58,7 @@ export default function ChatComponent(props: {
         <div className="z-40 flex h-[40px] items-center justify-between bg-gradient-to-tr from-platformDark to-platformLight px-[50px]">
           <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
             <Icon />
-            <h1 className="text-md uppercase">{props.streamer.name}</h1>
+            <h1 className="text-md uppercase">{props.streamer.channel}</h1>
           </div>
           <div className=" flex items-center justify-end gap-2 font-bold">
             <FaUserAlt /> <h2 className="text-md">{viewCount}</h2>

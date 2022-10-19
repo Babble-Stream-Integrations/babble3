@@ -7,8 +7,8 @@ export type Message = {
 
 //type for streamer info
 export type Streamer = {
-  name: string;
-  id: string;
+  channel: string;
+  uid: string;
 };
 
 //types for Quiz

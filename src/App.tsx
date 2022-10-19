@@ -1,22 +1,52 @@
-import { Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import "./global.css";
 import Quiz from "./pages/quiz/quiz";
-import Login from "./pages/homePage";
+import Login from "./pages/login";
 import QuizStart from "./pages/quiz/quizStart";
 import QuizResults from "./pages/quiz/quizResults";
 import Settings from "./pages/settings";
+import useSessionStorageState from "use-session-storage-state";
+import Callback from "./pages/callback";
+import Home from "./pages/home";
 
 export default function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/quiz" element={<Quiz />} />
-        <Route path="/quizstart" element={<QuizStart />} />
-        <Route path="/quizresults" element={<QuizResults />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </div>
-  );
+  const [session, setSession] = useSessionStorageState("account", {
+    defaultValue: {
+      babbleToken: "",
+    },
+  });
+  const PrivateRoutes = () => {
+    const auth = { token: session.babbleToken };
+    return auth.token ? <Outlet /> : <Navigate to="/login" />;
+  };
+
+  {
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/callback"
+              element={<Callback setSession={setSession} />}
+            />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/quizstart" element={<QuizStart />} />
+              <Route path="/quizresults" element={<QuizResults />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/home" element={<Home />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
