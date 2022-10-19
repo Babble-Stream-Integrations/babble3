@@ -19,7 +19,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
   const colors: any = useLocalStorageState("colors")[0];
   function color(letter: string) {
     const hex: string = colors[letter.toLowerCase()];
-    const hslGradient = hexToHSLGradient(hex, "right", "darker");
+    const hslGradient = hexToHSLGradient(hex, "right", "50", "darker");
     return hslGradient;
   }
 
