@@ -1,23 +1,24 @@
-import React from "react";
 import logoBig from "../../assets/logo-full.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useSessionStorageState from "use-session-storage-state";
 
 export default function QuizStart() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const streamer = location.state.streamer;
+  const [account] = useSessionStorageState("account", {
+    defaultValue: {
+      displayName: "",
+    },
+  });
 
   function buttonClicked() {
-    navigate("/quiz", {
-      state: { streamer: streamer, platform: location.state.platform },
-    });
+    navigate("/quiz");
   }
 
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
       <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleDarkGray text-center drop-shadow-xl">
         <h1 className="text-4xl font-bold text-babbleWhite">
-          Hi {streamer.name},
+          Hi {account.displayName},
         </h1>
         <p className="px-16 pb-2 font-thin italic text-babbleWhite">
           When the game starts you&apos;Il get a series of 10 trivia questions.

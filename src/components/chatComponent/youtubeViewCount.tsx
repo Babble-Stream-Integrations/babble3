@@ -11,7 +11,7 @@ export default async function YoutubeViewCount({
   streamer,
   setViewCount,
 }: Props) {
-  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/youtube/${streamer.name}`;
+  const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/view-count/youtube/${streamer.channel}`;
   //get viewCount
 
   useEffect(() => {

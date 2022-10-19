@@ -1,24 +1,10 @@
 import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { IoLogoTiktok } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import useLocalStorageState from "use-local-storage-state";
-import { Streamer } from "../types";
 import { useState } from "react";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [streamer, setStreamer] = useLocalStorageState<Streamer>("streamer", {
-    defaultValue: {
-      name: "ESL_CSGO",
-      id: "",
-    },
-  });
   const [platform, setPlatform] = useState("");
-
-  const handleChange = (e: { target: { name: unknown; value: string } }) => {
-    setStreamer({ ...streamer, name: e.target.value });
-  };
 
   function buttonClicked(platform: string) {
     const url = `http://localhost:5001/babble-d6ef3/europe-west1/default/oauth2/redirection/${platform}`;
@@ -27,7 +13,6 @@ export default function Login() {
       .then((data) => {
         window.location.href = data.url;
       });
-    // navigate("/quizStart", { state: { streamer: streamer, platform } });
   }
 
   //define different sign in methods
@@ -66,7 +51,6 @@ export default function Login() {
         <div className="flex gap-[50px] py-[50px]">
           {signinOptions.map((option, index) => {
             const name = option.name.toLowerCase();
-            console.log(index);
             return (
               <label key={option.name}>
                 <input
@@ -101,7 +85,6 @@ export default function Login() {
         <button
           onClick={() => {
             buttonClicked(platform);
-            console.log(platform);
           }}
           className="mt-[75px] w-[200px] animate-fade-in-1 rounded-xl bg-babbleLightGray py-4 transition duration-300 hover:opacity-80"
         >
@@ -114,12 +97,6 @@ export default function Login() {
           © 2022 Babble stream integrations
         </h1>
       </div>
-      <input
-        type="text"
-        className="absolute bottom-0 left-0 right-0 m-auto w-[200px] border-2 border-babbleRed bg-babbleBlack text-center text-babbleWhite"
-        value={streamer.name}
-        onChange={(e) => handleChange(e)}
-      />
     </div>
   );
 }

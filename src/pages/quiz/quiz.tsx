@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
@@ -10,18 +10,26 @@ import logo from "../../assets/logo-small.png";
 import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeComponent";
+import useSessionStorageState from "use-session-storage-state";
 
 export default function Quiz() {
-  //get streamer quiz from previous page
-  const location = useLocation();
-  const streamer: Streamer = location.state.streamer;
-  const platform = location.state.platform;
+  const [account] = useSessionStorageState("account", {
+    defaultValue: {
+      username: "",
+      platform: "",
+      uid: "",
+    },
+  });
+  const streamer: Streamer = {
+    channel: account.username,
+    uid: account.uid,
+  };
 
   //initial settings
   const [triviaSettings, setTriviaSettings] =
     useLocalStorageState<TriviaSettings>("quizSettings", {
       defaultValue: {
-        channel: "",
+        channel: streamer.channel,
         startAfter: 6,
         questionAmount: 9,
         timePerQuestion: 12,
@@ -32,7 +40,7 @@ export default function Quiz() {
   //set channel to streamer channel (temporary)
   setTriviaSettings((prevState) => ({
     ...prevState,
-    channel: streamer.name,
+    channel: account.username,
   }));
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
@@ -104,9 +112,8 @@ export default function Quiz() {
       });
     }
   }, [start]);
-
   return (
-    <div className="bg-babbleBlack" data-theme={platform}>
+    <div className="bg-babbleBlack" data-theme={account.platform}>
       <Link to="/">
         <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
           <div className="flex h-full items-center justify-center">
@@ -115,7 +122,7 @@ export default function Quiz() {
         </div>
       </Link>
       <div className="z-10 flex h-screen  flex-1 items-center justify-center gap-[50px]">
-        <ChatComponent streamer={streamer} platform={platform} />
+        <ChatComponent streamer={streamer} platform={account.platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
           <QuizComponent
             questionAmount={triviaSettings ? triviaSettings.questionAmount : 0}
