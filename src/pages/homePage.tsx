@@ -49,10 +49,10 @@ export default function Login() {
   return (
     <div className="flex min-h-screen w-screen items-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
       <div className="py pb-8 pl-[140px] font-thin">
-        <h1 className="pb-[25px] text-5xl font-normal text-babbleWhite">
+        <h1 className="animate-fade-in-1 pb-[25px] text-5xl font-normal text-babbleWhite">
           Welcome,
         </h1>
-        <div className=" flex">
+        <div className="flex animate-fade-in-1">
           <h1 className="text-xl text-babbleGray">select your&nbsp;</h1>
           <h1 className="pb-[50px] text-xl text-babbleLightGray">
             streaming platform
@@ -63,7 +63,7 @@ export default function Login() {
           <div className="h-[1px] w-full rounded-full bg-babbleGray" />
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
-        <div className="flex gap-[50px] py-[50px] ">
+        <div className="flex gap-[50px] py-[50px]">
           {signinOptions.map((option, index) => {
             const name = option.name.toLowerCase();
             console.log(index);
@@ -76,7 +76,7 @@ export default function Login() {
                   onChange={() => setPlatform(name)}
                 />
                 <div
-                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray text-babbleGray transition duration-500 hover:bg-gradient-to-tr hover:border-${name} hover:text-white hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
+                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray text-babbleGray transition duration-300 hover:bg-gradient-to-tr hover:border-${name} hover:text-white hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
                 >
                   <div
                     className={`absolute inset-0 h-full w-full bg-gradient-to-tr from-${name}Dark/10 to-${name}Light/30  opacity-0 transition duration-300 hover:opacity-100`}
@@ -94,8 +94,8 @@ export default function Login() {
           <div className="h-[1px] w-full rounded-full bg-babbleGray" />
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
-        <h1 className="w-[600px] text-xl text-babbleGray">
-          You will be asked to verify your account with us. After that you wel
+        <h1 className="w-[600px] animate-fade-in-1 text-xl text-babbleGray">
+          You will be asked to verify your account with us. After that you will
           be redirected to this site.
         </h1>
         <button
@@ -103,7 +103,7 @@ export default function Login() {
             buttonClicked(platform);
             console.log(platform);
           }}
-          className="mt-[75px] w-[200px] rounded-xl bg-babbleLightGray py-4"
+          className="mt-[75px] w-[200px] animate-fade-in-1 rounded-xl bg-babbleLightGray py-4 transition duration-300 hover:opacity-80"
         >
           <h1 className="z-10 text-xl font-bold text-babbleBlack">CONTINUE</h1>
         </button>
