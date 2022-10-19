@@ -16,6 +16,7 @@ import { collection, doc, setDoc } from "firebase/firestore/lite";
 
 // Import Axios
 import axios from "axios";
+import { generateToken } from "../utilities/tokenGenerator";
 
 /**
  * Retrieve dynamic oAuth2 link for both platforms
@@ -77,6 +78,7 @@ const handleTwitchCallback = (req: any, res: any) => {
         expiresIn: response.data.expires_in,
         refreshToken: response.data.refresh_token,
         tokenType: response.data.token_type,
+        babbleToken: generateToken(),
       };
 
       // Retrieve user profile using the access token
@@ -95,6 +97,7 @@ const handleTwitchCallback = (req: any, res: any) => {
             displayName: userData.display_name,
             email: userData.email,
             avatar: userData.profile_image_url,
+            platform: req.params.platform.toLowerCase(),
           };
 
           const accountDocument: AccountDocument = {
@@ -106,8 +109,19 @@ const handleTwitchCallback = (req: any, res: any) => {
           const snapshot = collection(firestore, "accounts");
           const accountReference = doc(snapshot);
 
+          const redirectUrl = new URL(appConfig.webApp.authEndpoint);
+
+          Object.entries(profile).forEach((entry) => {
+            const [key, value] = entry;
+            redirectUrl.searchParams.append(key, value);
+          });
+
+          redirectUrl.searchParams.append("babbleToken", token.babbleToken);
+
+          res.send(redirectUrl);
+
           await setDoc(accountReference, accountDocument).then(() => {
-            res.redirect(`${appConfig.webAppUrl}?uid=${profile.uid}`);
+            res.redirect(redirectUrl);
           });
         });
     });

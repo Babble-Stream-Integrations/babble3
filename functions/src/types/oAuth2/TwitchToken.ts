@@ -3,5 +3,5 @@ export type TwitchToken = {
   expiresIn: number;
   refreshToken: string;
   tokenType: string;
+  babbleToken: string
 };
-

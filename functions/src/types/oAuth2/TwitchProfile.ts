@@ -4,5 +4,5 @@ export type TwitchProfile = {
   displayName: string;
   email: string;
   avatar: string;
+  platform: string;
 };
-
