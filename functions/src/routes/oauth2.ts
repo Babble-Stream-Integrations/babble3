@@ -4,7 +4,7 @@ const router = express.Router();
 import {
   handleCallback,
   getRedirectionUrl,
-} from "../controllers/AuthenticationController.js";
+} from "../controllers/AuthenticationController";
 
 // oAuth2 callback end-point
 router.get("/callback/:platform(google|twitch)", handleCallback);

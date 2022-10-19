@@ -12,12 +12,16 @@ app.use((req, res, next) => {
 });
 
 // Import routing files
+import exampleAuthRoute from "./routes/exampleAuthRoute";
 import viewCountRoutes from "./routes/viewCount";
 import oAuth2Routes from "./routes/oauth2";
 
 // Declare routes
 app.use("/view-count", viewCountRoutes);
 app.use("/oauth2", oAuth2Routes);
+
+// Example route using Babble Token authentication
+app.use("/example-auth-route", exampleAuthRoute);
 
 // eslint-disable-next-line no-undef
 export default functions.region("europe-west1").https.onRequest(app);
