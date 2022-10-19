@@ -5,8 +5,16 @@ export default function CallBack() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const [setSession]: any = useSessionStorageState("account");
+  //need session for setSession
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [session, setSession] = useSessionStorageState("account", {
+    defaultValue: {
+      accessToken: "",
+    },
+  });
+
   searchParams.forEach((value, key) => {
+    console.log(key, value);
     setSession((session: any) => ({
       ...session,
       [key]: value,
