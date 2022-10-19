@@ -16,7 +16,7 @@ import Callback from "./pages/callback";
 import Home from "./pages/home";
 
 export default function App() {
-  const [session, setSession] = useSessionStorageState("account", {
+  const [session] = useSessionStorageState("account", {
     defaultValue: {
       babbleToken: "",
     },
@@ -38,10 +38,7 @@ export default function App() {
             <Route element={<PublicRoutes />}>
               <Route path="/login" element={<Login />} />
             </Route>
-            <Route
-              path="/callback"
-              element={<Callback session={session} setSession={setSession} />}
-            />
+            <Route path="/callback" element={<Callback />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/" element={<Home />} />
               <Route path="/quiz" element={<Quiz />} />

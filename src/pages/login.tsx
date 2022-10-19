@@ -18,15 +18,15 @@ export default function Login() {
   //define different sign in methods
   const signinOptions = [
     {
-      name: "Twitch",
+      platform: "twitch",
       icon: <ImTwitch size={50} />,
     },
     {
-      name: "Youtube",
+      platform: "youtube",
       icon: <ImYoutube size={50} />,
     },
     {
-      name: "TikTok",
+      platform: "tiktok",
       icon: <IoLogoTiktok size={50} />,
     },
   ];
@@ -49,24 +49,24 @@ export default function Login() {
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
         <div className="flex gap-[50px] py-[50px]">
-          {signinOptions.map((option, index) => {
-            const name = option.name.toLowerCase();
+          {signinOptions.map((options, index) => {
+            const platform = options.platform;
             return (
-              <label key={option.name}>
+              <label key={options.platform}>
                 <input
                   type="radio"
                   name="option"
                   className="peer hidden"
-                  onChange={() => setPlatform(name)}
+                  onChange={() => setPlatform(platform)}
                 />
                 <div
-                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray text-babbleGray transition duration-300 hover:bg-gradient-to-tr hover:border-${name} hover:text-white hover:from-${name}Dark/10 hover:to-${name}Light/30 peer-checked:border-2 peer-checked:border-${name} peer-checked:bg-gradient-to-tr peer-checked:from-${name}Dark/10 peer-checked:to-${name}Light/30 peer-checked:text-babbleLightGray`}
+                  className={`relative flex h-[200px] w-[200px] animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray text-babbleGray transition duration-300 hover:bg-gradient-to-tr hover:border-${platform} hover:text-white hover:from-${platform}Dark/10 hover:to-${platform}Light/30 peer-checked:border-2 peer-checked:border-${platform} peer-checked:bg-gradient-to-tr peer-checked:from-${platform}Dark/10 peer-checked:to-${platform}Light/30 peer-checked:text-babbleLightGray`}
                 >
                   <div
-                    className={`absolute inset-0 h-full w-full bg-gradient-to-tr from-${name}Dark/10 to-${name}Light/30  opacity-0 transition duration-300 hover:opacity-100`}
+                    className={`absolute inset-0 h-full w-full bg-gradient-to-tr from-${platform}Dark/10 to-${platform}Light/30  opacity-0 transition duration-300 hover:opacity-100`}
                   />
                   <div className="z-10 flex items-center justify-center">
-                    {option.icon}
+                    {options.icon}
                   </div>
                 </div>
               </label>

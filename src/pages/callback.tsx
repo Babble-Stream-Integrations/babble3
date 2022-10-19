@@ -1,15 +1,18 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
+import useSessionStorageState from "use-session-storage-state";
 
-export default function CallBack({ setSession }: any) {
+export default function CallBack() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const [setSession]: any = useSessionStorageState("account");
   searchParams.forEach((value, key) => {
-    setSession((prevState: any) => ({
-      ...prevState,
+    setSession((session: any) => ({
+      ...session,
       [key]: value,
     }));
   });
-  navigate("/quizstart");
+  navigate("/");
 
   return (
     <div className="flex min-h-screen w-screen flex-col items-center justify-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">

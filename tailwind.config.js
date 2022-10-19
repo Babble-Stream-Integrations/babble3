@@ -101,6 +101,4 @@ module.exports = {
     "animate-fade-in-2",
     "animate-fade-in-3",
   ],
-  // eslint-disable-next-line no-undef
-  plugins: [require("tailwindcss-animation-delay")],
 };
