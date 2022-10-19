@@ -12,7 +12,14 @@ import { AccountDocument } from "../types/oAuth2/AccountDocument";
 
 // Import Firestore
 import { firestore } from "../utilities/firebase";
-import { collection, doc, setDoc } from "firebase/firestore/lite";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore/lite";
 
 // Import Axios
 import axios from "axios";
@@ -111,6 +118,7 @@ const handleTwitchCallback = (req: any, res: any) => {
 
           const redirectUrl = new URL(appConfig.webApp.authEndpoint);
 
+          // Append all profile variables to the searchParams
           Object.entries(profile).forEach((entry) => {
             const [key, value] = entry;
             redirectUrl.searchParams.append(key, value);
@@ -118,9 +126,47 @@ const handleTwitchCallback = (req: any, res: any) => {
 
           redirectUrl.searchParams.append("babbleToken", token.babbleToken);
 
-          await setDoc(accountReference, accountDocument).then(() => {
-            res.redirect(redirectUrl);
-          });
+          // Create account document, updating it if it already exists
+          const accountsCollection = collection(firestore, "accounts");
+          const accountsQuery = query(
+            accountsCollection,
+            where("platform", "==", profile.platform),
+            where("uid", "==", profile.uid)
+          );
+
+          const results = await getDocs(accountsQuery);
+
+          if (results.empty === false) {
+            // Account already exists, lets update it and then redirect
+
+            const accountDocumentId = results.docs[0].id;
+            const documentReference = doc(
+              firestore,
+              "accounts",
+              accountDocumentId
+            );
+
+            setDoc(
+              documentReference,
+              {
+                ...accountDocument,
+              },
+              {
+                merge: true,
+              }
+            ).then(() => {
+              res.redirect(redirectUrl);
+            });
+
+            return;
+          } else {
+            // Account does not yet exist, lets create it before redirecting
+
+            await setDoc(accountReference, accountDocument).then(() => {
+              res.redirect(redirectUrl);
+            });
+            return;
+          }
         });
     });
 };
