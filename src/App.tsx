@@ -10,6 +10,7 @@ import Quiz from "./pages/quiz/quiz";
 import Login from "./pages/login";
 import QuizStart from "./pages/quiz/quizStart";
 import QuizResults from "./pages/quiz/quizResults";
+import Tutorial from "./pages/tutorial";
 import Settings from "./pages/settings";
 import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
@@ -44,6 +45,7 @@ export default function App() {
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/quizstart" element={<QuizStart />} />
               <Route path="/quizresults" element={<QuizResults />} />
+              <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/home" element={<Home />} />
             </Route>
