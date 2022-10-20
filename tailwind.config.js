@@ -56,14 +56,22 @@ module.exports = {
       },
       animation: {
         "ping-short": "ping 0.7s linear 3",
-        "fade-in-0": "fade-in 0.5s ease-in-out",
-        "fade-in-1": "fade-in 0.7s ease-in-out",
-        "fade-in-2": "fade-in 0.9s ease-in-out",
+        "fade-in-0": "fade-in 0.7s ease-in-out",
+        "fade-in-1": "fade-in 0.9s ease-in-out",
+        "fade-in-2": "fade-in 1.2s ease-in-out",
+        "fade-in-text-0": "fade-text 0.5s ease-in-out",
+        "fade-in-text-1": "fade-text 0.7s ease-in-out",
+        "fade-in-text-2": "fade-text 0.9s ease-in-out",
+        "fade-in-text-3": "fade-text 1.2s ease-in-out",
       },
       keyframes: {
         "fade-in": {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
+        },
+        "fade-text": {
+          "0%": { transform: "translate3d(-100px, 0, 0)", opacity: 0 },
+          "100%": { transform: "translate3d(0, 0, 0)", opacity: 1 },
         },
       },
     },

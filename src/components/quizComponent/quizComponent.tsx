@@ -62,7 +62,6 @@ export default function QuizComponent(quiz: QuizComponentData) {
         {/* map over possible answers */}
         {quiz.answers.map((answer, index) => {
           const letter = String.fromCharCode(65 + index);
-
           return (
             <div
               key={index}
@@ -77,7 +76,10 @@ export default function QuizComponent(quiz: QuizComponentData) {
               >
                 <h1>{letter}</h1>
               </div>
-              <div className="z-10 w-full pl-20 text-[20px]">{answer}</div>
+              <div
+                className="z-10 w-full pl-20 text-[20px]"
+                dangerouslySetInnerHTML={{ __html: answer }}
+              />
             </div>
           );
         })}

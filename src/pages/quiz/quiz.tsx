@@ -34,7 +34,8 @@ export default function Quiz() {
         questionAmount: 9,
         timePerQuestion: 12,
         timeInBetween: 8,
-        elimination: false,
+        eliminations: false,
+        category: "General Knowledge",
       },
     });
 
@@ -59,6 +60,7 @@ export default function Quiz() {
     percentages: [],
     questionIndex: 0,
     firstToGuess: "",
+    category: "",
   });
 
   //WebSocket logic
@@ -82,6 +84,7 @@ export default function Quiz() {
 
       //when getting a new question, update the data
       socket.on("question-new", (data) => {
+        console.log(data);
         setQuiz((prevState) => ({
           ...prevState,
           question: data.question,
@@ -99,6 +102,7 @@ export default function Quiz() {
 
       //after {timePerQuestion} show the right answer and the percentages
       socket.on("question-finished", (data) => {
+        console.log(data);
         setQuiz((prevState) => ({
           ...prevState,
           rightAnswer: data.rightAnswer,

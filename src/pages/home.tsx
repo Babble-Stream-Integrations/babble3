@@ -1,9 +1,9 @@
-import logoBig from "../assets/logo-full.png";
 import { FaPlay, FaGraduationCap, FaCaretDown } from "react-icons/fa";
 import { MdSettings } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
 import { useState } from "react";
+import FooterComponent from "../components/footerComponent/footerComponent";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -26,12 +26,12 @@ export default function Login() {
   //define different sign in methods
   const buttonOptions = [
     {
-      name: "play game",
+      name: "Play game",
       icon: <FaPlay size={25} />,
       nav: "quizstart",
     },
     {
-      name: "tutorial",
+      name: "Tutorial",
       icon: <FaGraduationCap size={30} />,
       nav: "tutorial",
     },
@@ -117,12 +117,7 @@ export default function Login() {
           })}
         </div>
       </div>
-      <div className="absolute bottom-[75px] flex w-screen flex-col items-center">
-        <img src={logoBig} className="w-[121px] pb-4"></img>
-        <h1 className=" font-thin text-babbleGray">
-          © 2022 Babble stream integrations
-        </h1>
-      </div>
+      <FooterComponent />
     </div>
   );
 }
