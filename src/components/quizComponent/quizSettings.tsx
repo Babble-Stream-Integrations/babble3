@@ -12,7 +12,7 @@ export default function QuizSettings() {
         questionAmount: 10,
         timePerQuestion: 12,
         timeInBetween: 8,
-        elimination: false,
+        eliminations: false,
         category: categories[0],
       },
     }
@@ -35,10 +35,10 @@ export default function QuizSettings() {
   }
 
   function handleSwitch(p: string) {
-    const elimination = !quizSettings.elimination;
+    const eliminations = !quizSettings.eliminations;
     setQuizSettings((prevState) => ({
       ...prevState,
-      [p]: elimination,
+      [p]: eliminations,
     }));
   }
 
@@ -133,8 +133,8 @@ export default function QuizSettings() {
           <label className="switch">
             <input
               type="checkbox"
-              checked={quizSettings.elimination}
-              onChange={() => handleSwitch("elimination")}
+              checked={quizSettings.eliminations}
+              onChange={() => handleSwitch("eliminations")}
             ></input>
             <span className="slider"></span>
           </label>

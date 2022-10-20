@@ -18,7 +18,7 @@ export type TriviaSettings = {
   questionAmount: number;
   timePerQuestion: number;
   timeInBetween: number;
-  elimination: boolean;
+  eliminations: boolean;
   category: string;
 };
 
