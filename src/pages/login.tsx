@@ -1,7 +1,7 @@
-import logoBig from "../assets/logo-full.png";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { IoLogoTiktok } from "react-icons/io5";
 import { useState } from "react";
+import FooterComponent from "../components/footerComponent/footerComponent";
 
 export default function Login() {
   const [platform, setPlatform] = useState("");
@@ -33,15 +33,15 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen w-screen items-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
-      <div className="py pb-8 pl-[140px] font-thin">
-        <h1 className="animate-fade-in-1 pb-[25px] text-5xl font-normal text-babbleWhite">
+      <div className="py-8 pl-[140px] font-thin">
+        <h1 className="mb-[25px] animate-fade-in-text-0 text-5xl font-normal text-babbleWhite">
           Welcome,
         </h1>
-        <div className="flex animate-fade-in-1">
-          <h1 className="text-xl text-babbleGray">select your&nbsp;</h1>
-          <h1 className="pb-[50px] text-xl text-babbleLightGray">
+        <div className="flex animate-fade-in-text-1">
+          <p className="text-xl text-babbleGray">select your&nbsp;</p>
+          <p className="mb-[50px] text-xl text-babbleLightGray">
             streaming platform
-          </h1>
+          </p>
         </div>
         <div className="flex items-center">
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
@@ -78,25 +78,25 @@ export default function Login() {
           <div className="h-[1px] w-full rounded-full bg-babbleGray" />
           <div className="h-[2px] w-[8px] rounded-full bg-babbleLightGray" />
         </div>
-        <h1 className="w-[600px] animate-fade-in-1 text-xl text-babbleGray">
+        <h1 className="w-[600px] animate-fade-in-text-2 text-xl text-babbleGray">
           You will be asked to verify your account with us. After that you will
           be redirected to this site.
         </h1>
-        <button
-          onClick={() => {
-            buttonClicked(platform);
-          }}
-          className="mt-[75px] w-[200px] animate-fade-in-1 rounded-xl bg-babbleLightGray py-4 transition duration-300 hover:opacity-80"
-        >
-          <h1 className="text-xl font-bold text-babbleBlack">CONTINUE</h1>
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              buttonClicked(platform);
+              console.log(platform);
+            }}
+            className="mt-[50px] w-[200px] animate-fade-in-text-3 rounded-xl bg-babbleLightGray py-4 transition duration-300 hover:opacity-80"
+          >
+            <h1 className="z-10 text-xl font-bold text-babbleBlack">
+              CONTINUE
+            </h1>
+          </button>
+        </div>
       </div>
-      <div className="absolute bottom-[75px] flex w-screen flex-col items-center">
-        <img src={logoBig} className="w-[121px] pb-4"></img>
-        <h1 className=" font-thin text-babbleGray">
-          © 2022 Babble stream integrations
-        </h1>
-      </div>
+      <FooterComponent />
     </div>
   );
 }
