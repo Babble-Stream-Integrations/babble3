@@ -32,7 +32,7 @@ export type QuizBackend = {
   rightAnswer: string;
   percentages: Percentages[];
   questionIndex: number;
-  firstToAnswer: string;
+  firstToGuess: string;
 };
 
 export type QuizComponentData = {

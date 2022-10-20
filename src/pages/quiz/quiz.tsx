@@ -57,7 +57,7 @@ export default function Quiz() {
     rightAnswer: "",
     percentages: [],
     questionIndex: 0,
-    firstToAnswer: "",
+    firstToGuess: "",
   });
 
   //WebSocket logic
@@ -102,7 +102,7 @@ export default function Quiz() {
           ...prevState,
           rightAnswer: data.rightAnswer,
           percentages: data.percentages,
-          firstToAnswer: data.firstToAnswer,
+          firstToGuess: data.firstToGuess,
         }));
       });
 
@@ -137,8 +137,8 @@ export default function Quiz() {
           ) : (
             <PlayPauzeComponent setStart={setStart} />
           )}
-          {quiz.firstToAnswer && (
-            <AnnouncementFeedComponent firstToAnswer={quiz.firstToAnswer} />
+          {quiz.firstToGuess && (
+            <AnnouncementFeedComponent firstToGuess={quiz.firstToGuess} />
           )}
         </div>
       </div>
