@@ -14,7 +14,6 @@ export default function CallBack() {
   });
 
   searchParams.forEach((value, key) => {
-    console.log(key, value);
     setSession((session: any) => ({
       ...session,
       [key]: value,

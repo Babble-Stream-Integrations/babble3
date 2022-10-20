@@ -7,7 +7,7 @@ export default function Login() {
   const [platform, setPlatform] = useState("");
 
   function buttonClicked(platform: string) {
-    const url = `http://localhost:5001/babble-d6ef3/europe-west1/default/oauth2/redirection/${platform}`;
+    const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/oauth2/redirection/${platform}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

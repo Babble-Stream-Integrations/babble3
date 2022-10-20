@@ -16,6 +16,7 @@ export default function Login() {
       defaultValue: {
         username: "",
         avatar: "",
+        babbleToken: "",
       },
     }
   );
@@ -45,6 +46,22 @@ export default function Login() {
     navigate(nav);
   }
 
+  function signOut() {
+    // fetch(
+    //   "http://localhost:5001/babble-d6ef3/europe-west1/default/oauth2/logout",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Babble ${session.babbleToken}`,
+    //     },
+    //     body: JSON.stringify(session.babbleToken),
+    //   }
+    // );
+    removeItem();
+    navigate("/login");
+  }
+
   return (
     <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
       <div className="py pb-8 font-thin">
@@ -69,7 +86,7 @@ export default function Login() {
         </div>
         {menuOpen && (
           <div className="flex flex-col items-start">
-            <button onClick={() => removeItem()}>
+            <button onClick={() => signOut()}>
               <h1 className="text-xl italic text-[#A8A8A8] underline underline-offset-4">
                 Sign out
               </h1>
