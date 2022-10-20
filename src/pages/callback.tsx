@@ -14,6 +14,7 @@ export default function CallBack() {
   });
 
   searchParams.forEach((value, key) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setSession((session: any) => ({
       ...session,
       [key]: value,

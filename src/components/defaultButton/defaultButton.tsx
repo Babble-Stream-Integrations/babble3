@@ -1,8 +1,6 @@
-import React from "react";
-
 type ButtonProps = {
   text: string;
-  buttonClick: any;
+  buttonClick: () => void;
   animation: string;
 };
 

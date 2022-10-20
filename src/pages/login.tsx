@@ -1,7 +1,6 @@
 import { ImTwitch, ImYoutube } from "react-icons/im";
 //import { IoLogoTiktok } from "react-icons/io5";
 import { useState } from "react";
-import FooterComponent from "../components/footerComponent/footerComponent";
 import { DefaultButton } from "../components/defaultButton/defaultButton";
 
 export default function Login() {
