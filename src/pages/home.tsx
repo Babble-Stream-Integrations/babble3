@@ -70,9 +70,7 @@ export default function Login() {
         </h1>
         <div className="flex animate-fade-in-1 items-center justify-center gap-4 py-2 text-[#A8A8A8]">
           <img src={session.avatar} className="h-10 w-10 rounded-full" alt="" />
-          <h1 className="pl-[10px] text-xl text-[#A8A8A8]">
-            {session.username}
-          </h1>
+          <p className="pl-[10px] text-xl text-[#A8A8A8]">{session.username}</p>
           <button onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? (
               <FaCaretDown
@@ -87,9 +85,9 @@ export default function Login() {
         {menuOpen && (
           <div className="flex flex-col items-start">
             <button onClick={() => signOut()}>
-              <h1 className="text-xl italic text-[#A8A8A8] underline underline-offset-4">
+              <p className="text-xl italic text-[#A8A8A8] underline underline-offset-4">
                 Sign out
-              </h1>
+              </p>
             </button>
           </div>
         )}
@@ -103,8 +101,8 @@ export default function Login() {
                   className="peer hidden"
                   onChange={() => buttonClicked(options.nav)}
                 />
-                <div className="group relative flex h-[70px] w-[300px] items-center justify-center rounded-babble border-2  border-[#A8A8A8] text-[#A8A8A8] hover:border-babbleOrange hover:text-babbleWhite ">
-                  <div className="z-10 pl-4">{options.icon}</div>
+                <div className="group relative flex h-[70px] w-[300px] items-center justify-center overflow-hidden rounded-babble border-2 border-[#A8A8A8]  text-[#A8A8A8] hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite ">
+                  <div className="z-10 pl-8">{options.icon}</div>
                   <div className=" z-10 flex w-full justify-center text-xl font-bold">
                     <h1>{options.name}</h1>
                   </div>

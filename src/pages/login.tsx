@@ -40,7 +40,7 @@ export default function Login() {
         </h1>
         <div className="flex animate-fade-in-text-1">
           <p className="text-center text-xl text-babbleGray">
-            select your main&nbsp;
+            Select your main&nbsp;
           </p>
           <p className="text-xl text-babbleLightGray">streaming platform</p>
         </div>
@@ -56,13 +56,13 @@ export default function Login() {
                   onChange={() => setPlatform(platform)}
                 />
                 <div
-                  className={`group relative flex h-[200px] w-[200px] cursor-pointer shadow-babble animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray bg-babbleGray/5 text-babbleGray transition duration-300 hover:border-${platform} hover:bg-gradient-to-br hover:text-white peer-checked:border-2 peer-checked:border-${platform} peer-checked:bg-gradient-to-br peer-checked:from-${platform}Light/30 peer-checked:to-${platform}Dark/10 peer-checked:text-babbleLightGray`}
+                  className={`group relative flex h-[200px] w-[200px] cursor-pointer shadow-babble hover:overflow-hidden animate-fade-in-${index} items-center justify-center gap-2 overflow-hidden rounded-babble border border-babbleGray bg-babbleGray/5 text-babbleGray transition duration-300 hover:border-${platform} hover:bg-gradient-to-br hover:text-white peer-checked:border-2 peer-checked:border-${platform} peer-checked:bg-gradient-to-br peer-checked:from-${platform}Light/30 peer-checked:to-${platform}Dark/10 peer-checked:text-babbleLightGray`}
                 >
                   <div
-                    className={`absolute inset-0 h-full w-full bg-gradient-to-br shadow-babble from-${platform}Light/30  to-${platform}Dark/10 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+                    className={`absolute inset-0 h-full w-full bg-gradient-to-br shadow-babble from-${platform}Light/30 to-${platform}Dark/10 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
                   />
                   <div
-                    className={`z-10 flex items-center justify-center [filter:_drop-shadow(3px_2px_4px_#000000);]`}
+                    className={`z-10 flex items-center justify-center [filter:_drop-shadow(3px_2px_4px_rgb(0,0,0,40%));]`}
                   >
                     {options.icon}
                   </div>
@@ -71,10 +71,10 @@ export default function Login() {
             );
           })}
         </div>
-        <h1 className="w-[600px] animate-fade-in-text-2 text-center text-xl text-babbleGray">
+        <p className="w-[600px] animate-fade-in-text-2 text-center text-xl text-babbleGray">
           You will be asked to verify your account. After which you <br /> will
           be redirected back to us.
-        </h1>
+        </p>
         <div className="py-[75px]">
           <DefaultButton
             text="Continue"
