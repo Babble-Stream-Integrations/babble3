@@ -39,7 +39,7 @@ export default function QuizStart() {
           to={"/"}
           className="absolute bottom-[-50px] flex text-babbleWhite"
         >
-          Log out
+          Go back to home
         </Link>
       </div>
       <h1 className="absolute bottom-[100px] text-babbleWhite">

@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import logoBig from "../assets/logo-full.png";
 import QuizSettings from "../components/quizComponent/quizSettings";
 
 export default function Settings() {
+  const navigate = useNavigate();
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
       <div className="relative z-10 flex min-h-[664px] min-w-[883px] flex-col items-center gap-4 rounded-babble bg-babbleDarkGray py-[50px] text-center drop-shadow-xl">
@@ -10,7 +12,12 @@ export default function Settings() {
         </h1>
         <QuizSettings />
         <div className="pt-[30px]">
-          <button className="mr-[15px] rounded-xl bg-babbleLightGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack">
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className="mr-[15px] rounded-xl bg-babbleLightGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack"
+          >
             SAVE
           </button>
           <button
