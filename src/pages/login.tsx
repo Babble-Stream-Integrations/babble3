@@ -88,7 +88,7 @@ export default function Login() {
           }}
           className="mt-[75px] w-[200px] animate-fade-in-1 rounded-xl bg-babbleLightGray py-4 transition duration-300 hover:opacity-80"
         >
-          <h1 className=" text-xl font-bold text-babbleBlack">CONTINUE</h1>
+          <h1 className="text-xl font-bold text-babbleBlack">CONTINUE</h1>
         </button>
       </div>
       <div className="absolute bottom-[75px] flex w-screen flex-col items-center">

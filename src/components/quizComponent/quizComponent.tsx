@@ -1,4 +1,3 @@
-import "./quizComponent.css";
 import { ImCheckmark } from "react-icons/im";
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";

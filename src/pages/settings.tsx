@@ -9,15 +9,17 @@ export default function Settings() {
           Settings
         </h1>
         <QuizSettings />
-        <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed">
-          Save
-        </button>
-        <button
-          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed"
-          onClick={() => console.log("clicked")}
-        >
-          Reset
-        </button>
+        <div className="pt-[30px]">
+          <button className="mr-[15px] rounded-xl bg-babbleLightGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack">
+            SAVE
+          </button>
+          <button
+            className="rounded-xl bg-babbleGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack"
+            onClick={() => console.log("clicked")}
+          >
+            DEFAULT
+          </button>
+        </div>
       </div>
       <h1 className="absolute bottom-[100px] text-babbleWhite">
         © 2022 Babble stream integrations

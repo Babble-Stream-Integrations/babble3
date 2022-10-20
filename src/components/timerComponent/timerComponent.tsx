@@ -58,10 +58,3 @@ export default function TimerComponent({ timeProp, setTime }: TimeProp) {
     </div>
   );
 }
-
-//  this useEffect is used to update the time every second
-//  it checks if the time is greater than 0 and if it is, it sets a timeout for 1 second
-//  in that timeout it sets the time to the previous time minus 1
-//  this is done by using the setTime function that is passed as a prop
-//  the setTime function is used to update the time in the parent component
-//  the time is updated by using the setTime function that is passed as a prop
