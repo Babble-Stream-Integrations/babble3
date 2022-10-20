@@ -53,7 +53,7 @@ export default function Quiz() {
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
-    question: "type your answer in chat, just the letter!",
+    question: "Type your answer in chat, just the letter!",
     possibilities: [],
     time: 0,
     rightAnswer: "",
