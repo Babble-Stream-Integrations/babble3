@@ -1,17 +1,19 @@
-import { Colors, TriviaSettings } from "../../types";
+import { Colors, HandleChange, TriviaSettings } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
+import { categories } from "./options";
 
 export default function QuizSettings() {
   const [quizSettings, setQuizSettings] = useLocalStorageState<TriviaSettings>(
     "quizSettings",
     {
       defaultValue: {
-        channel: "esl_csgo",
+        channel: "",
         startAfter: 10,
         questionAmount: 10,
         timePerQuestion: 12,
         timeInBetween: 8,
         elimination: false,
+        category: categories[0],
       },
     }
   );
@@ -25,7 +27,7 @@ export default function QuizSettings() {
     },
   });
 
-  function handleChange(p: string, e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(p: string, e: HandleChange) {
     setQuizSettings((prevState) => ({
       ...prevState,
       [p]: e.target.value,
@@ -89,45 +91,16 @@ export default function QuizSettings() {
               name="category"
               className="h-[36px] w-[150px] rounded-full border-[3px] border-white bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
               id=""
+              value={quizSettings.category}
+              onChange={(e) => handleChange("category", e)}
             >
-              <option>General Knowledge</option>
-              <option value="Entertainment: Books">Entertainment: Books</option>
-              <option value="Entertainment: Film">Entertainment: Film</option>
-              <option value="Entertainment: Music">Entertainment: Music</option>
-              <option value="Entertainment: Musicals &amp; Theatres">
-                Entertainment: Musicals &amp; Theatres
-              </option>
-              <option value="Entertainment: Television">
-                Entertainment: Television
-              </option>
-              <option value="Entertainment: Video Games">
-                Entertainment: Video Games
-              </option>
-              <option value="Entertainment: Board Games">
-                Entertainment: Board Games
-              </option>
-              <option value="Science &amp; Nature">Science &amp; Nature</option>
-              <option value="Science: Computers">Science: Computers</option>
-              <option value="Science: Mathematics">Science: Mathematics</option>
-              <option value="Mythology">Mythology</option>
-              <option value="Sports">Sports</option>
-              <option value="Geography">Geography</option>
-              <option value="History">History</option>
-              <option value="Politics">Politics</option>
-              <option value="Art">Art</option>
-              <option value="Celebrities">Celebrities</option>
-              <option value="Animals">Animals</option>
-              <option value="Vehicles">Vehicles</option>
-              <option value="Entertainment: Comics">
-                Entertainment: Comics
-              </option>
-              <option value="Science: Gadgets">Science: Gadgets</option>
-              <option value="Entertainment: Japanese Anime &amp; Manga">
-                Entertainment: Japanese Anime &amp; Manga
-              </option>
-              <option value="Entertainment: Cartoon &amp; Animations">
-                Entertainment: Cartoon &amp; Animations
-              </option>
+              {categories.map((category) => (
+                <option
+                  value={category}
+                  key={category}
+                  dangerouslySetInnerHTML={{ __html: category }}
+                />
+              ))}
             </select>
           </div>
         </div>

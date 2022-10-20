@@ -35,6 +35,7 @@ export default function Quiz() {
         timePerQuestion: 12,
         timeInBetween: 8,
         elimination: false,
+        category: "General Knowledge",
       },
     });
 
@@ -59,6 +60,7 @@ export default function Quiz() {
     percentages: [],
     questionIndex: 0,
     firstToGuess: "",
+    category: "",
   });
 
   //WebSocket logic

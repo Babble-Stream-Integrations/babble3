@@ -19,6 +19,7 @@ export type TriviaSettings = {
   timePerQuestion: number;
   timeInBetween: number;
   elimination: boolean;
+  category: string;
 };
 
 export type Percentages = {
@@ -34,6 +35,7 @@ export type QuizBackend = {
   percentages: Percentages[];
   questionIndex: number;
   firstToGuess: string;
+  category: string;
 };
 
 export type QuizComponentData = {
@@ -62,3 +64,7 @@ export type TimeProp = {
 export type Colors = {
   [key: string]: string;
 };
+
+export type HandleChange =
+  | React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLSelectElement>;
