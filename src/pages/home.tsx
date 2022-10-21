@@ -3,7 +3,6 @@ import { MdSettings } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
 import { useState } from "react";
-import FooterComponent from "../components/footerComponent/footerComponent";
 
 export default function Login() {
   const navigate = useNavigate();
