@@ -10,7 +10,8 @@ module.exports = {
 
     extend: {
       boxShadow: {
-        babble: "3px 3px 4px -1px rgba(0,0,0,0.64), inset 3px 3px 4px -1px rgba(0,0,0,0.64)",
+        babble:
+          "3px 3px 4px -1px rgba(0,0,0,0.64), inset 3px 3px 4px -1px rgba(0,0,0,0.64)",
       },
       borderRadius: {
         babble: "25px",
@@ -59,13 +60,19 @@ module.exports = {
       },
       animation: {
         "ping-short": "ping 0.7s linear 3",
-        "fade-in-0": "fade-in 0.7s ease-in-out",
-        "fade-in-1": "fade-in 0.9s ease-in-out",
-        "fade-in-2": "fade-in 1.2s ease-in-out",
+        "fade-in-0": "fade-in 0.5s ease-in-out",
+        "fade-in-1": "fade-in 0.75s ease-in-out",
+        "fade-in-2": "fade-in 1s ease-in-out",
         "fade-in-text-0": "fade-text 0.5s ease-in-out",
         "fade-in-text-1": "fade-text 0.7s ease-in-out",
         "fade-in-text-2": "fade-text 0.9s ease-in-out",
         "fade-in-text-3": "fade-text 1.2s ease-in-out",
+        "fade-in-up-0": "fade-in-up 0.5s ease-in-out",
+        "fade-in-up-1": "fade-in-up 0.75s ease-in-out",
+        "fade-in-up-2": "fade-in-up 1s ease-in-out",
+        "fade-in-up-3": "fade-in-up 1.25s ease-in-out",
+        "fade-in-up-4": "fade-in-up 1.5s ease-in-out",
+        "fade-in-up-5": "fade-in-up 1.75s ease-in-out",
       },
       keyframes: {
         "fade-in": {
@@ -74,6 +81,10 @@ module.exports = {
         },
         "fade-text": {
           "0%": { transform: "translate3d(-100px, 0, 0)", opacity: 0 },
+          "100%": { transform: "translate3d(0, 0, 0)", opacity: 1 },
+        },
+        "fade-in-up": {
+          "0%": { transform: "translate3d(0, 30px, 0)", opacity: 0 },
           "100%": { transform: "translate3d(0, 0, 0)", opacity: 1 },
         },
       },
@@ -113,5 +124,10 @@ module.exports = {
     "animate-fade-in-1",
     "animate-fade-in-2",
     "animate-fade-in-3",
+    "fade-in-up-0",
+    "fade-in-up-1",
+    "fade-in-up-2",
+    "fade-in-up-3",
+    "fade-in-up-4",
   ],
 };

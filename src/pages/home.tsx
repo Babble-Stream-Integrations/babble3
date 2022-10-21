@@ -63,22 +63,29 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
+    <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#202024] to-[#0E0E10]">
       <div className="py pb-8 font-thin">
-        <h1 className="animate-fade-in-1 pb-[25px] text-center text-5xl font-normal text-babbleWhite">
+        <h1 className="animate-fade-in-up-1 pb-[25px] text-center text-5xl font-normal text-babbleWhite">
           Main menu
         </h1>
-        <div className="flex animate-fade-in-1 items-center justify-center gap-4 py-2 text-[#A8A8A8]">
-          <img src={session.avatar} className="h-10 w-10 rounded-full" alt="" />
+        <div className="flex animate-fade-in-up-2 items-center justify-center gap-4 py-2 pb-[25px] text-[#A8A8A8]">
+          <img
+            src={session.avatar}
+            className="h-10 w-10 rounded-full shadow-babble"
+            alt=""
+          />
           <p className="pl-[10px] text-xl text-[#A8A8A8]">{session.username}</p>
           <button onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? (
               <FaCaretDown
                 size={30}
-                className="rotate-180 transform transition"
+                className="-rotate-180 transform transition duration-500"
               />
             ) : (
-              <FaCaretDown size={30} className="transform transition" />
+              <FaCaretDown
+                size={30}
+                className="transform transition duration-500"
+              />
             )}
           </button>
         </div>
@@ -93,6 +100,7 @@ export default function Login() {
         )}
         <div className="flex flex-col gap-[25px] py-[25px]">
           {buttonOptions.map((options, index) => {
+            const number = index + 2;
             return (
               <label key={index}>
                 <input
@@ -101,21 +109,25 @@ export default function Login() {
                   className="peer hidden"
                   onChange={() => buttonClicked(options.nav)}
                 />
-                <div className="group relative flex h-[70px] w-[300px] items-center justify-center overflow-hidden rounded-babble border-2 border-[#A8A8A8]  text-[#A8A8A8] hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite ">
+                <div
+                  className={`group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleGray/5 text-white shadow-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite animate-fade-in-up-${number}`}
+                >
                   <div className="z-10 pl-8">{options.icon}</div>
-                  <div className=" z-10 flex w-full justify-center text-xl font-bold">
-                    <h1>{options.name}</h1>
+                  <div className="z-10 flex w-full justify-center text-xl">
+                    <p>{options.name}</p>
                   </div>
                   <div
-                    className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-tr from-babbleOrange/10 to-babbleOrange/30  opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+                    className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
                   />
                 </div>
               </label>
             );
           })}
         </div>
+        <div className="flex justify-center pt-[25px] text-babbleGray">
+          <p>ALPHA V1.0</p>
+        </div>
       </div>
-      <FooterComponent />
     </div>
   );
 }
