@@ -27,7 +27,7 @@ export default function Login() {
     {
       name: "Play game",
       icon: <FaPlay size={25} />,
-      nav: "quizstart",
+      nav: "quiz",
     },
     {
       name: "Tutorial",
