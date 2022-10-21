@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function Tutorial() {
   const navigate = useNavigate();
   return (
-    <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
+    <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#202024] to-[#0E0E10]">
       <div className="py pb-8 font-thin">
         <h1 className="animate-fade-in-1 pb-[25px] text-center text-5xl font-normal text-babbleWhite">
           Tutorial
@@ -34,11 +34,6 @@ export default function Tutorial() {
         >
           Back
         </button>
-      </div>
-      <div className="absolute bottom-[75px] flex w-screen flex-col items-center">
-        <h1 className=" font-thin text-babbleGray">
-          © 2022 Babble stream integrationsS
-        </h1>
       </div>
     </div>
   );
