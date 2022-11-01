@@ -1,28 +1,39 @@
-import "./quizComponent.css";
 import { ImCheckmark } from "react-icons/im";
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
-
-// calculate width based on the percentage of people that gave that answer
-function width(index: number, percentages: Percentages[]) {
-  if (percentages[index] === undefined) {
-    return 0;
-  } else {
-    return `${percentages[index].percentage + 10}%`;
-  }
-}
-//check what answer is correct, and if it is correct, show the checkmark
-function rightAnswer(answer: string, rightAnswer: string) {
-  if (rightAnswer === "") {
-    return "hidden";
-  } else if (answer === rightAnswer) {
-    return "visible";
-  } else {
-    return "hidden";
-  }
-}
+import useLocalStorageState from "use-local-storage-state";
+import hexToHSLGradient from "./hexToHSLGradient";
 
 export default function QuizComponent(quiz: QuizComponentData) {
+  // calculate width based on the percentage of people that gave that answer
+  function width(index: number, percentages: Percentages[]) {
+    if (percentages[index] === undefined) {
+      return 0;
+    } else {
+      return `${percentages[index].percentage + 10}%`;
+    }
+  }
+
+  //get color from localstorage and convert to gradient with HSL
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const colors: any = useLocalStorageState("colors")[0];
+  function color(letter: string) {
+    const hex: string = colors[letter.toLowerCase()];
+    const hslGradient = hexToHSLGradient(hex, "right", "50", "darker");
+    return hslGradient;
+  }
+
+  //check what answer is correct, and if it is correct, show the checkmark
+  function rightAnswer(answer: string, rightAnswer: string) {
+    if (rightAnswer === "") {
+      return "hidden";
+    } else if (answer === rightAnswer) {
+      return "visible";
+    } else {
+      return "hidden";
+    }
+  }
+
   return (
     // display the question and answers
     <div className="relative w-[570px]">
@@ -52,20 +63,24 @@ export default function QuizComponent(quiz: QuizComponentData) {
         {/* map over possible answers */}
         {quiz.answers.map((answer, index) => {
           const letter = String.fromCharCode(65 + index);
-
           return (
             <div
               key={index}
               className="relative flex h-[75px] items-center overflow-hidden rounded-lg rounded-bl-3xl bg-babbleDarkGray text-center"
             >
               <div
-                className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic"
-                id={letter}
-                style={{ width: width(index, quiz.percentages) }}
+                className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic text-white"
+                style={{
+                  width: width(index, quiz.percentages),
+                  backgroundImage: color(letter),
+                }}
               >
                 <h1>{letter}</h1>
               </div>
-              <div className="z-10 w-full pl-20 text-[20px]">{answer}</div>
+              <div
+                className="z-10 w-full pl-20 text-[20px]"
+                dangerouslySetInnerHTML={{ __html: answer }}
+              />
             </div>
           );
         })}

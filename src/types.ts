@@ -7,8 +7,8 @@ export type Message = {
 
 //type for streamer info
 export type Streamer = {
-  name: string;
-  id: string;
+  channel: string;
+  uid: string;
 };
 
 //types for Quiz
@@ -18,6 +18,8 @@ export type TriviaSettings = {
   questionAmount: number;
   timePerQuestion: number;
   timeInBetween: number;
+  eliminations: boolean;
+  category: string;
 };
 
 export type Percentages = {
@@ -32,6 +34,8 @@ export type QuizBackend = {
   rightAnswer: string;
   percentages: Percentages[];
   questionIndex: number;
+  firstToGuess: string;
+  category: string;
 };
 
 export type QuizComponentData = {
@@ -56,3 +60,11 @@ export type TimeProp = {
     }>
   >;
 };
+
+export type Colors = {
+  [key: string]: string;
+};
+
+export type HandleChange =
+  | React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLSelectElement>;

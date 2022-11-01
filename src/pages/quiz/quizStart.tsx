@@ -1,23 +1,24 @@
-import React from "react";
 import logoBig from "../../assets/logo-full.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useSessionStorageState from "use-session-storage-state";
 
 export default function QuizStart() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const streamer = location.state.streamer;
+  const [account] = useSessionStorageState("account", {
+    defaultValue: {
+      displayName: "",
+    },
+  });
 
   function buttonClicked() {
-    navigate("/quiz", {
-      state: { streamer: streamer, platform: location.state.platform },
-    });
+    navigate("/quiz");
   }
 
   return (
     <div className=" flex min-h-screen items-center justify-center overflow-hidden bg-babbleBlack">
-      <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleGray text-center drop-shadow-xl">
+      <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleDarkGray text-center drop-shadow-xl">
         <h1 className="text-4xl font-bold text-babbleWhite">
-          Hi {streamer.name},
+          Hi {account.displayName},
         </h1>
         <p className="px-16 pb-2 font-thin italic text-babbleWhite">
           When the game starts you&apos;Il get a series of 10 trivia questions.
@@ -30,7 +31,7 @@ export default function QuizStart() {
           onClick={() => {
             buttonClicked();
           }}
-          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed"
+          className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed"
         >
           Start Game
         </button>
@@ -38,7 +39,7 @@ export default function QuizStart() {
           to={"/"}
           className="absolute bottom-[-50px] flex text-babbleWhite"
         >
-          Log out
+          Go back to home
         </Link>
       </div>
       <h1 className="absolute bottom-[100px] text-babbleWhite">

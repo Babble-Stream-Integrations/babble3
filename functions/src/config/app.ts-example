@@ -1,0 +1,7 @@
+export const appConfig = {
+  port: 3000,
+  webApp: {
+    base: "https://babble3.web.app",
+    authEndpoint: "https://babble3.web.app/callback",
+  },
+};

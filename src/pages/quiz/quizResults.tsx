@@ -5,13 +5,13 @@ import logoBig from "../../assets/logo-full.png";
 export default function QuizResults() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-babbleBlack">
-      <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleGray drop-shadow-xl">
+      <div className="relative z-10 flex h-[404px] w-[551px] flex-col items-center justify-center gap-4 rounded-babble bg-babbleDarkGray drop-shadow-xl">
         <h1 className="text-4xl font-bold text-white">Great job!</h1>
         <p className="pb-2 text-babbleWhite">
           You and your viewers answered 6/10 questions correct!
         </p>
         <Link to="/">
-          <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleGray hover:from-babbleOrange hover:to-babbleRed">
+          <button className="text-l flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-babbleYellow to-babbleRed px-12 py-2 font-bold uppercase text-babbleDarkGray hover:from-babbleOrange hover:to-babbleRed">
             Play Again
           </button>
         </Link>{" "}
@@ -19,7 +19,7 @@ export default function QuizResults() {
           to={"/"}
           className="absolute bottom-[-50px] flex text-babbleWhite"
         >
-          Log out
+          Go back to home
         </Link>
       </div>
       <h1 className="absolute bottom-[100px] text-babbleWhite">
