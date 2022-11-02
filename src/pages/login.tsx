@@ -7,12 +7,11 @@ export default function Login() {
   const [platform, setPlatform] = useState("");
 
   function buttonClicked(platform: string) {
-    const url = `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/oauth2/redirection/${platform}`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        window.location.href = data.url;
-      });
+    const url =
+      platform === "twitch"
+        ? "https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=rjf69e4qdu8x8gjl09mf8i6yjiv7ri&redirect_uri=https://europe-west1-babble-d6ef3.cloudfunctions.net/default/oauth2/callback/twitch&scope=user_read"
+        : "https://youtube.com";
+    window.location.href = url;
   }
 
   //define different sign in methods
