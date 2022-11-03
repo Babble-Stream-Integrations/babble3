@@ -3,6 +3,7 @@ import { MdSettings } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -64,10 +65,43 @@ export default function Login() {
   return (
     <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#202024] to-[#0E0E10]">
       <div className="py pb-8 font-thin">
-        <h1 className="animate-fade-in-up-1 pb-[25px] text-center text-5xl font-normal text-babbleWhite">
-          Main menu
-        </h1>
-        <div className="flex animate-fade-in-up-2 items-center justify-center gap-4 py-2 pb-[25px] text-[#A8A8A8]">
+        <motion.div
+          initial={{
+            y: 50,
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            y: 0,
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+        >
+          <h1 className="pb-[25px] text-center text-5xl font-normal text-babbleWhite">
+            Main menu
+          </h1>
+        </motion.div>
+        <motion.div
+          initial={{
+            y: 50,
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1.25,
+          }}
+          whileInView={{
+            y: 0,
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="flex items-center justify-center gap-4 py-2 pb-[25px] text-[#A8A8A8]"
+        >
           <img
             src={session.avatar}
             className="h-10 w-10 rounded-full shadow-babble"
@@ -87,7 +121,7 @@ export default function Login() {
               />
             )}
           </button>
-        </div>
+        </motion.div>
         {menuOpen && (
           <div className="flex flex-col items-start">
             <button onClick={() => signOut()}>
@@ -97,9 +131,24 @@ export default function Login() {
             </button>
           </div>
         )}
-        <div className="flex flex-col gap-[25px] py-[25px]">
+        <motion.div
+          initial={{
+            y: 50,
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1.5,
+          }}
+          whileInView={{
+            y: 0,
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="flex flex-col gap-[25px] py-[25px]"
+        >
           {buttonOptions.map((options, index) => {
-            const number = index + 2;
             return (
               <label key={index}>
                 <input
@@ -108,9 +157,7 @@ export default function Login() {
                   className="peer hidden"
                   onChange={() => buttonClicked(options.nav)}
                 />
-                <div
-                  className={`group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleGray/5 text-white shadow-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite animate-fade-in-up-${number}`}
-                >
+                <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleGray/5 text-white shadow-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
                   <div className="z-10 pl-8">{options.icon}</div>
                   <div className="z-10 flex w-full justify-center text-xl">
                     <p>{options.name}</p>
@@ -122,7 +169,7 @@ export default function Login() {
               </label>
             );
           })}
-        </div>
+        </motion.div>
         <div className="flex justify-center pt-[25px] text-babbleGray">
           <p>ALPHA V1.0</p>
         </div>
