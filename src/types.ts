@@ -20,11 +20,18 @@ export type TriviaSettings = {
   timeInBetween: number;
   eliminations: boolean;
   category: string;
+  difficulty: string;
 };
 
 export type Percentages = {
   amount: number;
   percentage: number;
+};
+export type Results = {
+  username: string;
+  questionIndex: number;
+  points: number;
+  eliminated: boolean;
 };
 
 export type QuizBackend = {
@@ -36,6 +43,7 @@ export type QuizBackend = {
   questionIndex: number;
   firstToGuess: string;
   category: string;
+  results: Array<Results>;
 };
 
 export type QuizComponentData = {

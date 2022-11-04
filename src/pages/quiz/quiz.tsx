@@ -11,6 +11,7 @@ import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeComponent";
 import useSessionStorageState from "use-session-storage-state";
+import ResultsComponent from "../../components/resultsComponent/resultsComponent";
 
 export default function Quiz() {
   const [account] = useSessionStorageState("account", {
@@ -32,10 +33,11 @@ export default function Quiz() {
         channel: streamer.channel,
         startAfter: 6,
         questionAmount: 9,
-        timePerQuestion: 12,
+        timePerQuestion: 30,
         timeInBetween: 8,
         eliminations: false,
         category: "General Knowledge",
+        difficulty: "medium",
       },
     });
 
@@ -61,6 +63,7 @@ export default function Quiz() {
     questionIndex: 0,
     firstToGuess: "",
     category: "",
+    results: [],
   });
 
   //WebSocket logic
@@ -112,7 +115,12 @@ export default function Quiz() {
       });
 
       //when the game is finished, disconnect from the back-end
-      socket.on("game-finished", () => {
+      socket.on("game-finished", (data) => {
+        setQuiz((prevState) => ({
+          ...prevState,
+          results: data.results,
+        }));
+        console.log(data.results);
         socket.disconnect();
       });
     }
@@ -129,14 +137,20 @@ export default function Quiz() {
       <div className="z-10 flex h-screen  flex-1 items-center justify-center gap-[50px]">
         <ChatComponent streamer={streamer} platform={account.platform} />
         <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
-          <QuizComponent
-            questionAmount={triviaSettings ? triviaSettings.questionAmount : 0}
-            question={quiz.question}
-            answers={quiz.possibilities}
-            rightAnswer={quiz.rightAnswer}
-            percentages={quiz.percentages}
-            questionIndex={quiz.questionIndex}
-          />
+          {quiz.results.length >= 1 ? (
+            <ResultsComponent results={quiz.results} />
+          ) : (
+            <QuizComponent
+              questionAmount={
+                triviaSettings ? triviaSettings.questionAmount : 0
+              }
+              question={quiz.question}
+              answers={quiz.possibilities}
+              rightAnswer={quiz.rightAnswer}
+              percentages={quiz.percentages}
+              questionIndex={quiz.questionIndex}
+            />
+          )}
           {start ? (
             <TimerComponent timeProp={timeState} setTime={setTimeState} />
           ) : (
