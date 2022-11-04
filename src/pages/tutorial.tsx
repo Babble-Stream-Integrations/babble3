@@ -9,23 +9,24 @@ export default function Tutorial() {
           Tutorial
         </h1>
         <p className="px-16 pb-2 text-center font-thin text-babbleWhite">
-          Whent you hit the &apos;Play Game&apos; button your chat <br />
-          will be loaded in and the game can begin!
+          When you start a new game, you will be shown an interface <br />
+          showing both your Twitch chat and the question. <br /> Competitors may
+          compete by writing in Twitch chat, <br />
+          where you get points based on how fast you answer.
         </p>
         <p className="px-16 pb-2 text-center font-thin text-babbleWhite">
-          A Series of 10 trivia questions will appear on <br />
-          screen. You and your chat can answer by typing the <br />
-          corresponding letter in the chatbox. Keep in <br />
-          mind that you will get rewarded with points. <br />
-          Answering fast and scoring combo&apos;s will give you <br />
-          extra!
+          Additionally, you can change the quiz colors, set the difficulty
+          <br /> and category of the quiz and also enable the
+          &apos;eliminations&apos; game mode
+          <br /> where people get eliminated when they give incorrect answers,
         </p>
         <p className="px-16 pb-2 text-center font-thin text-babbleWhite">
-          When the game is over you&apos;Il be able to see how <br />
-          everyone performed.
+          Once the game comes to a wrap, you will be shown the top 3 competitors
+          <br />
+          and their points.
         </p>
       </div>
-      <div className="absolute bottom-[200px] items-center">
+      <div className="absolute bottom-[100px] items-center">
         <button
           onClick={() => {
             navigate("/");
