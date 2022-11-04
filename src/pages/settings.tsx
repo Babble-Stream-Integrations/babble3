@@ -20,7 +20,7 @@ export default function Settings() {
             onClick={() => {
               navigate("/");
             }}
-            className="mr-[15px] rounded-xl bg-babbleLightGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack"
+            className="rounded-xl bg-babbleLightGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack"
           >
             SAVE
           </button>
