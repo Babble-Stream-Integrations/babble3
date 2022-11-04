@@ -50,6 +50,10 @@ export default function hexToHSL(
   l = l * 100;
   l = Math.round(l);
   h = Math.round(360 * h);
+  if (isNaN(h)) {
+    h = 0;
+    s = 0;
+  }
 
   const hsl = "hsl(" + h + "," + s + "%," + l + "%)";
   //make another color by changing the lightness depending on the hue

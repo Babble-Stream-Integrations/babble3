@@ -16,7 +16,15 @@ export default function QuizComponent(quiz: QuizComponentData) {
 
   //get color from localstorage and convert to gradient with HSL
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const colors: any = useLocalStorageState("colors")[0];
+  const [colors]: any = useLocalStorageState("colors", {
+    defaultValue: {
+      a: "#E42256",
+      b: "#FDC74C",
+      c: "#00B1B0",
+      d: "#FF8370",
+    },
+  });
+
   function color(letter: string) {
     const hex: string = colors[letter.toLowerCase()];
     const hslGradient = hexToHSLGradient(hex, "right", "50", "darker");

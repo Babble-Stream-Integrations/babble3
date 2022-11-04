@@ -135,7 +135,7 @@ export default function QuizSettings() {
           </div>
         </div>
         <div>
-          <h2 className="pb-[15px]">Elminination</h2>
+          <h2 className="pb-[15px]">Elimination</h2>
           <label className="switch">
             <input
               type="checkbox"
