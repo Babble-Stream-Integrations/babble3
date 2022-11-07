@@ -94,11 +94,12 @@ export default function QuizComponent(quiz: QuizComponentData) {
         })}
 
         <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
+          <div className="h-2/6  pb-6" />
           {quiz.answers.map((answer, index) => {
             return (
               <div
                 key={index}
-                className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
+                className=" flex h-1/6 w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
                 style={{ visibility: rightAnswer(answer, quiz.rightAnswer) }}
               >
                 <ImCheckmark />
