@@ -15,6 +15,7 @@ import Settings from "./pages/settings";
 import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
 import Home from "./pages/home";
+import QuizGrid from "./pages/quiz/quizGrid";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
@@ -42,12 +43,13 @@ export default function App() {
             <Route path="/callback" element={<Callback />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/" element={<Home />} />
-              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/quiz2" element={<Quiz />} />
               <Route path="/quizstart" element={<QuizStart />} />
               <Route path="/quizresults" element={<QuizResults />} />
               <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/quiz" element={<QuizGrid />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -53,7 +53,7 @@ export default function ChatComponent(props: {
   }
 
   return (
-    <div className="z-10 h-screen w-[450px] overflow-hidden rounded-babble py-[50px]">
+    <div className="z-10 h-full w-[450px] overflow-hidden rounded-babble">
       <div className="mb-[25px] h-full overflow-hidden text-ellipsis rounded-babble bg-babbleDarkGray text-babbleWhite">
         <div className="z-40 flex h-[40px] items-center justify-between bg-gradient-to-tr from-platformDark to-platformLight px-[50px]">
           <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
@@ -64,7 +64,7 @@ export default function ChatComponent(props: {
             <FaUserAlt /> <h2 className="text-md">{viewCount}</h2>
           </div>
         </div>
-        <div className=" absolute z-40 h-5 w-[450px] bg-gradient-to-t from-babbleDarkGray/10 to-babbleBlack/100 " />
+        <div className=" absolute z-40 h-5 w-full bg-gradient-to-t from-babbleDarkGray/10 to-babbleBlack/100 " />
 
         <div className="relative h-full overflow-hidden pt-[50px]">
           <div className="absolute bottom-[50px] z-10">

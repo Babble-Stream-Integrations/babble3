@@ -44,16 +44,16 @@ export default function QuizComponent(quiz: QuizComponentData) {
 
   return (
     // display the question and answers
-    <div className="relative w-[570px]">
-      <div className="flex flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-[150px] w-[570px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4 text-[10rem]">
-          <div className="h-[90px] px-4">
+    <div className="relative h-full w-full max-w-[600px]">
+      <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
+        <div className="flex h-2/6 flex-col items-center justify-between  rounded-t-3xl bg-babbleDarkGray pt-4 pb-2 text-[10rem]">
+          <div className="h-4/6 px-4 pb-2">
             <AutoTextSize
               multiline={true}
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex w-full justify-evenly pt-[10px]">
+          <div className="flex h-2/6 w-full justify-evenly  pt-1">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
@@ -74,7 +74,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
           return (
             <div
               key={index}
-              className="relative flex h-[75px] items-center overflow-hidden rounded-lg rounded-bl-3xl bg-babbleDarkGray text-center"
+              className="relative flex h-1/6 items-center overflow-hidden rounded-lg rounded-bl-3xl bg-babbleDarkGray text-center"
             >
               <div
                 className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic text-white"
@@ -92,19 +92,20 @@ export default function QuizComponent(quiz: QuizComponentData) {
             </div>
           );
         })}
-      </div>
-      <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
-        {quiz.answers.map((answer, index) => {
-          return (
-            <div
-              key={index}
-              className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
-              style={{ visibility: rightAnswer(answer, quiz.rightAnswer) }}
-            >
-              <ImCheckmark />
-            </div>
-          );
-        })}
+
+        <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
+          {quiz.answers.map((answer, index) => {
+            return (
+              <div
+                key={index}
+                className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
+                style={{ visibility: rightAnswer(answer, quiz.rightAnswer) }}
+              >
+                <ImCheckmark />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
