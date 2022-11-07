@@ -117,13 +117,17 @@ export default function QuizGrid() {
       });
     }
   }, [start]);
+  const [layout, setLayout] = useLocalStorageState("quizLayout", {
+    defaultValue: {
+      lg: [
+        { i: "chat-component", x: 4, y: 0, w: 6, h: 12 },
+        { i: "timer-component", x: 12, y: 4, w: 8, h: 2 },
+        { i: "quiz-component", x: 12, y: 0, w: 8, h: 8 },
+        { i: "first-to-answer", x: 12, y: 5, w: 8, h: 2 },
+      ],
+    },
+  });
 
-  const layout = [
-    { i: "chat-component", x: 4, y: 0, w: 6, h: 12 },
-    { i: "timer-component", x: 12, y: 4, w: 8, h: 2 },
-    { i: "quiz-component", x: 12, y: 0, w: 8, h: 8 },
-    { i: "first-to-answer", x: 12, y: 5, w: 8, h: 2 },
-  ];
   const ResponsiveGridLayout = WidthProvider(Responsive);
   const height = window.innerHeight - 20;
   return (
@@ -136,17 +140,22 @@ export default function QuizGrid() {
         </div>
       </Link>
       <ResponsiveGridLayout
-        className="layout"
-        layouts={{ lg: layout }}
+        layouts={layout}
         breakpoints={{ lg: 100 }}
         cols={{ lg: 24 }}
         rowHeight={height / 12 - 15}
         isBounded={true}
-        compactType="vertical"
+        compactType={"vertical"}
         resizeHandles={["se"]}
         margin={[15, 15]}
         isResizable={true}
         isDraggable={true}
+        onLayoutChange={(layout) => {
+          setLayout((prevState) => ({
+            ...prevState,
+            lg: layout,
+          }));
+        }}
       >
         <div
           className="flex w-[450px] items-center justify-center "
@@ -154,7 +163,7 @@ export default function QuizGrid() {
         >
           <ChatComponent streamer={streamer} platform={account.platform} />
         </div>
-        <div className="flex justify-center" key="quiz-component">
+        <div className="flex w-[570px] justify-center" key="quiz-component">
           {quiz.results.length >= 1 ? (
             <ResultsComponent key="chat-component" results={quiz.results} />
           ) : (
