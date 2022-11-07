@@ -152,7 +152,10 @@ export default function Quiz() {
             />
           )}
           {start ? (
-            <TimerComponent timeProp={timeState} setTime={setTimeState} />
+            <TimerComponent
+              initialTime={quiz.time}
+              questionIndex={quiz.questionIndex}
+            />
           ) : (
             <PlayPauzeComponent setStart={setStart} />
           )}

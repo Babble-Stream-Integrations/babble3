@@ -57,10 +57,8 @@ export type QuizComponentData = {
 
 //type for timer
 export type TimeProp = {
-  timeProp: {
-    time: number;
-    initialTime: number;
-  };
+  time: number;
+  initialTime: number;
   setTime: React.Dispatch<
     React.SetStateAction<{
       time: number;

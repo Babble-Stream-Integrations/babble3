@@ -1,24 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdTimer } from "react-icons/md";
-import { TimeProp } from "../../types";
 
-export default function TimerComponent({ timeProp, setTime }: TimeProp) {
-  //logic for timer bar
-  const time = timeProp.time;
-  const initialTime = timeProp.initialTime;
+type Time = {
+  initialTime: number;
+  questionIndex: number;
+};
 
-  //update time every second with useEffect when bigger than 0
+export default function TimerComponent({ initialTime, questionIndex }: Time) {
+  let index = 0;
+  console.log(index);
+
+  //wait for questionIndex to change before starting the timer
+  const [start, setStart] = useState(true);
+
   useEffect(() => {
-    time > 0 &&
-      setTimeout(
-        () =>
-          setTime({
-            ...timeProp,
-            time: time - 1,
-          }),
-        1000
-      );
-  }, [time]);
+    if (questionIndex !== index) {
+      setStart(true);
+      index = questionIndex;
+      console.log("index changed");
+    }
+  }, [questionIndex]);
+
+  const [time, setTime] = useState(initialTime);
+
+  //start timer when start is true and time is greater than 0. if time is 0, stop the timer and set start to false. stop the timer from running twice
+  useEffect(() => {
+    if (start === true && time > 0) {
+      const timer = setTimeout(() => {
+        setTime(time - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (time === 0) {
+      setStart(false);
+    } else return;
+    return;
+  }, [time, start]);
 
   //calculate percentage: seconds left / by total amount of time x 100
   const percentage = ((time - 1) / (initialTime - 1)) * 100;
@@ -31,7 +47,7 @@ export default function TimerComponent({ timeProp, setTime }: TimeProp) {
   time === 0 && initialTime > 5 ? (timerColor = "red") : (timerColor = "white");
 
   return (
-    <div className="flex items-center gap-2 rounded-babble bg-babbleDarkGray p-8 text-3xl text-babbleWhite">
+    <div className="flex w-full items-center gap-2 rounded-babble bg-babbleDarkGray p-8 text-3xl text-babbleWhite">
       <MdTimer
         className={
           time === 0 && initialTime > 5
