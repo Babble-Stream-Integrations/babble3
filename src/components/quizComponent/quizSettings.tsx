@@ -106,9 +106,9 @@ export default function QuizSettings() {
                 className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
                 id=""
               >
-                <option value="easy">Easy</option>
+                {/* <option value="easy">Easy</option> */}
                 <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
+                {/* <option value="hard">Hard</option> */}
               </select>
             </div>
           </div>
