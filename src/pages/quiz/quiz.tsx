@@ -171,7 +171,11 @@ export default function Quiz() {
           className="z-10 flex w-[450px] items-center justify-center "
           key="chat-component"
         >
-          <ChatComponent streamer={streamer} platform={account.platform} />
+          <ChatComponent
+            streamer={streamer}
+            platform={account.platform}
+            announcement={[quiz.firstToGuess]}
+          />
         </div>
         <div
           className="z-10 flex w-[570px] justify-center"
