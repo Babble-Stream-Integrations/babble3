@@ -13,6 +13,7 @@ import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeCom
 import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import { FaPencilAlt } from "react-icons/fa";
 
 export default function QuizGrid() {
   const [account] = useSessionStorageState("account", {
@@ -127,6 +128,7 @@ export default function QuizGrid() {
       ],
     },
   });
+  const [editable, setEditable] = useState(false);
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
   const height = window.innerHeight - 20;
@@ -148,8 +150,8 @@ export default function QuizGrid() {
         compactType={"vertical"}
         resizeHandles={["se"]}
         margin={[15, 15]}
-        isResizable={true}
-        isDraggable={true}
+        isResizable={editable}
+        isDraggable={editable}
         onLayoutChange={(layout) => {
           setLayout((prevState) => ({
             ...prevState,
@@ -203,6 +205,14 @@ export default function QuizGrid() {
         <Link to="/">
           <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
         </Link>
+      </div>
+      <div
+        className="absolute right-[50px] bottom-[50px] text-babbleLightGray"
+        onClick={() => {
+          setEditable(!editable);
+        }}
+      >
+        {editable ? <FaPencilAlt /> : <FaPencilAlt className="opacity-50" />}
       </div>
     </div>
   );
