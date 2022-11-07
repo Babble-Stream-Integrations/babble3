@@ -46,7 +46,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
     // display the question and answers
     <div className="relative h-full w-full max-w-[600px]">
       <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-2/6 flex-col items-center justify-between  rounded-t-3xl bg-babbleDarkGray pt-4 pb-2 text-[10rem]">
+        <div className="flex h-2/6 flex-col items-center justify-between rounded-t-3xl bg-babbleDarkGray pt-4 pb-2 text-[10rem]">
           <div className="h-4/6 px-4 pb-2">
             <AutoTextSize
               multiline={true}

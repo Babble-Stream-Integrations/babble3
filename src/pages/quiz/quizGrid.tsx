@@ -14,6 +14,7 @@ import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { FaPencilAlt } from "react-icons/fa";
+import "./quiz.css";
 
 export default function QuizGrid() {
   const [account] = useSessionStorageState("account", {
@@ -118,17 +119,20 @@ export default function QuizGrid() {
       });
     }
   }, [start]);
-  const [layout, setLayout] = useLocalStorageState("quizLayout", {
-    defaultValue: {
-      lg: [
-        { i: "chat-component", x: 4, y: 0, w: 6, h: 12 },
-        { i: "timer-component", x: 12, y: 4, w: 8, h: 2 },
-        { i: "quiz-component", x: 12, y: 0, w: 8, h: 8 },
-        { i: "first-to-answer", x: 12, y: 5, w: 8, h: 2 },
-      ],
-    },
-  });
-  const [editable, setEditable] = useState(false);
+  const [layout, setLayout, { removeItem }] = useLocalStorageState(
+    "quizLayout",
+    {
+      defaultValue: {
+        lg: [
+          { i: "chat-component", x: 4, y: 0, w: 6, h: 12 },
+          { i: "timer-component", x: 12, y: 4, w: 8, h: 2 },
+          { i: "quiz-component", x: 12, y: 0, w: 8, h: 8 },
+          { i: "first-to-answer", x: 12, y: 5, w: 8, h: 2 },
+        ],
+      },
+    }
+  );
+  const [editable, setEditable] = useState(true);
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
   const height = window.innerHeight - 20;
@@ -160,12 +164,15 @@ export default function QuizGrid() {
         }}
       >
         <div
-          className="flex w-[450px] items-center justify-center "
+          className="z-10 flex w-[450px] items-center justify-center "
           key="chat-component"
         >
           <ChatComponent streamer={streamer} platform={account.platform} />
         </div>
-        <div className="flex w-[570px] justify-center" key="quiz-component">
+        <div
+          className="z-10 flex w-[570px] justify-center"
+          key="quiz-component"
+        >
           {quiz.results.length >= 1 ? (
             <ResultsComponent key="chat-component" results={quiz.results} />
           ) : (
@@ -181,7 +188,10 @@ export default function QuizGrid() {
             />
           )}
         </div>
-        <div className="flex items-center justify-center" key="timer-component">
+        <div
+          className="z-10 flex items-center justify-center"
+          key="timer-component"
+        >
           {start ? (
             <TimerComponent
               initialTime={quiz.time}
@@ -191,7 +201,10 @@ export default function QuizGrid() {
             <PlayPauzeComponent key="timer-component" setStart={setStart} />
           )}
         </div>
-        <div className="flex items-center justify-center" key="first-to-answer">
+        <div
+          className="z-10 flex items-center justify-center"
+          key="first-to-answer"
+        >
           {quiz.firstToGuess ||
             (!start && (
               <AnnouncementFeedComponent
@@ -206,13 +219,24 @@ export default function QuizGrid() {
           <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
         </Link>
       </div>
-      <div
-        className="absolute right-[50px] bottom-[50px] text-babbleLightGray"
-        onClick={() => {
-          setEditable(!editable);
-        }}
-      >
-        {editable ? <FaPencilAlt /> : <FaPencilAlt className="opacity-50" />}
+      <div className="absolute right-[50px] bottom-[50px] text-babbleLightGray">
+        {editable ? (
+          <div>
+            <button onClick={() => removeItem()}>reset</button>
+            <FaPencilAlt
+              onClick={() => {
+                setEditable(!editable);
+              }}
+            />
+          </div>
+        ) : (
+          <FaPencilAlt
+            className="opacity-30"
+            onClick={() => {
+              setEditable(!editable);
+            }}
+          />
+        )}
       </div>
     </div>
   );

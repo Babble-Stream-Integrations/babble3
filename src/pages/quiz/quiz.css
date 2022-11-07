@@ -1,0 +1,26 @@
+.react-grid-item.react-grid-placeholder {
+  background: var(--platform-color);
+  opacity: 0.4;
+  transition-duration: 100ms;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  content: "";
+  position: absolute;
+  z-index: 20;
+  right: 1px;
+  bottom: 1px;
+  width: 10px;
+  height: 10px;
+  border-right: 4px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 4px solid rgba(255, 255, 255, 0.4);
+}
+
+.react-resizable-hide > .react-resizable-handle {
+  display: none;
+}
