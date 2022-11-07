@@ -12,6 +12,9 @@ import AnnouncementFeedComponent from "../../components/announcementFeedComponen
 import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeComponent";
 import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
+import { Responsive, WidthProvider } from "react-grid-layout";
+import { FaPencilAlt } from "react-icons/fa";
+import "./quiz.css";
 
 export default function Quiz() {
   const [account] = useSessionStorageState("account", {
@@ -48,15 +51,11 @@ export default function Quiz() {
   }));
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
-  const [timeState, setTimeState] = useState({
-    time: 0,
-    initialTime: 0,
-  });
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
     question: "Type your answer in chat, just the letter!",
-    possibilities: [],
+    possibilities: ["a", "b", "c", "d"],
     time: 0,
     rightAnswer: "",
     percentages: [],
@@ -76,10 +75,9 @@ export default function Quiz() {
 
       //give countdown before first question
       socket.on("game-starting", (data) => {
-        setTimeState((prevState) => ({
+        setQuiz((prevState) => ({
           ...prevState,
           time: data.in,
-          initialTime: data.in,
         }));
         //confirm the connection with back-end
         setStart(true);
@@ -95,11 +93,7 @@ export default function Quiz() {
           rightAnswer: "",
           percentages: [],
           questionIndex: data.questionIndex,
-        }));
-        setTimeState((prevState) => ({
-          ...prevState,
           time: data.time,
-          initialTime: data.time,
         }));
       });
 
@@ -125,6 +119,27 @@ export default function Quiz() {
       });
     }
   }, [start]);
+
+  const [layout, setLayout, { removeItem }] = useLocalStorageState(
+    "quizLayout",
+    {
+      defaultValue: {
+        lg: [
+          { i: "chat-component", x: 4, y: 0, w: 6, h: 12 },
+          { i: "timer-component", x: 12, y: 4, w: 8, h: 2 },
+          { i: "quiz-component", x: 12, y: 0, w: 8, h: 8 },
+          { i: "first-to-answer", x: 12, y: 5, w: 8, h: 2 },
+        ],
+      },
+    }
+  );
+
+  const [editable, setEditable] = useState(true);
+
+  const ResponsiveGridLayout = WidthProvider(Responsive);
+
+  const height = window.innerHeight - 20;
+
   return (
     <div className="bg-babbleBlack" data-theme={account.platform}>
       <Link to="/">
@@ -134,11 +149,36 @@ export default function Quiz() {
           </div>
         </div>
       </Link>
-      <div className="z-10 flex h-screen  flex-1 items-center justify-center gap-[50px]">
-        <ChatComponent streamer={streamer} platform={account.platform} />
-        <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
+      <ResponsiveGridLayout
+        layouts={layout}
+        breakpoints={{ lg: 100 }}
+        cols={{ lg: 24 }}
+        rowHeight={height / 12 - 15}
+        isBounded={true}
+        compactType={"vertical"}
+        resizeHandles={["se"]}
+        margin={[15, 15]}
+        isResizable={editable}
+        isDraggable={editable}
+        onLayoutChange={(layout) => {
+          setLayout((prevState) => ({
+            ...prevState,
+            lg: layout,
+          }));
+        }}
+      >
+        <div
+          className="z-10 flex w-[450px] items-center justify-center "
+          key="chat-component"
+        >
+          <ChatComponent streamer={streamer} platform={account.platform} />
+        </div>
+        <div
+          className="z-10 flex w-[570px] justify-center"
+          key="quiz-component"
+        >
           {quiz.results.length >= 1 ? (
-            <ResultsComponent results={quiz.results} />
+            <ResultsComponent key="chat-component" results={quiz.results} />
           ) : (
             <QuizComponent
               questionAmount={
@@ -151,23 +191,56 @@ export default function Quiz() {
               questionIndex={quiz.questionIndex}
             />
           )}
+        </div>
+        <div
+          className="z-10 flex items-center justify-center"
+          key="timer-component"
+        >
           {start ? (
             <TimerComponent
               initialTime={quiz.time}
               questionIndex={quiz.questionIndex}
             />
           ) : (
-            <PlayPauzeComponent setStart={setStart} />
-          )}
-          {quiz.firstToGuess && (
-            <AnnouncementFeedComponent firstToGuess={quiz.firstToGuess} />
+            <PlayPauzeComponent key="timer-component" setStart={setStart} />
           )}
         </div>
-      </div>
+        <div
+          className="z-10 flex items-center justify-center"
+          key="first-to-answer"
+        >
+          {quiz.firstToGuess ||
+            (!start && (
+              <AnnouncementFeedComponent
+                key="first-to-answer"
+                firstToGuess={quiz.firstToGuess}
+              />
+            ))}
+        </div>
+      </ResponsiveGridLayout>
       <div className="absolute left-[50px] bottom-[50px]">
         <Link to="/">
           <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
         </Link>
+      </div>
+      <div className="absolute right-[50px] bottom-[50px] text-babbleLightGray">
+        {editable ? (
+          <div>
+            <button onClick={() => removeItem()}>reset</button>
+            <FaPencilAlt
+              onClick={() => {
+                setEditable(!editable);
+              }}
+            />
+          </div>
+        ) : (
+          <FaPencilAlt
+            className="opacity-30"
+            onClick={() => {
+              setEditable(!editable);
+            }}
+          />
+        )}
       </div>
     </div>
   );
