@@ -70,8 +70,8 @@ export default function ChatComponent(props: {
   }
 
   return (
-    <div className="z-10 h-full w-[450px] overflow-hidden rounded-babble border border-babbleGray p-4 text-babbleWhite ">
-      <div className="z-40 flex h-[40px] items-center justify-between rounded-[15px] bg-gradient-to-tr from-platformDark to-platformLight px-[50px] ">
+    <div className="z-10 h-full w-[450px] overflow-hidden rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-babbleWhite">
+      <div className="z-40 flex h-[40px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[50px] ">
         <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
           <Icon />
           <h1 className="text-md uppercase">{props.streamer.channel}</h1>
@@ -92,7 +92,7 @@ export default function ChatComponent(props: {
             return (
               <div
                 key={index}
-                className="my-4 w-fit rounded-[15px] py-1 px-4 "
+                className="my-4 w-fit rounded-babbleSmall py-1 px-4 "
                 style={{
                   backgroundImage: bg,
                   //if color is black show message in white

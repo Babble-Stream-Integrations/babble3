@@ -10,11 +10,18 @@ module.exports = {
 
     extend: {
       boxShadow: {
-        babble:
+        babbleOuter:
           "3px 3px 4px -1px rgba(0,0,0,0.64), inset 3px 3px 4px -1px rgba(0,0,0,0.64)",
+        babble: "3px 3px 4px -1px rgba(0,0,0,0.64)",
       },
+
+      backdropBlur: {
+        babble: "20px",
+      },
+
       borderRadius: {
         babble: "25px",
+        babbleSmall: "15px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

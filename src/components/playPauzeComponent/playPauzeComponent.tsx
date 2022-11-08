@@ -7,7 +7,7 @@ type Props = {
 
 export default function PlayPauzeComponent({ setStart }: Props) {
   return (
-    <div className="flex w-full max-w-[600px] items-center gap-2 rounded-babble bg-babbleDarkGray p-8 text-3xl text-babbleWhite">
+    <div className="flex h-full w-full items-center gap-2 rounded-babble bg-babbleDarkGray p-8 text-3xl text-babbleWhite">
       <div className="relative flex w-full items-center justify-center  ">
         <h1 className="absolute left-0 whitespace-nowrap text-[20px] font-bold">
           Start game

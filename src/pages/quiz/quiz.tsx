@@ -9,11 +9,10 @@ import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
 import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
-import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeComponent";
 import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { FaPencilAlt } from "react-icons/fa";
+import { FaCog, FaPencilAlt, FaPlay, FaSocks } from "react-icons/fa";
 import "./quiz.css";
 
 export default function Quiz() {
@@ -142,10 +141,10 @@ export default function Quiz() {
             y: 0,
             w: 8,
             h: 7,
-            minW: 6,
-            maxW: 8,
-            minH: 6,
-            maxH: 12,
+            minW: 8,
+            maxW: 12,
+            minH: 7,
+            maxH: 9,
           },
           {
             i: "timer-component",
@@ -153,10 +152,10 @@ export default function Quiz() {
             y: 4,
             w: 8,
             h: 2,
-            minW: 6,
-            maxW: 8,
-            minH: 6,
-            maxH: 12,
+            minW: 8,
+            maxW: 12,
+            minH: 2,
+            maxH: 4,
           },
           {
             i: "first-to-answer",
@@ -164,10 +163,10 @@ export default function Quiz() {
             y: 5,
             w: 8,
             h: 5,
-            minW: 6,
-            maxW: 8,
-            minH: 6,
-            maxH: 12,
+            minW: 8,
+            maxW: 12,
+            minH: 5,
+            maxH: 5,
           },
         ],
       },
@@ -182,16 +181,34 @@ export default function Quiz() {
 
   return (
     <div
-      className="bg-gradient-radial from-[#202024] to-[#0E0E10]"
+      className="[background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
       data-theme={account.platform}
     >
-      <Link to="/">
-        <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
-          <div className="flex h-full items-center justify-center">
-            Quit game
-          </div>
-        </div>
-      </Link>
+      <div className="absolute top-[50px] left-[50px] flex flex-col gap-4 text-[25px] font-[1000] uppercase text-babbleLightGray">
+        <button
+          onClick={() => {
+            setStart(true);
+          }}
+          className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
+        >
+          <FaPlay />
+        </button>
+        <Link to="/settings">
+          <button
+            onClick={() => {
+              setStart(false);
+            }}
+            className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
+          >
+            <FaCog />
+          </button>
+        </Link>
+        <Link to="/">
+          <button className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
+            <FaSocks />
+          </button>
+        </Link>
+      </div>
       <ResponsiveGridLayout
         layouts={layout}
         breakpoints={{ lg: 100 }}
@@ -204,7 +221,6 @@ export default function Quiz() {
         isResizable={editable && !start}
         isDraggable={editable && !start}
         onLayoutChange={(layout: Layout[]) => {
-          console.log(layout);
           setLayout((prevState) => ({
             ...prevState,
             lg: layout,

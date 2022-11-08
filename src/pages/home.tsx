@@ -67,7 +67,7 @@ export default function Login() {
         <h1 className="animate-fade-in-up-1 pb-[25px] text-center text-5xl font-normal text-babbleWhite">
           Main menu
         </h1>
-        <div className="flex animate-fade-in-up-2 items-center justify-center gap-4 py-2 pb-[25px] text-[#A8A8A8]">
+        <div className="animate-fade-in-up-2 flex items-center justify-center gap-4 py-2 pb-[25px] text-[#A8A8A8]">
           <img
             src={session.avatar}
             className="h-10 w-10 rounded-full shadow-babble"
@@ -109,7 +109,7 @@ export default function Login() {
                   onChange={() => buttonClicked(options.nav)}
                 />
                 <div
-                  className={`group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleGray/5 text-white shadow-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite animate-fade-in-up-${number}`}
+                  className={`group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite animate-fade-in-up-${number}`}
                 >
                   <div className="z-10 pl-8">{options.icon}</div>
                   <div className="z-10 flex w-full justify-center text-xl">

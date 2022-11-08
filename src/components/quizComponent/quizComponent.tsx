@@ -1,4 +1,3 @@
-import { ImCheckmark } from "react-icons/im";
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
@@ -34,32 +33,32 @@ export default function QuizComponent(quiz: QuizComponentData) {
   //check what answer is correct, and if it is correct, show the checkmark
   function rightAnswer(answer: string, rightAnswer: string) {
     if (rightAnswer === "") {
-      return "hidden";
+      return "#E6E6E6";
     } else if (answer === rightAnswer) {
-      return "visible";
+      return "#1D981D";
     } else {
-      return "hidden";
+      return "#D22A2A";
     }
   }
 
   return (
     // display the question and answers
-    <div className="relative h-full w-full max-w-[600px]">
+    <div className="relative h-full w-full max-w-[600px] rounded-babble border border-babbleGray bg-babbleGray/5 p-4 backdrop-blur-babble">
       <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-2/6 flex-col items-center justify-between rounded-t-3xl bg-babbleDarkGray pt-4 pb-2 text-[10rem]">
+        <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray pt-4 pb-2 text-[10rem] shadow-babble backdrop-blur-babble">
           <div className="h-4/6 px-4 pb-2">
             <AutoTextSize
               multiline={true}
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex h-2/6 w-full justify-evenly  pt-1">
+          <div className="flex h-2/6 w-full justify-evenly bg-babbleDarkerGray pt-1">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
                 key={i}
                 //if the current question is the same as the row number, color it
-                className={`flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-platformDark to-platformLight text-sm  ${
+                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleDarkerGray from-platformDark to-platformLight text-sm  ${
                   quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
                 }`}
               >
@@ -74,10 +73,10 @@ export default function QuizComponent(quiz: QuizComponentData) {
           return (
             <div
               key={index}
-              className="relative flex h-1/6 items-center overflow-hidden rounded-lg rounded-bl-3xl bg-babbleDarkGray text-center"
+              className="relative flex h-1/6 items-center overflow-hidden rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
             >
               <div
-                className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic text-white"
+                className="absolute z-0 flex h-full min-w-[80px] items-center rounded-l-babbleSmall p-4 pl-7 text-left font-[1000] italic text-white"
                 style={{
                   width: width(index, quiz.percentages),
                   backgroundImage: color(letter),
@@ -89,23 +88,18 @@ export default function QuizComponent(quiz: QuizComponentData) {
                 className="z-10 w-full pl-20 text-[20px]"
                 dangerouslySetInnerHTML={{ __html: answer }}
               />
+              <div
+                className="ml-4 h-full w-4 "
+                style={{
+                  backgroundColor: rightAnswer(answer, quiz.rightAnswer),
+                }}
+              ></div>
             </div>
           );
         })}
 
         <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
           <div className="h-2/6  pb-6" />
-          {quiz.answers.map((answer, index) => {
-            return (
-              <div
-                key={index}
-                className=" flex h-1/6 w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
-                style={{ visibility: rightAnswer(answer, quiz.rightAnswer) }}
-              >
-                <ImCheckmark />
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

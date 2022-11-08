@@ -18,7 +18,7 @@ export default function Settings() {
         <div className="pt-[30px]">
           <button
             onClick={() => {
-              navigate("/");
+              navigate(-1);
             }}
             className="rounded-xl bg-babbleLightGray px-10 py-4 text-xl font-bold uppercase text-babbleBlack"
           >
