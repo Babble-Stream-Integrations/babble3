@@ -9,7 +9,7 @@ type Props = {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 };
 export default function TwitchChat({ streamer, messages, setMessages }: Props) {
-  //get username color if not set
+  //get displayname color if not set
   const default_colors = [
     ["Red", "#FF0000"],
     ["Blue", "#0000FF"],
@@ -63,9 +63,10 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
       const htmlBadges = parsedBadges.toHtml();
       const color = generateColor(tags["display-name"], tags["color"]);
       const newMessage = {
-        username: `${htmlBadges} ${tags["display-name"]}`,
+        displayname: `${htmlBadges} ${tags["display-name"]}`,
         message: `${htmlMessage}`,
         color: color,
+        username: `${tags["display-name"]}`,
       };
       setMessages((messages) => [...messages, newMessage]);
     });

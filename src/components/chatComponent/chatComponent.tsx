@@ -54,11 +54,15 @@ export default function ChatComponent(props: {
     });
   }
 
-  function color(name: string, announcement: string[]) {
-    const name2 = `<img src="https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/1" alt="Broadcaster" /> babble3bot`;
-    console.log(name);
-    const announcementNames = announcement.map((name) => name.toLowerCase());
-    if (name2.includes(name)) {
+  function color(name: string, streamer: string, announcement: string[]) {
+    if (name === streamer) {
+      return hexToHSLGradient("#FDC74C", "right", "1", "darker");
+    } else if (
+      //map over announcement array and check if name is in array
+      announcement
+        .map((item) => item.toLowerCase())
+        .includes(name.toLowerCase())
+    ) {
       return hexToHSLGradient("#FDC74C", "right", "1", "darker");
     } else {
       return "linear-gradient(to right, hsl(0, 0%, 0%) , 1%, hsl(0, 0%, 0%)";
@@ -80,22 +84,24 @@ export default function ChatComponent(props: {
       <div className="relative h-full overflow-hidden pt-[50px]">
         <div className="absolute bottom-[50px] z-10">
           {messages.map((message, index) => {
+            const bg = color(
+              message.username,
+              props.streamer.channel,
+              props.announcement
+            );
             return (
               <div
                 key={index}
                 className="my-4 w-fit rounded-[15px] py-1 px-4 "
                 style={{
-                  backgroundImage: color(message.username, props.announcement),
+                  backgroundImage: bg,
                   //if color is black show message in white
-                  color:
-                    color(message.username, props.announcement) === "black"
-                      ? message.color
-                      : "babbleWhite",
+                  color: bg === "black" ? message.color : "babbleWhite",
                 }}
               >
                 <span
                   className="w-full font-bold"
-                  dangerouslySetInnerHTML={{ __html: message.username }}
+                  dangerouslySetInnerHTML={{ __html: message.displayname }}
                 />
                 :{" "}
                 <span
