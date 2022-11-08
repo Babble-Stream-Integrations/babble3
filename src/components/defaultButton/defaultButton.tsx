@@ -3,19 +3,14 @@ import { useState } from "react";
 type ButtonProps = {
   text: string;
   buttonClick: () => void;
-  animation: string;
 };
 
-export const DefaultButton = ({
-  text,
-  buttonClick,
-  animation,
-}: ButtonProps) => {
+export const DefaultButton = ({ text, buttonClick }: ButtonProps) => {
   const [loading, setLoading] = useState(false);
 
   return (
     <button
-      className={`h-[50px] min-w-[200px] cursor-pointer rounded-full bg-babbleLightGray py-[14px] px-[44px] transition duration-300 hover:opacity-80 ${animation}`}
+      className="h-[50px] min-w-[200px] cursor-pointer rounded-full bg-babbleLightGray py-[14px] px-[44px] transition duration-300 hover:opacity-80"
       onClick={() => {
         setLoading(true);
         buttonClick();
