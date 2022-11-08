@@ -4,7 +4,6 @@ import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
-import TimerComponent from "../../components/timerComponent/timerComponent";
 import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
 import { appConfig } from "../../config/app";
@@ -12,8 +11,9 @@ import AnnouncementFeedComponent from "../../components/announcementFeedComponen
 import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { FaCog, FaPencilAlt, FaPlay, FaSocks } from "react-icons/fa";
+import { FaBars, FaCog, FaPencilAlt, FaPlay, FaSocks } from "react-icons/fa";
 import "./quiz.css";
+import { quizLayout } from "./quizLayout";
 
 export default function Quiz() {
   const [account] = useSessionStorageState("account", {
@@ -50,6 +50,7 @@ export default function Quiz() {
   }));
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
+  const [menu, setMenu] = useState(false);
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
@@ -122,54 +123,7 @@ export default function Quiz() {
   const [layout, setLayout, { removeItem }] = useLocalStorageState(
     "quizLayout",
     {
-      defaultValue: {
-        lg: [
-          {
-            i: "chat-component",
-            x: 4,
-            y: 0,
-            w: 6,
-            h: 12,
-            minW: 6,
-            maxW: 8,
-            minH: 6,
-            maxH: 12,
-          },
-          {
-            i: "quiz-component",
-            x: 12,
-            y: 0,
-            w: 8,
-            h: 7,
-            minW: 8,
-            maxW: 12,
-            minH: 7,
-            maxH: 9,
-          },
-          {
-            i: "timer-component",
-            x: 12,
-            y: 4,
-            w: 8,
-            h: 2,
-            minW: 8,
-            maxW: 12,
-            minH: 2,
-            maxH: 4,
-          },
-          {
-            i: "first-to-answer",
-            x: 12,
-            y: 5,
-            w: 8,
-            h: 5,
-            minW: 8,
-            maxW: 12,
-            minH: 5,
-            maxH: 5,
-          },
-        ],
-      },
+      defaultValue: quizLayout,
     }
   );
 
@@ -181,35 +135,66 @@ export default function Quiz() {
 
   return (
     <div
-      className="[background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
+      className="overflow-hidden [background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
       data-theme={account.platform}
     >
-      <div className="absolute top-[50px] left-[50px] flex flex-col gap-4 text-[25px] font-[1000] uppercase text-babbleLightGray">
-        <button
-          onClick={() => {
-            setStart(true);
-          }}
-          className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
-        >
-          <FaPlay />
-        </button>
-        <Link to="/settings">
+      <button
+        className="absolute z-40 flex w-min items-center rounded-babbleSmall  p-2 text-babbleGray/50 hover:text-babbleWhite"
+        onClick={() => setMenu(!menu)}
+      >
+        <FaBars />
+      </button>
+      {menu && (
+        <div className="absolute top-[50px] left-[50px] z-40 flex flex-col gap-4 text-[25px] font-[1000] uppercase text-babbleLightGray">
+          {/* create menu button */}
           <button
             onClick={() => {
-              setStart(false);
+              setStart(true);
             }}
             className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
           >
-            <FaCog />
+            <FaPlay />
           </button>
-        </Link>
-        <Link to="/">
-          <button className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
-            <FaSocks />
+          <Link to="/settings">
+            <button
+              onClick={() => {
+                setStart(false);
+              }}
+              className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
+            >
+              <FaCog />
+            </button>
+          </Link>
+          <Link to="/">
+            <button className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
+              <FaSocks />
+            </button>
+          </Link>
+          <button className=" flex h-[100px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
+            {editable && !start ? (
+              <div className="flex flex-col items-center justify-evenly gap-2">
+                <FaPencilAlt
+                  onClick={() => {
+                    setEditable(!editable);
+                  }}
+                />
+                <button className="text-sm" onClick={() => removeItem()}>
+                  reset
+                </button>
+              </div>
+            ) : (
+              <FaPencilAlt
+                className="opacity-30"
+                onClick={() => {
+                  setEditable(!editable);
+                }}
+              />
+            )}{" "}
           </button>
-        </Link>
-      </div>
+        </div>
+      )}
       <ResponsiveGridLayout
+        className="overflow-hidden"
         layouts={layout}
         breakpoints={{ lg: 100 }}
         cols={{ lg: 24 }}
@@ -282,29 +267,10 @@ export default function Quiz() {
             ))}
         </div>
       </ResponsiveGridLayout>
-      <div className="absolute left-[50px] bottom-[50px]">
+      <div className="absolute left-[50px] bottom-[50px] z-50">
         <Link to="/">
           <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
         </Link>
-      </div>
-      <div className="absolute right-[50px] bottom-[50px] text-babbleLightGray">
-        {editable && !start ? (
-          <div>
-            <button onClick={() => removeItem()}>reset</button>
-            <FaPencilAlt
-              onClick={() => {
-                setEditable(!editable);
-              }}
-            />
-          </div>
-        ) : (
-          <FaPencilAlt
-            className="opacity-30"
-            onClick={() => {
-              setEditable(!editable);
-            }}
-          />
-        )}
       </div>
     </div>
   );
