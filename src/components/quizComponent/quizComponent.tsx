@@ -7,9 +7,9 @@ export default function QuizComponent(quiz: QuizComponentData) {
   // calculate width based on the percentage of people that gave that answer
   function width(index: number, percentages: Percentages[]) {
     if (percentages[index] === undefined) {
-      return 0;
+      return "0%";
     } else {
-      return `${percentages[index].percentage + 10}%`;
+      return `${percentages[index].percentage + 100}%`;
     }
   }
 
@@ -43,7 +43,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
 
   return (
     // display the question and answers
-    <div className="relative h-full w-full max-w-[600px] rounded-babble border border-babbleGray bg-babbleGray/5 p-4 backdrop-blur-babble">
+    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleGray/5 p-4 backdrop-blur-babble">
       <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
         <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray pt-4 pb-2 text-[10rem] shadow-babble backdrop-blur-babble">
           <div className="h-4/6 px-4 pb-2">
@@ -76,7 +76,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
               className="relative flex h-1/6 items-center overflow-hidden rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
             >
               <div
-                className="absolute z-0 flex h-full min-w-[80px] items-center rounded-l-babbleSmall p-4 pl-7 text-left font-[1000] italic text-white"
+                className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall p-4 pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
                 style={{
                   width: width(index, quiz.percentages),
                   backgroundImage: color(letter),
@@ -89,7 +89,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
                 dangerouslySetInnerHTML={{ __html: answer }}
               />
               <div
-                className="ml-4 h-full w-4 "
+                className="z-10 h-full w-4 "
                 style={{
                   backgroundColor: rightAnswer(answer, quiz.rightAnswer),
                 }}
@@ -97,10 +97,6 @@ export default function QuizComponent(quiz: QuizComponentData) {
             </div>
           );
         })}
-
-        <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
-          <div className="h-2/6  pb-6" />
-        </div>
       </div>
     </div>
   );

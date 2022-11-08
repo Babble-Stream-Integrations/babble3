@@ -8,6 +8,7 @@ import { ImTwitch, ImYoutube } from "react-icons/im";
 import { IoLogoTiktok } from "react-icons/io5";
 import { Message, Streamer } from "../../types";
 import hexToHSLGradient from "../quizComponent/hexToHSLGradient";
+import { AutoTextSize } from "auto-text-size";
 
 export default function ChatComponent(props: {
   streamer: Streamer;
@@ -70,14 +71,23 @@ export default function ChatComponent(props: {
   }
 
   return (
-    <div className="z-10 h-full w-[450px] overflow-hidden rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-babbleWhite">
-      <div className="z-40 flex h-[40px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[50px] ">
+    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleDarkerGray/5 p-4 text-babbleWhite backdrop-blur-babble  ">
+      <div className="z-40 flex h-[40px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
         <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
           <Icon />
-          <h1 className="text-md uppercase">{props.streamer.channel}</h1>
+          <div className="w-max pl-2 pr-4 text-left">
+            <AutoTextSize
+              dangerouslySetInnerHTML={{ __html: props.streamer.channel }}
+            />
+          </div>
         </div>
-        <div className=" flex items-center justify-end gap-2 font-bold">
-          <FaUserAlt /> <h2 className="text-md">{viewCount}</h2>
+        <div className="flex items-center justify-end gap-2 font-bold">
+          <FaUserAlt />{" "}
+          <h2 className="text-md">
+            {new Intl.NumberFormat("en", { notation: "compact" }).format(
+              Number(viewCount)
+            )}
+          </h2>
         </div>
       </div>
 
