@@ -5,7 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
 import TimerComponent from "../../components/timerComponent/timerComponent";
-import { QuizBackend, Streamer, TriviaSettings } from "../../types";
+import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
 import logo from "../../assets/logo-small.png";
 import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
@@ -125,10 +125,50 @@ export default function Quiz() {
     {
       defaultValue: {
         lg: [
-          { i: "chat-component", x: 4, y: 0, w: 6, h: 12 },
-          { i: "timer-component", x: 12, y: 4, w: 8, h: 2 },
-          { i: "quiz-component", x: 12, y: 0, w: 8, h: 8 },
-          { i: "first-to-answer", x: 12, y: 5, w: 8, h: 2 },
+          {
+            i: "chat-component",
+            x: 4,
+            y: 0,
+            w: 6,
+            h: 12,
+            minW: 6,
+            maxW: 8,
+            minH: 6,
+            maxH: 12,
+          },
+          {
+            i: "quiz-component",
+            x: 12,
+            y: 0,
+            w: 8,
+            h: 7,
+            minW: 6,
+            maxW: 8,
+            minH: 6,
+            maxH: 12,
+          },
+          {
+            i: "timer-component",
+            x: 12,
+            y: 4,
+            w: 8,
+            h: 2,
+            minW: 6,
+            maxW: 8,
+            minH: 6,
+            maxH: 12,
+          },
+          {
+            i: "first-to-answer",
+            x: 12,
+            y: 5,
+            w: 8,
+            h: 5,
+            minW: 6,
+            maxW: 8,
+            minH: 6,
+            maxH: 12,
+          },
         ],
       },
     }
@@ -141,7 +181,10 @@ export default function Quiz() {
   const height = window.innerHeight - 20;
 
   return (
-    <div className="bg-babbleBlack" data-theme={account.platform}>
+    <div
+      className="bg-gradient-radial from-[#202024] to-[#0E0E10]"
+      data-theme={account.platform}
+    >
       <Link to="/">
         <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
           <div className="flex h-full items-center justify-center">
@@ -158,9 +201,10 @@ export default function Quiz() {
         compactType={"vertical"}
         resizeHandles={["se"]}
         margin={[15, 15]}
-        isResizable={editable}
-        isDraggable={editable}
-        onLayoutChange={(layout) => {
+        isResizable={editable && !start}
+        isDraggable={editable && !start}
+        onLayoutChange={(layout: Layout[]) => {
+          console.log(layout);
           setLayout((prevState) => ({
             ...prevState,
             lg: layout,
@@ -196,7 +240,7 @@ export default function Quiz() {
             />
           )}
         </div>
-        <div
+        {/* <div
           className="z-10 flex items-center justify-center"
           key="timer-component"
         >
@@ -208,7 +252,7 @@ export default function Quiz() {
           ) : (
             <PlayPauzeComponent key="timer-component" setStart={setStart} />
           )}
-        </div>
+        </div> */}
         <div
           className="z-10 flex items-center justify-center"
           key="first-to-answer"
@@ -228,7 +272,7 @@ export default function Quiz() {
         </Link>
       </div>
       <div className="absolute right-[50px] bottom-[50px] text-babbleLightGray">
-        {editable ? (
+        {editable && !start ? (
           <div>
             <button onClick={() => removeItem()}>reset</button>
             <FaPencilAlt

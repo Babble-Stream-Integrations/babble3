@@ -1,8 +1,9 @@
 //type for chat
 export type Message = {
-  username: string;
+  displayname: string;
   message: string;
   color: string | undefined;
+  username: string;
 };
 
 //type for streamer info
@@ -69,6 +70,21 @@ export type TimeProp = {
 
 export type Colors = {
   [key: string]: string;
+};
+
+export type Layout = {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  minW: number;
+  minH: number;
+  maxW: number;
+  maxH: number;
+  isDraggable: boolean;
+  isResizable: boolean;
+  static: boolean;
 };
 
 export type HandleChange =
