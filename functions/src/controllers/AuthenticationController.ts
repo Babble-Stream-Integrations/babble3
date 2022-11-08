@@ -1,5 +1,6 @@
 // Import config
 import { twitchApplication } from "../config/twitch";
+import { youtubeConfig } from "../config/youtube";
 import { appConfig } from "../config/app";
 
 // Import scope parser utility
@@ -24,6 +25,8 @@ import {
 // Import Axios
 import axios from "axios";
 import { generateToken } from "../utilities/tokenGenerator";
+import { YoutubeToken } from "../types/oAuth2/YoutubeToken";
+import { YoutubeProfile } from "../types/oAuth2/YoutubeProfile";
 
 /**
  * Retrieve dynamic oAuth2 link for both platforms
@@ -44,8 +47,11 @@ export const getRedirectionUrl = (req: any, res: any) => {
   }
 
   // Generate redirection URL for Google
-  if (req.params.platform === "google") {
-    url = "todo-google-redirect-url";
+  if (req.params.platform === "youtube") {
+    url = `https://accounts.google.com/o/oauth2/v2/auth?scope=${youtubeConfig.scope}
+    &redirect_uri=${youtubeConfig.callbackUrl}
+    &response_type=token
+    &client_id=${youtubeConfig.clientId}`;
   }
 
   // Return redirection URL
@@ -174,5 +180,96 @@ const handleTwitchCallback = (req: any, res: any) => {
 };
 
 const handleGoogleCallback = (req: any, res: any) => {
-  // TODO: Handle Google oAuth2 callback
+  axios.post(`https://oauth2.googleapis.com/token?client_id=${youtubeConfig.clientId}&client_secret=${youtubeConfig.clientSecret}&code=${req.query.code}&grant_type=authorization_code&redirect_uri=${youtubeConfig.callbackUrl}`)
+  .then((response) => {
+    const token: YoutubeToken = {
+      accessToken: response.data.access_token,
+      expiresIn: response.data.expires_in,
+      refreshToken: response.data.refresh_token,
+      tokenType: response.data.token_type,
+      babbleToken: generateToken() 
+    }
+    
+    axios.get(`https://www.googleapis.com/youtube/v3/channels?access_token=${token.accessToken}&part=snippet&mine=true`)
+    .then((response) => {
+      const userData = response.data.items[0];
+      axios.get("https://www.googleapis.com/oauth2/v1/userinfo", {
+        headers: {
+          Authorization: "Bearer " + token.accessToken
+        }
+      }).then(async (response) => {
+        const profile: YoutubeProfile = {
+          uid: userData.id,
+          username: userData.snippet.title,
+          displayName: response.data.given_name,
+          email: response.data.email,
+          avatar: userData.snippet.thumbnails.default.url,
+          platform: req.params.platform.toLowerCase(),
+        };
+        console.log(profile)
+        const accountDocument: AccountDocument = {
+          ...profile,
+          token: token,
+        };
+
+        // Store the profile and token in FireStore
+        const snapshot = collection(firestore, "accounts");
+        const accountReference = doc(snapshot);
+
+        const redirectUrl = new URL(appConfig.webApp.authEndpoint);
+
+        // Append all profile variables to the searchParams
+        Object.entries(profile).forEach((entry) => {
+          const [key, value] = entry;
+          redirectUrl.searchParams.append(key, value);
+        });
+
+        redirectUrl.searchParams.append("babbleToken", token.babbleToken);
+
+        // Create account document, updating it if it already exists
+        const accountsCollection = collection(firestore, "accounts");
+        const accountsQuery = query(
+          accountsCollection,
+          where("platform", "==", profile.platform),
+          where("uid", "==", profile.uid)
+        );
+
+        const results = await getDocs(accountsQuery);
+
+        if (results.empty === false) {
+          // Account already exists, lets update it and then redirect
+
+          const accountDocumentId = results.docs[0].id;
+          const documentReference = doc(
+            firestore,
+            "accounts",
+            accountDocumentId
+          );
+
+          // Merge the new information with the existing document
+          setDoc(
+            documentReference,
+            {
+              ...accountDocument,
+            },
+            {
+              merge: true,
+            }
+          ).then(() => {
+            // Redirect back to the front-end application
+            res.redirect(redirectUrl);
+          });
+
+          return;
+        } else {
+          // Account does not yet exist, lets create it before redirecting
+
+          await setDoc(accountReference, accountDocument).then(() => {
+            // Redirect back to the front-end application
+            res.redirect(redirectUrl);
+          });
+        }
+      })
+    })
+  })
 };

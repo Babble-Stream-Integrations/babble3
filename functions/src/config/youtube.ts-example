@@ -1,3 +1,7 @@
 export const youtubeConfig = {
   apiKey: "",
+  callbackUrl: "",
+  clientId: "",
+  scope: "",
+  clientSecret: ""
 };
