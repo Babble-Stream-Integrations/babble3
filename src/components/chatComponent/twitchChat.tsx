@@ -71,6 +71,15 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
       setMessages((messages) => [...messages, newMessage]);
     });
   }, []);
+  //check if a message is deleted by a mod
+  client.on("messagedeleted", (deletedMessage: string) => {
+    // filter all messages to check if deletedMessage is there
+    const newMessages = messages.filter((message) => {
+      return message.message !== deletedMessage;
+    });
+    console.log(newMessages);
+    setMessages(newMessages);
+  });
 
   //remove first message if there are more than 30 messages
   useEffect(() => {
