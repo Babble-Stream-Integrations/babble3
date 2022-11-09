@@ -58,7 +58,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
               <div
                 key={i}
                 //if the current question is the same as the row number, color it
-                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleDarkerGray from-platformDark to-platformLight text-sm  ${
+                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleDarkerGray from-platformDark to-platformLight text-sm ${
                   quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
                 }`}
               >

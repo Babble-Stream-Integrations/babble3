@@ -21,7 +21,7 @@ export default async function TwitchViewCount({
         setViewCount(res.data.count.toString());
       } catch (error) {
         clearInterval(interval);
-        setViewCount("Offline");
+        setViewCount("0");
       }
     }, 1000);
     //repeat call every 30 seconds

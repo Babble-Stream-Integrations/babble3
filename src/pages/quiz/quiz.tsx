@@ -11,9 +11,17 @@ import AnnouncementFeedComponent from "../../components/announcementFeedComponen
 import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { FaBars, FaCog, FaPencilAlt, FaPlay, FaSocks } from "react-icons/fa";
+import {
+  FaBars,
+  FaCog,
+  FaHome,
+  FaPencilAlt,
+  FaPlay,
+  FaRedo,
+} from "react-icons/fa";
 import "./quiz.css";
 import { quizLayout } from "./quizLayout";
+import { motion } from "framer-motion";
 
 export default function Quiz() {
   const [account] = useSessionStorageState("account", {
@@ -127,19 +135,31 @@ export default function Quiz() {
     }
   );
 
-  const [editable, setEditable] = useState(true);
+  const [editable, setEditable] = useState(false);
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
 
   const height = window.innerHeight - 20;
 
   return (
-    <div
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+      whileInView={{
+        opacity: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
       className="overflow-hidden [background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
       data-theme={account.platform}
     >
       <button
-        className="absolute z-40 flex w-min items-center rounded-babbleSmall  p-2 text-babbleGray/50 hover:text-babbleWhite"
+        className="absolute z-40 flex w-min items-center rounded-babbleSmall p-4 text-xl text-babbleGray/50 transition duration-300 hover:text-babbleWhite"
         onClick={() => setMenu(!menu)}
       >
         <FaBars />
@@ -151,7 +171,7 @@ export default function Quiz() {
             onClick={() => {
               setStart(true);
             }}
-            className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
+            className="flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
           >
             <FaPlay />
           </button>
@@ -160,17 +180,17 @@ export default function Quiz() {
               onClick={() => {
                 setStart(false);
               }}
-              className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
+              className="flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble"
             >
               <FaCog />
             </button>
           </Link>
           <Link to="/">
-            <button className=" flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
-              <FaSocks />
+            <button className="flex h-[75px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
+              <FaHome />
             </button>
           </Link>
-          <button className=" flex h-[100px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
+          <button className="flex h-[100px] w-[75px] items-center justify-center whitespace-nowrap rounded-babble border border-babbleGray bg-babbleDarkerGray p-4 backdrop-blur-babble">
             {editable && !start ? (
               <div className="flex flex-col items-center justify-evenly gap-2">
                 <FaPencilAlt
@@ -178,9 +198,7 @@ export default function Quiz() {
                     setEditable(!editable);
                   }}
                 />
-                <button className="text-sm" onClick={() => removeItem()}>
-                  reset
-                </button>
+                <FaRedo onClick={() => removeItem()} />
               </div>
             ) : (
               <FaPencilAlt
@@ -272,6 +290,6 @@ export default function Quiz() {
           <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }

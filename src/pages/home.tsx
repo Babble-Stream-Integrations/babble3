@@ -66,14 +66,12 @@ export default function Login() {
     <div className=" overflow-hidden">
       <motion.div
         initial={{
-          y: 50,
           opacity: 0,
         }}
         transition={{
-          duration: 1.25,
+          duration: 1,
         }}
         whileInView={{
-          y: 0,
           opacity: 1,
         }}
         viewport={{
@@ -142,7 +140,7 @@ export default function Login() {
             </button>
           </motion.div>
           {menuOpen && (
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-center">
               <button onClick={() => signOut()}>
                 <p className="text-xl italic text-[#A8A8A8] underline underline-offset-4">
                   Sign out
