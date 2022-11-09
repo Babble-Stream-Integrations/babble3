@@ -9,7 +9,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
     if (percentages[index] === undefined) {
       return "0%";
     } else {
-      return `${percentages[index].percentage + 100}%`;
+      return `${percentages[index].percentage + 10}%`;
     }
   }
 
