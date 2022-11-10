@@ -1,5 +1,5 @@
 import { ImTwitch, ImYoutube } from "react-icons/im";
-//import { IoLogoTiktok } from "react-icons/io5";
+// import { IoLogoTiktok } from "react-icons/io5";
 import { useState } from "react";
 import { DefaultButton } from "../components/defaultButton/defaultButton";
 import { motion } from "framer-motion";
@@ -25,10 +25,10 @@ export default function Login() {
       platform: "twitch",
       icon: <ImTwitch size={50} />,
     },
-    //    {
-    //      platform: "tiktok",
-    //      icon: <IoLogoTiktok size={50} />,
-    //    },
+    // {
+    //   platform: "tiktok",
+    //   icon: <IoLogoTiktok size={50} />,
+    // },
   ];
 
   return (
