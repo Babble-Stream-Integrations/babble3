@@ -23,17 +23,6 @@ export const quizLayout = {
       maxH: 9,
     },
     {
-      i: "timer-component",
-      x: 12,
-      y: 4,
-      w: 8,
-      h: 2,
-      minW: 6,
-      maxW: 12,
-      minH: 2,
-      maxH: 4,
-    },
-    {
       i: "first-to-answer",
       x: 12,
       y: 5,

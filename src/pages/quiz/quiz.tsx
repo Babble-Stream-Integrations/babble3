@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
@@ -10,7 +10,7 @@ import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import useSessionStorageState from "use-session-storage-state";
 import ResultsComponent from "../../components/resultsComponent/resultsComponent";
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import {
   FaBars,
   FaCog,
@@ -137,8 +137,6 @@ export default function Quiz() {
 
   const [editable, setEditable] = useState(false);
 
-  const ResponsiveGridLayout = WidthProvider(Responsive);
-
   const height = window.innerHeight - 20;
 
   return (
@@ -213,6 +211,7 @@ export default function Quiz() {
       )}
       <ResponsiveGridLayout
         className="overflow-hidden"
+        width={window.innerWidth}
         layouts={layout}
         breakpoints={{ lg: 100 }}
         cols={{ lg: 24 }}
