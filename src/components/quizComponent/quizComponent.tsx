@@ -1,7 +1,7 @@
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
-import hexToHSLGradient from "./hexToHSLGradient";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { useMemo } from "react";
 import TimerComponent from "../timerComponent/timerComponent";
 
@@ -49,7 +49,7 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   return (
     // display the question and answers
     <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 backdrop-blur-babble">
-      <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
+      <div className="flex h-full flex-col gap-[10px] text-center text-[30px] font-[500] text-babbleWhite">
         <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray text-[10rem] shadow-babble backdrop-blur-babble">
           <div className="h-3/6 px-4">
             <AutoTextSize
@@ -83,10 +83,10 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
           return (
             <div
               key={index}
-              className="relative flex h-1/6 items-center overflow-hidden rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
+              className="relative flex h-1/6 items-center rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
             >
               <div
-                className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall p-4 pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
+                className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
                 style={{
                   width: width(index, quiz.percentages),
                   backgroundImage: Color(letter),
@@ -96,13 +96,13 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
               </div>
               <div className="z-10 ml-20 w-full max-w-full justify-center text-center ">
                 <AutoTextSize
-                  multiline={false}
+                  multiline={true}
                   maxFontSizePx={20}
                   dangerouslySetInnerHTML={{ __html: answer }}
                 />
               </div>
               <div
-                className="z-10 h-full w-4 "
+                className="z-10 h-full w-4 rounded-r-babbleSmall shadow-babble backdrop-blur-babble"
                 style={{
                   backgroundColor: rightAnswer(answer, quiz.rightAnswer),
                 }}

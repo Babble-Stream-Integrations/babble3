@@ -109,9 +109,9 @@ export default function Quiz() {
           ...prevState,
           rightAnswer: data.rightAnswer,
           percentages: data.percentages,
-          announcement: {
-            mostPoints: data.mostPoints,
-            mostPointsAmount: data.mostPointsAmount,
+          announcements: {
+            mostPoints: data.mostPoints.username,
+            mostPointsAmount: data.mostPoints.points,
             firstToGuess: data.firstToGuess,
             onStreak: data.contestantStreaks[0].username,
             onStreakAmount: data.contestantStreaks[0].currentStreak,
@@ -221,7 +221,7 @@ export default function Quiz() {
           <ChatComponent
             streamer={streamer}
             platform={account.platform}
-            announcement={[quiz.announcements.firstToGuess]}
+            announcements={quiz.announcements}
           />
         </div>
         <div

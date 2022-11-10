@@ -2,9 +2,9 @@ export const quizLayout = {
   lg: [
     {
       i: "chat-component",
-      x: 5,
+      x: 4,
       y: 0,
-      w: 6,
+      w: 7,
       h: 12,
       minW: 6,
       maxW: 10,
@@ -15,7 +15,7 @@ export const quizLayout = {
       i: "quiz-component",
       x: 11,
       y: 0,
-      w: 8,
+      w: 9,
       h: 8,
       minW: 6,
       maxW: 12,
@@ -25,8 +25,8 @@ export const quizLayout = {
     {
       i: "first-to-answer",
       x: 11,
-      y: 5,
-      w: 8,
+      y: 8,
+      w: 9,
       h: 4,
       minW: 6,
       maxW: 12,

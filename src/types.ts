@@ -38,8 +38,8 @@ export type Results = {
 
 export type Announcements = {
   mostPoints: string;
-  firstToGuess: string;
   mostPointsAmount: number;
+  firstToGuess: string;
   onStreak: string;
   onStreakAmount: number;
 };
