@@ -76,9 +76,9 @@ export default function ChatComponent({
   }
 
   return (
-    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleDarkerGray/5 p-4 text-babbleWhite backdrop-blur-babble  ">
-      <div className="z-40 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
-        <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
+    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble">
+      <div className="z-40 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[12%] ">
+        <div className="relative flex items-center justify-end gap-0.5 text-[18px] font-normal uppercase">
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
@@ -103,7 +103,7 @@ export default function ChatComponent({
             return (
               <div
                 key={index}
-                className="my-4 w-fit rounded-babbleSmall py-1 px-4 "
+                className="my-4 w-fit rounded-babbleSmall py-1 px-4"
                 style={{
                   backgroundImage: bg,
                   //if color is black show message in white

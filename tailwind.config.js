@@ -29,7 +29,7 @@ module.exports = {
       //add default babble colors
       colors: {
         //greys
-        babbleBlack: "#0E0E10",
+        babbleBlack: "#141416",
         babbleDarkerGray: "#1A1A1D",
         babbleDarkGray: "#212125",
         babbleGray: "#A8A8A8",
