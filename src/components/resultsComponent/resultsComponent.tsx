@@ -1,5 +1,4 @@
 export default function resultsComponent(results: any) {
-  console.log(results);
   return (
     <div className=" w-[570px] ">
       <div className="flex flex-col gap-[10px] overflow-hidden text-center font-[500] text-babbleWhite">

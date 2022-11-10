@@ -33,7 +33,7 @@ export default function Quiz() {
       defaultValue: {
         channel: streamer.channel,
         startAfter: 6,
-        questionAmount: 9,
+        questionAmount: 10,
         timePerQuestion: 30,
         timeInBetween: 8,
         eliminations: false,

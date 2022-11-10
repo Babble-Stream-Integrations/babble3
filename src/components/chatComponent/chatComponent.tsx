@@ -64,20 +64,17 @@ export default function ChatComponent({
 
   function color(
     name: string,
-    announcements: Announcements,
-    twitchColor: string
+    announcements: Announcements
+    // twitchColor: string
   ) {
     let chatColor =
       "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)";
-    console.log(announcements);
     //check if user is in announcements
-    if (announcements.mostPoints.includes(name)) {
-      chatColor = hexToHSLGradient(
-        invertColor(twitchColor),
-        "right",
-        "1",
-        "darker"
-      );
+    if (
+      announcements.mostPointsAmount > 0 &&
+      announcements.mostPoints.toLowerCase().includes(name.toLowerCase())
+    ) {
+      chatColor = hexToHSLGradient("#FDC74C", "right", "1", "darker");
     }
 
     //check all announcments for names, and give those names a background color in chat
@@ -101,9 +98,9 @@ export default function ChatComponent({
   }
 
   return (
-    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleDarkerGray/5 py-4 text-babbleWhite backdrop-blur-babble  ">
+    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  ">
       <div className="z-40 mx-4 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
-        <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
+        <div className="relative flex items-center justify-end gap-0.5 text-[18px] font-normal uppercase">
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
@@ -126,13 +123,13 @@ export default function ChatComponent({
           {messages.map((message, index) => {
             const bg = color(
               message.username,
-              announcements,
-              message.color ? message.color : "000000"
+              announcements
+              // message.color ? message.color : "000000"
             );
             return (
               <div
                 key={index}
-                className="z-20 my-4 w-full whitespace-pre-wrap rounded-babbleSmall px-4 py-1 shadow-babble"
+                className="z-20 my-4 w-fit whitespace-pre-wrap rounded-babbleSmall px-4 py-1 shadow-babble"
                 style={{
                   backgroundImage: bg,
                   //if color is black show message in white
@@ -141,7 +138,14 @@ export default function ChatComponent({
               >
                 <span
                   className="w-full font-bold"
-                  style={{ color: message.color }}
+                  //if bg isnt  "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)", show message in white
+                  style={{
+                    color:
+                      bg ===
+                      "linear-gradient(to right, hsl(42,98%,65%) , 1%, hsl(42,98%,45%))"
+                        ? "babbleWhite"
+                        : "babbleWhite",
+                  }}
                   dangerouslySetInnerHTML={{ __html: message.displayname }}
                 />
                 :{" "}
