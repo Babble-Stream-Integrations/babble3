@@ -48,38 +48,41 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
   const client = new tmi.Client({
     channels: [streamer.channel],
   });
+
   useEffect(() => {
     client.connect();
-
-    const options = {
-      channelId,
-    };
-
-    //add new message to messages, parse emotes and badgers
-    client.on("message", async (_channel, tags, message) => {
-      const parsedMessage = await parseEmotes(message, tags.emotes, options);
-      const parsedBadges = await parseBadges(tags.badges as never, options);
-      const htmlMessage = parsedMessage.toHtml();
-      const htmlBadges = parsedBadges.toHtml();
-      const color = generateColor(tags["display-name"], tags["color"]);
-      const newMessage = {
-        displayname: `${htmlBadges} ${tags["display-name"]}`,
-        message: `${htmlMessage}`,
-        color: color,
-        username: `${tags["display-name"]}`,
-      };
-      setMessages((messages) => [...messages, newMessage]);
-    });
   }, []);
-  //check if a message is deleted by a mod
-  client.on("messagedeleted", (deletedMessage: string) => {
-    // filter all messages to check if deletedMessage is there
-    const newMessages = messages.filter((message) => {
-      return message.message !== deletedMessage;
-    });
-    console.log(newMessages);
-    setMessages(newMessages);
+
+  const options = {
+    channelId,
+  };
+
+  //add new message to messages, parse emotes and badgers
+  client.on("message", async (_channel, tags, message) => {
+    const parsedMessage = await parseEmotes(message, tags.emotes, options);
+    const parsedBadges = await parseBadges(tags.badges as never, options);
+    const htmlMessage = parsedMessage.toHtml();
+    const htmlBadges = parsedBadges.toHtml();
+    const color = generateColor(tags["display-name"], tags["color"]);
+    const newMessage = {
+      displayname: `${htmlBadges} ${tags["display-name"]}`,
+      message: `${htmlMessage}`,
+      color: color,
+      username: `${tags["display-name"]}`,
+      id: `${tags.id}`,
+    };
+    setMessages((messages) => [...messages, newMessage]);
   });
+
+  //check if a message is deleted by a mod
+  client.on(
+    "messagedeleted",
+    (_channel, _username, _deletedMessage, userstate) => {
+      setMessages((messages) =>
+        messages.filter((message) => message.id !== userstate["target-msg-id"])
+      );
+    }
+  );
 
   //remove first message if there are more than 30 messages
   useEffect(() => {

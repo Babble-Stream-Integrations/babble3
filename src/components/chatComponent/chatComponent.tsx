@@ -10,10 +10,16 @@ import { Message, Streamer } from "../../types";
 import hexToHSLGradient from "../quizComponent/hexToHSLGradient";
 import { AutoTextSize } from "auto-text-size";
 
-export default function ChatComponent(props: {
+export default function ChatComponent({
+  streamer,
+  platform,
+  announcement,
+}: {
   streamer: Streamer;
   platform: string;
   announcement: string[];
+  messages?: Message[];
+  setMessages?: React.Dispatch<React.SetStateAction<Message[]>>;
 }) {
   //usestate for chat messages
   const [messages, setMessages] = useState<Message[]>([]);
@@ -22,7 +28,7 @@ export default function ChatComponent(props: {
   const [viewCount, setViewCount] = useState<string>("");
 
   const Icon = () => {
-    switch (props.platform) {
+    switch (platform) {
       case "twitch":
         return <ImTwitch />;
       case "youtube":
@@ -35,22 +41,22 @@ export default function ChatComponent(props: {
   };
 
   //futureproofing for youtube chat
-  if (props.platform === "twitch") {
-    TwitchChat({ streamer: props.streamer, messages, setMessages });
+  if (platform === "twitch") {
+    TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
-      streamer: props.streamer,
+      streamer: streamer,
       setViewCount,
     });
-  } else if (props.platform === "youtube") {
+  } else if (platform === "youtube") {
     // YoutubeChat({ liveChatId, messages, setMessages });
     YoutubeViewCount({
-      streamer: props.streamer,
+      streamer: streamer,
       setViewCount,
     });
-  } else if (props.platform === "tiktok") {
-    TwitchChat({ streamer: props.streamer, messages, setMessages });
+  } else if (platform === "tiktok") {
+    TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
-      streamer: props.streamer,
+      streamer: streamer,
       setViewCount,
     });
   }
@@ -60,9 +66,8 @@ export default function ChatComponent(props: {
       return hexToHSLGradient("#FDC74C", "right", "1", "darker");
     } else if (
       //map over announcement array and check if name is in array
-      announcement
-        .map((item) => item.toLowerCase())
-        .includes(name.toLowerCase())
+      announcement.length > 0 &&
+      announcement.map((announcement) => announcement).includes(name)
     ) {
       return hexToHSLGradient("#FDC74C", "right", "1", "darker");
     } else {
@@ -72,12 +77,12 @@ export default function ChatComponent(props: {
 
   return (
     <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleDarkerGray/5 p-4 text-babbleWhite backdrop-blur-babble  ">
-      <div className="z-40 flex h-[52px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
+      <div className="z-40 flex h-[40px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
         <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
-              dangerouslySetInnerHTML={{ __html: props.streamer.channel }}
+              dangerouslySetInnerHTML={{ __html: streamer.channel }}
             />
           </div>
         </div>
@@ -94,11 +99,7 @@ export default function ChatComponent(props: {
       <div className="relative h-full overflow-hidden pt-[50px]">
         <div className="absolute bottom-[50px] z-10">
           {messages.map((message, index) => {
-            const bg = color(
-              message.username,
-              props.streamer.channel,
-              props.announcement
-            );
+            const bg = color(message.username, streamer.channel, announcement);
             return (
               <div
                 key={index}

@@ -1,5 +1,6 @@
 //type for chat
 export type Message = {
+  id: string | undefined;
   displayname: string;
   message: string;
   color: string | undefined;
