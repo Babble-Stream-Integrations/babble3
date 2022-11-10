@@ -2,8 +2,10 @@ import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
 import hexToHSLGradient from "./hexToHSLGradient";
+import { useMemo } from "react";
+import TimerComponent from "../timerComponent/timerComponent";
 
-export default function QuizComponent(quiz: QuizComponentData) {
+export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   // calculate width based on the percentage of people that gave that answer
   function width(index: number, percentages: Percentages[]) {
     if (percentages[index] === undefined) {
@@ -24,9 +26,12 @@ export default function QuizComponent(quiz: QuizComponentData) {
     },
   });
 
-  function color(letter: string) {
-    const hex: string = colors[letter.toLowerCase()];
-    const hslGradient = hexToHSLGradient(hex, "right", "50", "darker");
+  function Color(letter: string) {
+    const hex: string = useMemo(() => colors[letter.toLowerCase()], [letter]);
+    const hslGradient = useMemo(
+      () => hexToHSLGradient(hex, "right", "50", "darker"),
+      [hex]
+    );
     return hslGradient;
   }
 
@@ -43,16 +48,17 @@ export default function QuizComponent(quiz: QuizComponentData) {
 
   return (
     // display the question and answers
-    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleGray/5 p-4 backdrop-blur-babble">
+    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 backdrop-blur-babble">
       <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray pt-4 pb-2 text-[10rem] shadow-babble backdrop-blur-babble">
-          <div className="h-4/6 px-4 pb-2">
+        <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray text-[10rem] shadow-babble backdrop-blur-babble">
+          <div className="h-3/6 px-4">
             <AutoTextSize
               multiline={true}
+              maxFontSizePx={40}
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex h-2/6 w-full justify-evenly bg-babbleDarkerGray pt-1">
+          <div className="flex h-7 w-full justify-evenly bg-babbleDarkerGray">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
@@ -66,9 +72,13 @@ export default function QuizComponent(quiz: QuizComponentData) {
               </div>
             ))}
           </div>
+          <TimerComponent
+            initialTime={quiz.time}
+            questionIndex={quiz.questionIndex}
+          />
         </div>
         {/* map over possible answers */}
-        {quiz.answers.map((answer, index) => {
+        {quiz.possibilities.map((answer, index) => {
           const letter = String.fromCharCode(65 + index);
           return (
             <div
@@ -79,15 +89,18 @@ export default function QuizComponent(quiz: QuizComponentData) {
                 className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall p-4 pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
                 style={{
                   width: width(index, quiz.percentages),
-                  backgroundImage: color(letter),
+                  backgroundImage: Color(letter),
                 }}
               >
                 <h1>{letter}</h1>
               </div>
-              <div
-                className="z-10 w-full pl-20 text-[20px]"
-                dangerouslySetInnerHTML={{ __html: answer }}
-              />
+              <div className="z-10 ml-20 w-full max-w-full justify-center text-center ">
+                <AutoTextSize
+                  multiline={false}
+                  maxFontSizePx={20}
+                  dangerouslySetInnerHTML={{ __html: answer }}
+                />
+              </div>
               <div
                 className="z-10 h-full w-4 "
                 style={{
