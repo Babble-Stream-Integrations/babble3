@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function resultsComponent(results: any) {
   return (
     <div className=" w-[570px] ">

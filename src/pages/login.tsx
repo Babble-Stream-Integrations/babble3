@@ -11,7 +11,7 @@ export default function Login() {
     const url =
       platform === "twitch"
         ? "https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=rjf69e4qdu8x8gjl09mf8i6yjiv7ri&redirect_uri=https://europe-west1-babble-d6ef3.cloudfunctions.net/default/oauth2/callback/twitch&scope=user_read"
-        : "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly https://www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&zstate=state_parameter_passthrough_value&redirect_uri=http://localhost:5001/babble-d6ef3/europe-west1/default/oauth2/callback/youtube&response_type=code&client_id=608727980458-c8dr1t3dmlo5jmpcjvh01rjjnvl8acb4.apps.googleusercontent.com";
+        : "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly https://www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&zstate=state_parameter_passthrough_value&redirect_uri=https://europe-west1-babble-d6ef3.cloudfunctions.net/default/oauth2/callback/youtube&response_type=code&client_id=608727980458-c8dr1t3dmlo5jmpcjvh01rjjnvl8acb4.apps.googleusercontent.com";
     window.location.href = url;
   }
 
