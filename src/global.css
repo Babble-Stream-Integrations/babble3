@@ -43,6 +43,10 @@
   font-display: swap;
 }
 
+body {
+  background: #0E0E10;
+}
+
 img {
   display: inline;
 }

@@ -1,0 +1,37 @@
+export const quizLayout = {
+  lg: [
+    {
+      i: "chat-component",
+      x: 4,
+      y: 0,
+      w: 7,
+      h: 12,
+      minW: 6,
+      maxW: 10,
+      minH: 6,
+      maxH: 12,
+    },
+    {
+      i: "quiz-component",
+      x: 11,
+      y: 0,
+      w: 9,
+      h: 8,
+      minW: 6,
+      maxW: 12,
+      minH: 8,
+      maxH: 10,
+    },
+    {
+      i: "first-to-answer",
+      x: 11,
+      y: 8,
+      w: 9,
+      h: 4,
+      minW: 6,
+      maxW: 12,
+      minH: 4,
+      maxH: 7,
+    },
+  ],
+};

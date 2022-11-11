@@ -1,57 +1,54 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdTimer } from "react-icons/md";
-import { TimeProp } from "../../types";
 
-export default function TimerComponent({ timeProp, setTime }: TimeProp) {
-  //logic for timer bar
-  const time = timeProp.time;
-  const initialTime = timeProp.initialTime;
+type Time = {
+  initialTime: number;
+  questionIndex: number;
+};
 
-  //update time every second with useEffect when bigger than 0
+export default function TimerComponent({ initialTime, questionIndex }: Time) {
+  const [start, setStart] = useState(false);
+  const [time, setTime] = useState(initialTime);
+  //wait for questionIndex to change before starting the timer
   useEffect(() => {
-    time > 0 &&
-      setTimeout(
-        () =>
-          setTime({
-            ...timeProp,
-            time: time - 1,
-          }),
-        1000
-      );
-  }, [time]);
+    if (questionIndex !== 0) {
+      setStart(true);
+      setTime(initialTime);
+    }
+  }, [questionIndex]);
+
+  //start timer. When time is 0, stop timer and set start to false
+  useEffect(() => {
+    if (start === true) {
+      const timer = setTimeout(() => {
+        if (time > 0) {
+          setTime(time - 1);
+        } else {
+          setStart(false);
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+    return;
+  }, [time, start]);
 
   //calculate percentage: seconds left / by total amount of time x 100
   const percentage = ((time - 1) / (initialTime - 1)) * 100;
-
   //making a string with % from a number
   const barWidth = `${percentage}%`;
 
-  //logic for the color of the letters
-  let timerColor = "white";
-  time === 0 && initialTime > 5 ? (timerColor = "red") : (timerColor = "white");
-
   return (
-    <div className="flex items-center gap-2 rounded-babble bg-babbleDarkGray p-8 text-3xl text-babbleWhite">
+    <div className="flex w-full items-center gap-4 py-4 text-[25px] text-babbleWhite">
       <MdTimer
         className={
           time === 0 && initialTime > 5
-            ? "w-12 animate-ping-short text-5xl text-[red]"
-            : "W-12 text-5xl text-babbleWhite"
+            ? "animate-ping-short text-[red]"
+            : "text-babbleWhite"
         }
       />
-      <div className="relative left-6 mr-8 flex h-10 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray/20">
+      <div className="relative flex h-2 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray/20">
         <div
-          className={
-            time <= 5 && time > 0 ? "z-10 animate-ping text-xl" : "z-10"
-          }
-          style={{
-            color: timerColor,
-          }}
-        >
-          {time}
-        </div>
-        <div
-          className="transition-width absolute left-0 h-10 rounded-full rounded-r-none bg-gradient-to-r from-platformDark to-platformLight duration-1000 ease-linear"
+          className="transition-width absolute left-0 h-2 rounded-full rounded-r-none bg-gradient-to-r from-platformDark to-platformLight duration-1000 ease-linear"
           style={{ width: barWidth }}
         ></div>
       </div>

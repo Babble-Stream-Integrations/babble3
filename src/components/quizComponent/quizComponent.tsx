@@ -1,57 +1,74 @@
-import { ImCheckmark } from "react-icons/im";
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
-import hexToHSLGradient from "./hexToHSLGradient";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
+import { useMemo } from "react";
+import TimerComponent from "../timerComponent/timerComponent";
 
-export default function QuizComponent(quiz: QuizComponentData) {
+export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   // calculate width based on the percentage of people that gave that answer
   function width(index: number, percentages: Percentages[]) {
     if (percentages[index] === undefined) {
-      return 0;
+      return "0%";
     } else {
-      return `${percentages[index].percentage + 10}%`;
+      let percentage = percentages[index].percentage + 10;
+      if (percentage > 100) {
+        percentage = 98;
+      }
+      return `${percentage}%`;
     }
   }
 
   //get color from localstorage and convert to gradient with HSL
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const colors: any = useLocalStorageState("colors")[0];
-  function color(letter: string) {
-    const hex: string = colors[letter.toLowerCase()];
-    const hslGradient = hexToHSLGradient(hex, "right", "50", "darker");
+  const [colors]: any = useLocalStorageState("colors", {
+    defaultValue: {
+      a: "#E42256",
+      b: "#FDC74C",
+      c: "#00B1B0",
+      d: "#FF8370",
+    },
+  });
+
+  function Color(letter: string) {
+    const hex: string = useMemo(() => colors[letter.toLowerCase()], [letter]);
+    const hslGradient = useMemo(
+      () => hexToHSLGradient(hex, "right", "50", "darker"),
+      [hex]
+    );
     return hslGradient;
   }
 
   //check what answer is correct, and if it is correct, show the checkmark
   function rightAnswer(answer: string, rightAnswer: string) {
     if (rightAnswer === "") {
-      return "hidden";
+      return "#E6E6E6";
     } else if (answer === rightAnswer) {
-      return "visible";
+      return "#1D981D";
     } else {
-      return "hidden";
+      return "#D22A2A";
     }
   }
 
   return (
     // display the question and answers
-    <div className="relative w-[570px]">
-      <div className="flex flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-[150px] w-[570px] flex-col items-center justify-between rounded-b-lg rounded-t-3xl bg-babbleDarkGray py-4 text-[10rem]">
-          <div className="h-[90px] px-4">
+    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
+      <div className="overflow-visable flex h-full flex-col gap-[15px] text-center text-[30px] font-[500] text-babbleWhite">
+        <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
+          <div className="flex h-full items-center py-5">
             <AutoTextSize
               multiline={true}
+              maxFontSizePx={28}
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex w-full justify-evenly pt-[10px]">
+          <div className="flex h-7 w-full justify-between bg-babbleDarkerGray">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
                 key={i}
                 //if the current question is the same as the row number, color it
-                className={`flex h-7 w-7 items-center justify-center rounded-full bg-babbleBlack from-platformDark to-platformLight text-sm  ${
+                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleBlack from-platformDark to-platformLight text-sm ${
                   quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
                 }`}
               >
@@ -59,41 +76,41 @@ export default function QuizComponent(quiz: QuizComponentData) {
               </div>
             ))}
           </div>
+          <TimerComponent
+            initialTime={quiz.time}
+            questionIndex={quiz.questionIndex}
+          />
         </div>
         {/* map over possible answers */}
-        {quiz.answers.map((answer, index) => {
+        {quiz.possibilities.map((answer, index) => {
           const letter = String.fromCharCode(65 + index);
           return (
             <div
               key={index}
-              className="relative flex h-[75px] items-center overflow-hidden rounded-lg rounded-bl-3xl bg-babbleDarkGray text-center"
+              className="relative flex h-1/6 items-center rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
             >
               <div
-                className="absolute z-0 min-w-[80px] rounded-lg rounded-bl-3xl p-4 pl-7 text-left font-[1000] italic text-white"
+                className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
                 style={{
                   width: width(index, quiz.percentages),
-                  backgroundImage: color(letter),
+                  backgroundImage: Color(letter),
                 }}
               >
                 <h1>{letter}</h1>
               </div>
+              <div className="z-10 ml-20 w-full max-w-full justify-center text-center ">
+                <AutoTextSize
+                  multiline={true}
+                  maxFontSizePx={20}
+                  dangerouslySetInnerHTML={{ __html: answer }}
+                />
+              </div>
               <div
-                className="z-10 w-full pl-20 text-[20px]"
-                dangerouslySetInnerHTML={{ __html: answer }}
-              />
-            </div>
-          );
-        })}
-      </div>
-      <div className="absolute right-[-90px] top-0 flex h-full w-20 flex-col justify-end gap-[10px]">
-        {quiz.answers.map((answer, index) => {
-          return (
-            <div
-              key={index}
-              className=" flex h-[75px] w-20 items-center justify-center rounded-md bg-gradient-to-r from-[#2BC80C] to-[#157A01] text-4xl text-babbleWhite"
-              style={{ visibility: rightAnswer(answer, quiz.rightAnswer) }}
-            >
-              <ImCheckmark />
+                className="z-10 h-full w-4 rounded-r-babbleSmall shadow-babble backdrop-blur-babble"
+                style={{
+                  backgroundColor: rightAnswer(answer, quiz.rightAnswer),
+                }}
+              ></div>
             </div>
           );
         })}

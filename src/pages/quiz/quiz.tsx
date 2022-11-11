@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
-import TimerComponent from "../../components/timerComponent/timerComponent";
-import { QuizBackend, Streamer, TriviaSettings } from "../../types";
-import logo from "../../assets/logo-small.png";
+import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
 import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
-import PlayPauzeComponent from "../../components/playPauzeComponent/playPauzeComponent";
 import useSessionStorageState from "use-session-storage-state";
+import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
+import { FaCog, FaHome, FaPencilAlt, FaPlay, FaRedo } from "react-icons/fa";
+import "./quiz.css";
+import { quizLayout } from "./quizLayout";
+import { motion } from "framer-motion";
 
 export default function Quiz() {
   const [account] = useSessionStorageState("account", {
@@ -30,12 +32,13 @@ export default function Quiz() {
     useLocalStorageState<TriviaSettings>("quizSettings", {
       defaultValue: {
         channel: streamer.channel,
-        startAfter: 6,
-        questionAmount: 9,
-        timePerQuestion: 12,
-        timeInBetween: 8,
+        startAfter: 1,
+        questionAmount: 10,
+        timePerQuestion: 15,
+        timeInBetween: 5,
         eliminations: false,
         category: "General Knowledge",
+        difficulty: "medium",
       },
     });
 
@@ -46,21 +49,25 @@ export default function Quiz() {
   }));
   //start timer on first connection with back-end
   const [start, setStart] = useState(false);
-  const [timeState, setTimeState] = useState({
-    time: 0,
-    initialTime: 0,
-  });
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
-    question: "Type your answer in chat, just the letter!",
-    possibilities: [],
+    question: "Use the play button to start the game!",
+    possibilities: ["Example 1", "Example 2", "Example 3", "Example 4"],
     time: 0,
     rightAnswer: "",
     percentages: [],
     questionIndex: 0,
-    firstToGuess: "",
+    announcements: {
+      mostPoints: "",
+      firstToGuess: "",
+      mostPointsAmount: 0,
+      onStreak: "",
+      onStreakAmount: 0,
+    },
     category: "",
+    results: [],
+    questionAmount: triviaSettings.questionAmount,
   });
 
   //WebSocket logic
@@ -73,10 +80,9 @@ export default function Quiz() {
 
       //give countdown before first question
       socket.on("game-starting", (data) => {
-        setTimeState((prevState) => ({
+        setQuiz((prevState) => ({
           ...prevState,
           time: data.in,
-          initialTime: data.in,
         }));
         //confirm the connection with back-end
         setStart(true);
@@ -92,11 +98,7 @@ export default function Quiz() {
           rightAnswer: "",
           percentages: [],
           questionIndex: data.questionIndex,
-        }));
-        setTimeState((prevState) => ({
-          ...prevState,
           time: data.time,
-          initialTime: data.time,
         }));
       });
 
@@ -107,51 +109,167 @@ export default function Quiz() {
           ...prevState,
           rightAnswer: data.rightAnswer,
           percentages: data.percentages,
-          firstToGuess: data.firstToGuess,
+          announcements: {
+            mostPoints: data.mostPoints.username,
+            mostPointsAmount: data.mostPoints.points,
+            firstToGuess: data.firstToGuess,
+            onStreak: data.contestantStreaks[0].username,
+            onStreakAmount: data.contestantStreaks[0].currentStreak,
+          },
         }));
       });
 
       //when the game is finished, disconnect from the back-end
-      socket.on("game-finished", () => {
+      socket.on("game-finished", (data) => {
+        setQuiz((prevState) => ({
+          ...prevState,
+          results: data.results,
+        }));
+        console.log(data.results);
         socket.disconnect();
       });
     }
   }, [start]);
+
+  const [layout, setLayout, { removeItem }] = useLocalStorageState(
+    "quizLayout",
+    {
+      defaultValue: quizLayout,
+    }
+  );
+
+  const [editable, setEditable] = useState(false);
+
+  const height = window.innerHeight - 20;
+
   return (
-    <div className="bg-babbleBlack" data-theme={account.platform}>
-      <Link to="/">
-        <div className="absolute top-[50px] left-[50px] h-11 w-min whitespace-nowrap rounded-full bg-white px-[30px] py-[15px] text-[18px] font-[1000] uppercase">
-          <div className="flex h-full items-center justify-center">
-            Quit game
-          </div>
-        </div>
-      </Link>
-      <div className="z-10 flex h-screen  flex-1 items-center justify-center gap-[50px]">
-        <ChatComponent streamer={streamer} platform={account.platform} />
-        <div className="z-10 flex h-full flex-col gap-[50px] py-[50px]">
-          <QuizComponent
-            questionAmount={triviaSettings ? triviaSettings.questionAmount : 0}
-            question={quiz.question}
-            answers={quiz.possibilities}
-            rightAnswer={quiz.rightAnswer}
-            percentages={quiz.percentages}
-            questionIndex={quiz.questionIndex}
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+      whileInView={{
+        opacity: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
+      className="overflow-hidden [background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
+      data-theme={account.platform}
+    >
+      <div className="absolute top-[50px] left-[50px] z-40 flex flex-col gap-6 text-[25px] font-[1000] uppercase text-babbleLightGray">
+        {/* create menu button */}
+        <button
+          onClick={() => {
+            setStart(true);
+          }}
+          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+        >
+          <FaPlay className="z-10" />
+          <div
+            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
           />
-          {start ? (
-            <TimerComponent timeProp={timeState} setTime={setTimeState} />
-          ) : (
-            <PlayPauzeComponent setStart={setStart} />
-          )}
-          {quiz.firstToGuess && (
-            <AnnouncementFeedComponent firstToGuess={quiz.firstToGuess} />
-          )}
-        </div>
-      </div>
-      <div className="absolute left-[50px] bottom-[50px]">
+        </button>
+        <Link to="/settings">
+          <button
+            onClick={() => {
+              setStart(false);
+            }}
+            className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+          >
+            <FaCog className="z-10" />
+            <div
+              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            />
+          </button>
+        </Link>
         <Link to="/">
-          <img src={logo} className="h-[45px] w-[45px]" alt="logo" />
+          <button className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
+            <FaHome className="z-10" />
+            <div
+              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            />
+          </button>
         </Link>
       </div>
-    </div>
+      <ResponsiveGridLayout
+        className="overflow-hidden"
+        width={window.innerWidth}
+        layouts={layout}
+        breakpoints={{ lg: 100 }}
+        cols={{ lg: 24 }}
+        rowHeight={height / 12 - 52.5}
+        isBounded={true}
+        compactType={"vertical"}
+        resizeHandles={["se"]}
+        margin={[50, 50]}
+        isResizable={editable && !start}
+        isDraggable={editable && !start}
+        onLayoutChange={(layout: Layout[]) => {
+          setLayout((prevState) => ({
+            ...prevState,
+            lg: layout,
+          }));
+        }}
+      >
+        <div
+          className="z-10 flex w-[450px] items-center justify-center "
+          key="chat-component"
+        >
+          <ChatComponent
+            streamer={streamer}
+            platform={account.platform}
+            announcements={quiz.announcements}
+          />
+        </div>
+        <div
+          className="z-10 flex w-[570px] justify-center"
+          key="quiz-component"
+        >
+          <QuizComponent quiz={quiz} />
+        </div>
+        <div
+          className="z-10 flex items-center justify-center"
+          key="first-to-answer"
+        >
+          <AnnouncementFeedComponent
+            key="first-to-answer"
+            announcements={quiz.announcements}
+          />
+        </div>
+      </ResponsiveGridLayout>
+      <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
+        {editable && (
+          <button
+            className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+            onClick={() => {
+              removeItem();
+            }}
+          >
+            <FaRedo className="z-10" />
+            <div
+              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            />
+          </button>
+        )}
+        <button
+          className={
+            editable
+              ? "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border-2 border-babbleOrange bg-babbleOrange/5 bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite "
+              : "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+          }
+          onClick={() => {
+            setEditable(!editable);
+          }}
+        >
+          <FaPencilAlt className="z-10" />
+          <div
+            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+          />
+        </button>
+      </div>
+    </motion.div>
   );
 }

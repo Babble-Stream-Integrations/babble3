@@ -1,8 +1,10 @@
 //type for chat
 export type Message = {
-  username: string;
+  id: string | undefined;
+  displayname: string;
   message: string;
   color: string | undefined;
+  username: string;
 };
 
 //type for streamer info
@@ -20,11 +22,26 @@ export type TriviaSettings = {
   timeInBetween: number;
   eliminations: boolean;
   category: string;
+  difficulty: string;
 };
 
 export type Percentages = {
   amount: number;
   percentage: number;
+};
+export type Results = {
+  username: string;
+  questionIndex: number;
+  points: number;
+  eliminated: boolean;
+};
+
+export type Announcements = {
+  mostPoints: string;
+  mostPointsAmount: number;
+  firstToGuess: string;
+  onStreak: string;
+  onStreakAmount: number;
 };
 
 export type QuizBackend = {
@@ -34,25 +51,26 @@ export type QuizBackend = {
   rightAnswer: string;
   percentages: Percentages[];
   questionIndex: number;
-  firstToGuess: string;
   category: string;
+  results: Array<Results>;
+  questionAmount: number;
+  announcements: Announcements;
 };
 
 export type QuizComponentData = {
   questionAmount: number;
   question: string;
-  answers: string[];
+  possibilities: string[];
   rightAnswer: string;
   percentages: Percentages[];
   questionIndex: number;
+  time: number;
 };
 
 //type for timer
 export type TimeProp = {
-  timeProp: {
-    time: number;
-    initialTime: number;
-  };
+  time: number;
+  initialTime: number;
   setTime: React.Dispatch<
     React.SetStateAction<{
       time: number;
@@ -63,6 +81,21 @@ export type TimeProp = {
 
 export type Colors = {
   [key: string]: string;
+};
+
+export type Layout = {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  minW: number;
+  minH: number;
+  maxW: number;
+  maxH: number;
+  isDraggable: boolean;
+  isResizable: boolean;
+  static: boolean;
 };
 
 export type HandleChange =
