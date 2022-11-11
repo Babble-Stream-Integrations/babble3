@@ -53,16 +53,16 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   return (
     // display the question and answers
     <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
-      <div className="flex h-full flex-col gap-[15px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray text-[10rem] shadow-babble backdrop-blur-babble">
-          <div className="h-3/6 px-5">
+      <div className="overflow-visable flex h-full flex-col gap-[15px] text-center text-[30px] font-[500] text-babbleWhite">
+        <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
+          <div className="flex h-full items-center py-5">
             <AutoTextSize
               multiline={true}
               maxFontSizePx={28}
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex h-7 w-full justify-evenly bg-babbleDarkerGray px-[3px]">
+          <div className="flex h-7 w-full justify-between bg-babbleDarkerGray">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div

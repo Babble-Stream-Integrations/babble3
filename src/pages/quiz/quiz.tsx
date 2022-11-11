@@ -32,10 +32,10 @@ export default function Quiz() {
     useLocalStorageState<TriviaSettings>("quizSettings", {
       defaultValue: {
         channel: streamer.channel,
-        startAfter: 6,
+        startAfter: 1,
         questionAmount: 10,
-        timePerQuestion: 30,
-        timeInBetween: 8,
+        timePerQuestion: 15,
+        timeInBetween: 5,
         eliminations: false,
         category: "General Knowledge",
         difficulty: "medium",
@@ -52,8 +52,8 @@ export default function Quiz() {
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
-    question: "Type your answer in chat, just the letter!",
-    possibilities: ["a", "b", "c", "d"],
+    question: "Use the play button to start the game!",
+    possibilities: ["Example 1", "Example 2", "Example 3", "Example 4"],
     time: 0,
     rightAnswer: "",
     percentages: [],

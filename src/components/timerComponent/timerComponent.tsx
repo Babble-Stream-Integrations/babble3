@@ -38,7 +38,7 @@ export default function TimerComponent({ initialTime, questionIndex }: Time) {
   const barWidth = `${percentage}%`;
 
   return (
-    <div className="flex h-1/2 w-full items-center pl-[28px] pr-[36px] text-[25px] text-babbleWhite">
+    <div className="flex w-full items-center gap-4 py-4 text-[25px] text-babbleWhite">
       <MdTimer
         className={
           time === 0 && initialTime > 5
@@ -46,7 +46,7 @@ export default function TimerComponent({ initialTime, questionIndex }: Time) {
             : "text-babbleWhite"
         }
       />
-      <div className="relative left-2 flex h-2 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray/20">
+      <div className="relative flex h-2 w-full items-center justify-center overflow-hidden rounded-full bg-babbleGray/20">
         <div
           className="transition-width absolute left-0 h-2 rounded-full rounded-r-none bg-gradient-to-r from-platformDark to-platformLight duration-1000 ease-linear"
           style={{ width: barWidth }}

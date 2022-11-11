@@ -9,7 +9,7 @@ import { IoLogoTiktok } from "react-icons/io5";
 import { Announcements, Message, Streamer } from "../../types";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { AutoTextSize } from "auto-text-size";
-import invertColor from "../../common/invertColor";
+// import invertColor from "../../common/invertColor";
 
 export default function ChatComponent({
   streamer,
