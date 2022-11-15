@@ -2,7 +2,8 @@ export default function hexToHSL(
   hex: string,
   direction: string,
   percentage: string,
-  hue: string
+  hue: string,
+  strength?: number
 ) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) {
@@ -56,10 +57,12 @@ export default function hexToHSL(
   }
 
   const hsl = "hsl(" + h + "," + s + "%," + l + "%)";
-  //make another color by changing the lightness depending on the hue
-  const lChange = l + (hue === "lighter" ? 20 : -20);
+  //make another color by changing the lightness depending on the hue and strength
+  const strengthValue = strength ? strength : 20;
+
+  const lChange = l + (hue === "lighter" ? strengthValue : -strengthValue);
   const hslChanged = `hsl(${h},${s}%,${lChange}%)`;
 
-  return `linear-gradient(to ${direction}, ${hsl} , ${percentage}%, ${hslChanged})`;
+  return `linear-gradient(to ${direction}, ${hsl} , ${percentage}%, ${hslChanged} 100%)`;
 }
 //code for hsl from https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/#hex-to-hsl

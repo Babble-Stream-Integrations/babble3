@@ -46,7 +46,7 @@ export default function QuizComponent(quiz: QuizComponentData) {
     <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleGray/5 p-4 backdrop-blur-babble">
       <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
         <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray pt-4 pb-2 text-[10rem] shadow-babble backdrop-blur-babble">
-          <div className="h-4/6 px-4 pb-2">
+          <div className="h-4/6 px-4 pb-2 ">
             <AutoTextSize
               multiline={true}
               dangerouslySetInnerHTML={{ __html: quiz.question }}

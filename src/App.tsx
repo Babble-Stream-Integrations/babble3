@@ -48,6 +48,7 @@ export default function App() {
               <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/results" element={<QuizResults />} />
             </Route>
           </Routes>
         </BrowserRouter>
