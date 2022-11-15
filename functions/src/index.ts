@@ -15,10 +15,12 @@ app.use((req, res, next) => {
 import exampleAuthRoute from "./routes/exampleAuthRoute";
 import viewCountRoutes from "./routes/viewCount";
 import oAuth2Routes from "./routes/oauth2";
+import liveChatRoute from "./routes/liveChat";
 
 // Declare routes
 app.use("/view-count", viewCountRoutes);
 app.use("/oauth2", oAuth2Routes);
+app.use("/youtube", liveChatRoute)
 
 // Example route using Babble Token authentication
 app.use("/example-auth-route", exampleAuthRoute);
