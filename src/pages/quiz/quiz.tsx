@@ -69,12 +69,12 @@ export default function Quiz() {
     results: [],
     questionAmount: triviaSettings.questionAmount,
   });
+  const socket: Socket = io(appConfig.backendUrl);
 
   //WebSocket logic
   useEffect(() => {
     //connect with socket.io
     if (start === true) {
-      const socket: Socket = io(appConfig.backendUrl);
       //on first connection, send quiz to back-end
       socket.emit("trivia-start", triviaSettings);
 
@@ -129,7 +129,7 @@ export default function Quiz() {
         socket.disconnect();
       });
     }
-  }, [start]);
+  }, []);
 
   const [layout, setLayout, { removeItem }] = useLocalStorageState(
     "quizLayout",
@@ -222,6 +222,7 @@ export default function Quiz() {
             streamer={streamer}
             platform={account.platform}
             announcements={quiz.announcements}
+            socket={socket}
           />
         </div>
         <div

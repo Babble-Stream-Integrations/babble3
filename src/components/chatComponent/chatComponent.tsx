@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
-// import YoutubeChat from "./youtubeChat.tsx";
 import YoutubeViewCount from "./youtubeViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
@@ -9,22 +8,26 @@ import { IoLogoTiktok } from "react-icons/io5";
 import { Announcements, Message, Streamer } from "../../types";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { AutoTextSize } from "auto-text-size";
+import YoutubeChat from "./youtubeChat";
+import { Socket } from "socket.io-client";
 // import invertColor from "../../common/invertColor";
 
 export default function ChatComponent({
   streamer,
   platform,
   announcements,
+  socket,
 }: {
   streamer: Streamer;
   platform: string;
   announcements: Announcements;
   messages?: Message[];
   setMessages?: React.Dispatch<React.SetStateAction<Message[]>>;
+  socket: Socket;
 }) {
   //usestate for chat messages
   const [messages, setMessages] = useState<Message[]>([]);
-
+  const [liveChatId, setLiveChatId] = useState<string>("");
   //usestate for viewcount
   const [viewCount, setViewCount] = useState<string>("");
 
@@ -49,7 +52,15 @@ export default function ChatComponent({
       setViewCount,
     });
   } else if (platform === "youtube") {
-    // YoutubeChat({ liveChatId, messages, setMessages });
+    YoutubeChat({
+      streamer,
+      liveChatId,
+      setLiveChatId,
+      messages,
+      setMessages,
+      socket,
+    });
+
     YoutubeViewCount({
       streamer: streamer,
       setViewCount,

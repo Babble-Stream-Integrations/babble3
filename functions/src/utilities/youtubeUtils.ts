@@ -2,7 +2,6 @@ import axios from "axios";
 import { youtubeConfig } from "../config/youtube";
 
 export async function getLiveInfo(channel: string) {
-  console.log(channel);
   const channelId = await axios({
     method: "GET",
     url: `https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&maxResults=1&q=${channel}&type=channel&key=${youtubeConfig.apiKey}`,

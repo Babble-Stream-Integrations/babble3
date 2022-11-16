@@ -180,96 +180,103 @@ const handleTwitchCallback = (req: any, res: any) => {
 };
 
 const handleGoogleCallback = (req: any, res: any) => {
-  axios.post(`https://oauth2.googleapis.com/token?client_id=${youtubeConfig.clientId}&client_secret=${youtubeConfig.clientSecret}&code=${req.query.code}&grant_type=authorization_code&redirect_uri=${youtubeConfig.callbackUrl}`)
-  .then((response) => {
-    const token: YoutubeToken = {
-      accessToken: response.data.access_token,
-      expiresIn: response.data.expires_in,
-      refreshToken: response.data.refresh_token,
-      tokenType: response.data.token_type,
-      babbleToken: generateToken() 
-    }
-    
-    axios.get(`https://www.googleapis.com/youtube/v3/channels?access_token=${token.accessToken}&part=snippet&mine=true`)
+  axios
+    .post(
+      `https://oauth2.googleapis.com/token?client_id=${youtubeConfig.clientId}&client_secret=${youtubeConfig.clientSecret}&code=${req.query.code}&grant_type=authorization_code&redirect_uri=${youtubeConfig.callbackUrl}`
+    )
     .then((response) => {
-      const userData = response.data.items[0];
-      axios.get("https://www.googleapis.com/oauth2/v1/userinfo", {
-        headers: {
-          Authorization: "Bearer " + token.accessToken
-        }
-      }).then(async (response) => {
-        const profile: YoutubeProfile = {
-          uid: userData.id,
-          username: userData.snippet.title,
-          displayName: response.data.given_name,
-          email: response.data.email,
-          avatar: userData.snippet.thumbnails.default.url,
-          platform: req.params.platform.toLowerCase(),
-        };
-        console.log(profile)
-        const accountDocument: AccountDocument = {
-          ...profile,
-          token: token,
-        };
+      const token: YoutubeToken = {
+        accessToken: response.data.access_token,
+        expiresIn: response.data.expires_in,
+        refreshToken: response.data.refresh_token,
+        tokenType: response.data.token_type,
+        babbleToken: generateToken(),
+      };
 
-        // Store the profile and token in FireStore
-        const snapshot = collection(firestore, "accounts");
-        const accountReference = doc(snapshot);
+      axios
+        .get(
+          `https://www.googleapis.com/youtube/v3/channels?access_token=${token.accessToken}&part=snippet&mine=true`
+        )
+        .then((response) => {
+          const userData = response.data.items[0];
+          axios
+            .get("https://www.googleapis.com/oauth2/v1/userinfo", {
+              headers: {
+                Authorization: "Bearer " + token.accessToken,
+              },
+            })
+            .then(async (response) => {
+              const profile: YoutubeProfile = {
+                uid: userData.id,
+                username: userData.snippet.title,
+                displayName: response.data.given_name,
+                email: response.data.email,
+                avatar: userData.snippet.thumbnails.default.url,
+                platform: req.params.platform.toLowerCase(),
+              };
+              const accountDocument: AccountDocument = {
+                ...profile,
+                token: token,
+              };
 
-        const redirectUrl = new URL(appConfig.webApp.authEndpoint);
+              // Store the profile and token in FireStore
+              const snapshot = collection(firestore, "accounts");
+              const accountReference = doc(snapshot);
 
-        // Append all profile variables to the searchParams
-        Object.entries(profile).forEach((entry) => {
-          const [key, value] = entry;
-          redirectUrl.searchParams.append(key, value);
+              const redirectUrl = new URL(appConfig.webApp.authEndpoint);
+
+              // Append all profile variables to the searchParams
+              Object.entries(profile).forEach((entry) => {
+                const [key, value] = entry;
+                redirectUrl.searchParams.append(key, value);
+              });
+
+              redirectUrl.searchParams.append("babbleToken", token.babbleToken);
+
+              // Create account document, updating it if it already exists
+              const accountsCollection = collection(firestore, "accounts");
+              const accountsQuery = query(
+                accountsCollection,
+                where("platform", "==", profile.platform),
+                where("uid", "==", profile.uid)
+              );
+
+              const results = await getDocs(accountsQuery);
+
+              if (results.empty === false) {
+                // Account already exists, lets update it and then redirect
+
+                const accountDocumentId = results.docs[0].id;
+                const documentReference = doc(
+                  firestore,
+                  "accounts",
+                  accountDocumentId
+                );
+
+                // Merge the new information with the existing document
+                setDoc(
+                  documentReference,
+                  {
+                    ...accountDocument,
+                  },
+                  {
+                    merge: true,
+                  }
+                ).then(() => {
+                  // Redirect back to the front-end application
+                  res.redirect(redirectUrl);
+                });
+
+                return;
+              } else {
+                // Account does not yet exist, lets create it before redirecting
+
+                await setDoc(accountReference, accountDocument).then(() => {
+                  // Redirect back to the front-end application
+                  res.redirect(redirectUrl);
+                });
+              }
+            });
         });
-
-        redirectUrl.searchParams.append("babbleToken", token.babbleToken);
-
-        // Create account document, updating it if it already exists
-        const accountsCollection = collection(firestore, "accounts");
-        const accountsQuery = query(
-          accountsCollection,
-          where("platform", "==", profile.platform),
-          where("uid", "==", profile.uid)
-        );
-
-        const results = await getDocs(accountsQuery);
-
-        if (results.empty === false) {
-          // Account already exists, lets update it and then redirect
-
-          const accountDocumentId = results.docs[0].id;
-          const documentReference = doc(
-            firestore,
-            "accounts",
-            accountDocumentId
-          );
-
-          // Merge the new information with the existing document
-          setDoc(
-            documentReference,
-            {
-              ...accountDocument,
-            },
-            {
-              merge: true,
-            }
-          ).then(() => {
-            // Redirect back to the front-end application
-            res.redirect(redirectUrl);
-          });
-
-          return;
-        } else {
-          // Account does not yet exist, lets create it before redirecting
-
-          await setDoc(accountReference, accountDocument).then(() => {
-            // Redirect back to the front-end application
-            res.redirect(redirectUrl);
-          });
-        }
-      })
-    })
-  })
+    });
 };
