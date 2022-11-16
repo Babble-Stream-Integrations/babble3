@@ -1,78 +1,44 @@
-import { database } from "firebase-functions/v1";
-import { result } from "lodash";
-import React from "react";
-import { Link } from "react-router-dom";
-import hexToHSLGradient from "../../components/quizComponent/hexToHSLGradient";
-import ResultsComponent from "../../components/resultsComponent/resultsComponent";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
 
 export default function QuizResults() {
-  //define places
-  const results = [
-    {
-      username: "Leon",
-      score: "9000",
-      awnseredRight: "10",
-      awnseredWrong: "0",
-      reactionTime: "5",
-      roundsLeading: "9",
-    },
-    {
-      username: "Bidde",
-      score: "6969",
-      awnseredRight: "8",
-      awnseredWrong: "2",
-      reactionTime: "6",
-      roundsLeading: "1",
-    },
-    {
-      username: "Bid",
-      score: "420",
-      awnseredRight: "6",
-      awnseredWrong: "4",
-      reactionTime: "7",
-      roundsLeading: "0",
-    },
-  ];
-
-  //sort results
-  results.sort((a, b) => {
-    //sort by score, first convet to number
-    return Number(b.score) - Number(a.score);
-  });
-
+  //get top 3 results from quiz page based on highest score
+  const quizResults = useLocation().state?.results;
+  if (!quizResults) {
+    return <Navigate to="/quiz" />;
+  }
+  //eslint-disable-next-line
+  quizResults.sort((a: any, b: any) => b.score - a.score);
   const placements = [
     {
       place: "second",
       color: "#646464",
       size: 0.8,
-      username: "Bidde",
-      score: "6969",
-      awnseredRight: "8",
-      awnseredWrong: "2",
-      reactionTime: "6",
-      roundsLeading: "1",
+      profile: "https://source.unsplash.com/random/400x400",
+      username: "Beon",
+      score: "9000",
+      answeredRight: "10",
+      answeredWrong: "0",
     },
     {
       place: "first",
       color: "#A47200",
       size: 1,
-      username: "Beon",
-      score: "9000",
-      awnseredRight: "10",
-      awnseredWrong: "0",
-      reactionTime: "5",
-      roundsLeading: "9",
+      profile: "https://random.imagecdn.app/500/500",
+      username: "Bidde",
+      score: "10000000",
+      answeredRight: "8",
+      answeredWrong: "2",
     },
     {
       place: "third",
       color: "#4D2D11",
       size: 0.8,
+      profile: "https://picsum.photos/400",
       username: "Bid",
       score: "420",
-      awnseredRight: "6",
-      awnseredWrong: "4",
-      reactionTime: "7",
-      roundsLeading: "0",
+      answeredRight: "6",
+      answeredWrong: "4",
     },
   ];
 
@@ -81,7 +47,6 @@ export default function QuizResults() {
       <h1 className="pb-[10px] text-4xl font-bold ">Winners</h1>
       <div className="flex gap-4">
         {placements.map((placement, index) => {
-          console.log(placement);
           return (
             <div
               className="relative inset-0 z-10 flex h-[568px] w-[325px] flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
@@ -107,7 +72,7 @@ export default function QuizResults() {
                 <div className="rounded-full ">
                   <img
                     className="rounded-full "
-                    src="https://static-cdn.jtvnw.net/user-default-pictures-uv/ead5c8b2-a4c9-4724-b1dd-9f00b46cbd3d-profile_image-300x300.png"
+                    src={placement.profile}
                     alt="first place"
                   />
                 </div>
@@ -117,10 +82,10 @@ export default function QuizResults() {
                   {placement.username}
                 </h1>
                 <h1 className="">Score {placement.score}</h1>
-                <h1 className="">Right {placement.awnseredRight}</h1>
-                <h1 className="">Wrong {placement.awnseredWrong}</h1>
-                <h1 className="">Reaction time {placement.reactionTime}</h1>
-                <h1 className="">Rounds leading {placement.roundsLeading}</h1>
+                <h1 className="">Right {placement.answeredRight}</h1>
+                <h1 className="">Wrong {placement.answeredWrong}</h1>
+                {/* <h1 className="">Reaction time {placement.reactionTime}</h1>
+                <h1 className="">Rounds leading {placement.roundsLeading}</h1> */}
               </div>
             </div>
           );
