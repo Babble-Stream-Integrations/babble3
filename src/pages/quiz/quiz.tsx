@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
@@ -124,6 +124,7 @@ export default function Quiz() {
         }));
         console.log(data.results);
         socket.disconnect();
+        <Navigate to="/quizResults"></Navigate>;
       });
     }
   }, [start]);

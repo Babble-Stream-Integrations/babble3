@@ -11,24 +11,24 @@ export default function QuizResults() {
     {
       username: "Leon",
       score: "9000",
-      awnserdRight: "10",
-      awnserdWrong: "0",
+      awnseredRight: "10",
+      awnseredWrong: "0",
       reactionTime: "5",
       roundsLeading: "9",
     },
     {
       username: "Bidde",
       score: "6969",
-      awnserdRight: "8",
-      awnserdWrong: "2",
+      awnseredRight: "8",
+      awnseredWrong: "2",
       reactionTime: "6",
       roundsLeading: "1",
     },
     {
       username: "Bid",
       score: "420",
-      awnserdRight: "6",
-      awnserdWrong: "4",
+      awnseredRight: "6",
+      awnseredWrong: "4",
       reactionTime: "7",
       roundsLeading: "0",
     },
@@ -47,8 +47,8 @@ export default function QuizResults() {
       size: 0.8,
       username: "Bidde",
       score: "6969",
-      awnserdRight: "8",
-      awnserdWrong: "2",
+      awnseredRight: "8",
+      awnseredWrong: "2",
       reactionTime: "6",
       roundsLeading: "1",
     },
@@ -58,8 +58,8 @@ export default function QuizResults() {
       size: 1,
       username: "Beon",
       score: "9000",
-      awnserdRight: "10",
-      awnserdWrong: "0",
+      awnseredRight: "10",
+      awnseredWrong: "0",
       reactionTime: "5",
       roundsLeading: "9",
     },
@@ -69,8 +69,8 @@ export default function QuizResults() {
       size: 0.8,
       username: "Bid",
       score: "420",
-      awnserdRight: "6",
-      awnserdWrong: "4",
+      awnseredRight: "6",
+      awnseredWrong: "4",
       reactionTime: "7",
       roundsLeading: "0",
     },
@@ -117,8 +117,8 @@ export default function QuizResults() {
                   {placement.username}
                 </h1>
                 <h1 className="">Score {placement.score}</h1>
-                <h1 className="">Right {placement.awnserdRight}</h1>
-                <h1 className="">Wrong {placement.awnserdWrong}</h1>
+                <h1 className="">Right {placement.awnseredRight}</h1>
+                <h1 className="">Wrong {placement.awnseredWrong}</h1>
                 <h1 className="">Reaction time {placement.reactionTime}</h1>
                 <h1 className="">Rounds leading {placement.roundsLeading}</h1>
               </div>
