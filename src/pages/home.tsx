@@ -174,7 +174,7 @@ export default function Login() {
                     className="peer hidden"
                     onChange={() => buttonClicked(options.nav)}
                   />
-                  <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
+                  <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
                     <div className="z-10 pl-8">{options.icon}</div>
                     <div className="z-10 flex w-full justify-center text-xl">
                       <p>{options.name}</p>

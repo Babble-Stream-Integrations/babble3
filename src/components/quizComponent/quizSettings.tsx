@@ -87,7 +87,7 @@ export default function QuizSettings() {
             <h2 className="pb-[15px]">Amount of questions</h2>
             <div>
               <input
-                className="h-[40px] w-[200pxpx] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
                 type={"number"}
                 onChange={(e) => handleChange("questionAmount", e)}
                 value={quizSettings.questionAmount}
@@ -155,7 +155,9 @@ export default function QuizSettings() {
       </div>
       <div className="relative ml-[100px] flex">
         <div className="absolute left-[-50px] flex h-full w-full -rotate-90 flex-col items-center px-[50px]">
-          <h2 className="w-[250px] text-center text-babbleGray">Quiz colors</h2>
+          <h2 className="h-[36px] w-[250px] text-center text-babbleGray">
+            Quiz colors
+          </h2>
           <div className="h-px w-[250px] bg-babbleGray"></div>
         </div>
         <div>

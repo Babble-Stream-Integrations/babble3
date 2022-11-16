@@ -36,6 +36,14 @@ export type Results = {
   eliminated: boolean;
 };
 
+export type Announcements = {
+  mostPoints: string;
+  mostPointsAmount: number;
+  firstToGuess: string;
+  onStreak: string;
+  onStreakAmount: number;
+};
+
 export type QuizBackend = {
   question: string;
   possibilities: string[];
@@ -43,18 +51,20 @@ export type QuizBackend = {
   rightAnswer: string;
   percentages: Percentages[];
   questionIndex: number;
-  firstToGuess: string;
   category: string;
   results: Array<Results>;
+  questionAmount: number;
+  announcements: Announcements;
 };
 
 export type QuizComponentData = {
   questionAmount: number;
   question: string;
-  answers: string[];
+  possibilities: string[];
   rightAnswer: string;
   percentages: Percentages[];
   questionIndex: number;
+  time: number;
 };
 
 //type for timer

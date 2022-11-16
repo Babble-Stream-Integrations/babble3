@@ -1,15 +1,21 @@
 import { AutoTextSize } from "auto-text-size";
 import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
-import hexToHSLGradient from "./hexToHSLGradient";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
+import { useMemo } from "react";
+import TimerComponent from "../timerComponent/timerComponent";
 
-export default function QuizComponent(quiz: QuizComponentData) {
+export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   // calculate width based on the percentage of people that gave that answer
   function width(index: number, percentages: Percentages[]) {
     if (percentages[index] === undefined) {
       return "0%";
     } else {
-      return `${percentages[index].percentage + 10}%`;
+      let percentage = percentages[index].percentage + 10;
+      if (percentage > 100) {
+        percentage = 98;
+      }
+      return `${percentage}%`;
     }
   }
 
@@ -24,9 +30,12 @@ export default function QuizComponent(quiz: QuizComponentData) {
     },
   });
 
-  function color(letter: string) {
-    const hex: string = colors[letter.toLowerCase()];
-    const hslGradient = hexToHSLGradient(hex, "right", "50", "darker");
+  function Color(letter: string) {
+    const hex: string = useMemo(() => colors[letter.toLowerCase()], [letter]);
+    const hslGradient = useMemo(
+      () => hexToHSLGradient(hex, "right", "50", "darker"),
+      [hex]
+    );
     return hslGradient;
   }
 
@@ -43,22 +52,23 @@ export default function QuizComponent(quiz: QuizComponentData) {
 
   return (
     // display the question and answers
-    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleGray/5 p-4 backdrop-blur-babble">
-      <div className="flex h-full flex-col gap-[10px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite">
-        <div className="flex h-2/6 flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray pt-4 pb-2 text-[10rem] shadow-babble backdrop-blur-babble">
-          <div className="h-4/6 px-4 pb-2 ">
+    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
+      <div className="overflow-visable flex h-full flex-col gap-[15px] text-center text-[30px] font-[500] text-babbleWhite">
+        <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
+          <div className="flex h-full items-center py-5">
             <AutoTextSize
               multiline={true}
+              maxFontSizePx={28}
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex h-2/6 w-full justify-evenly bg-babbleDarkerGray pt-1">
+          <div className="flex h-7 w-full justify-between bg-babbleDarkerGray">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
                 key={i}
                 //if the current question is the same as the row number, color it
-                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleDarkerGray from-platformDark to-platformLight text-sm ${
+                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleBlack from-platformDark to-platformLight text-sm ${
                   quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
                 }`}
               >
@@ -66,30 +76,37 @@ export default function QuizComponent(quiz: QuizComponentData) {
               </div>
             ))}
           </div>
+          <TimerComponent
+            initialTime={quiz.time}
+            questionIndex={quiz.questionIndex}
+          />
         </div>
         {/* map over possible answers */}
-        {quiz.answers.map((answer, index) => {
+        {quiz.possibilities.map((answer, index) => {
           const letter = String.fromCharCode(65 + index);
           return (
             <div
               key={index}
-              className="relative flex h-1/6 items-center overflow-hidden rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
+              className="relative flex h-1/6 items-center rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
             >
               <div
-                className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall p-4 pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
+                className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
                 style={{
                   width: width(index, quiz.percentages),
-                  backgroundImage: color(letter),
+                  backgroundImage: Color(letter),
                 }}
               >
                 <h1>{letter}</h1>
               </div>
+              <div className="z-10 ml-20 w-full max-w-full justify-center text-center ">
+                <AutoTextSize
+                  multiline={true}
+                  maxFontSizePx={20}
+                  dangerouslySetInnerHTML={{ __html: answer }}
+                />
+              </div>
               <div
-                className="z-10 w-full pl-20 text-[20px]"
-                dangerouslySetInnerHTML={{ __html: answer }}
-              />
-              <div
-                className="z-10 h-full w-4 "
+                className="z-10 h-full w-4 rounded-r-babbleSmall shadow-babble backdrop-blur-babble"
                 style={{
                   backgroundColor: rightAnswer(answer, quiz.rightAnswer),
                 }}

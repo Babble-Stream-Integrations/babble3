@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import logoBig from "../assets/logo-full.png";
 import QuizSettings from "../components/quizComponent/quizSettings";
 import { motion } from "framer-motion";
 
@@ -41,7 +40,7 @@ export default function Settings() {
           </button>
         </div>
       </div>
-      <div className="absolute bottom-0 "></div>
+      <div className="absolute bottom-0"></div>
     </motion.div>
   );
 }

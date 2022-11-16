@@ -6,18 +6,19 @@ import YoutubeViewCount from "./youtubeViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
 import { IoLogoTiktok } from "react-icons/io5";
-import { Message, Streamer } from "../../types";
-import hexToHSLGradient from "../quizComponent/hexToHSLGradient";
+import { Announcements, Message, Streamer } from "../../types";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { AutoTextSize } from "auto-text-size";
+// import invertColor from "../../common/invertColor";
 
 export default function ChatComponent({
   streamer,
   platform,
-  announcement,
+  announcements,
 }: {
   streamer: Streamer;
   platform: string;
-  announcement: string[];
+  announcements: Announcements;
   messages?: Message[];
   setMessages?: React.Dispatch<React.SetStateAction<Message[]>>;
 }) {
@@ -61,24 +62,45 @@ export default function ChatComponent({
     });
   }
 
-  function color(name: string, streamer: string, announcement: string[]) {
-    if (name === streamer) {
-      return hexToHSLGradient("#FDC74C", "right", "1", "darker");
-    } else if (
-      //map over announcement array and check if name is in array
-      announcement.length > 0 &&
-      announcement.map((announcement) => announcement).includes(name)
+  function color(
+    name: string,
+    announcements: Announcements
+    // twitchColor: string
+  ) {
+    let chatColor =
+      "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)";
+    //check if user is in announcements
+    if (
+      announcements.mostPointsAmount > 0 &&
+      announcements.mostPoints.toLowerCase().includes(name.toLowerCase())
     ) {
-      return hexToHSLGradient("#FDC74C", "right", "1", "darker");
-    } else {
-      return "linear-gradient(to right, hsl(0, 0%, 0%) , 1%, hsl(0, 0%, 0%)";
+      chatColor = hexToHSLGradient("#FDC74C", "right", "1", "darker");
     }
+
+    //check all announcments for names, and give those names a background color in chat
+    // Object.values(announcements).forEach((announcement) => {
+    //   if (
+    //     typeof announcement === "string" &&
+    //     announcement !== "" &&
+    //     name.toLowerCase().includes(announcement.toLowerCase())
+    //   ) {
+    //     console.log("announcement", announcement, "name", name);
+    //     chatColor = hexToHSLGradient(
+    //       invertColor(twitchColor),
+    //       "right",
+    //       "1",
+    //       "darker"
+    //     );
+    //     return;
+    //   }
+    // });
+    return chatColor;
   }
 
   return (
-    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleDarkerGray/5 p-4 text-babbleWhite backdrop-blur-babble  ">
-      <div className="z-40 flex h-[40px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
-        <div className="relative flex items-center justify-end gap-2 text-[18px] italic">
+    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  ">
+      <div className="z-40 mx-4 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
+        <div className="relative flex items-center justify-end gap-0.5 text-[18px] font-normal uppercase">
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
@@ -97,13 +119,17 @@ export default function ChatComponent({
       </div>
 
       <div className="relative h-full overflow-hidden pt-[50px]">
-        <div className="absolute bottom-[50px] z-10">
+        <div className="absolute bottom-[50px] w-full px-4">
           {messages.map((message, index) => {
-            const bg = color(message.username, streamer.channel, announcement);
+            const bg = color(
+              message.username,
+              announcements
+              // message.color ? message.color : "000000"
+            );
             return (
               <div
                 key={index}
-                className="my-4 w-fit rounded-babbleSmall py-1 px-4 "
+                className="z-20 my-4 w-fit whitespace-pre-wrap rounded-babbleSmall px-4 py-1 shadow-babble"
                 style={{
                   backgroundImage: bg,
                   //if color is black show message in white
@@ -112,11 +138,19 @@ export default function ChatComponent({
               >
                 <span
                   className="w-full font-bold"
+                  //if bg isnt  "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)", show message in white
+                  style={{
+                    color:
+                      bg ===
+                      "linear-gradient(to right, hsl(42,98%,65%) , 1%, hsl(42,98%,45%))"
+                        ? "babbleWhite"
+                        : "babbleWhite",
+                  }}
                   dangerouslySetInnerHTML={{ __html: message.displayname }}
                 />
                 :{" "}
                 <span
-                  className="w-full text-babbleWhite"
+                  className="w-full max-w-full break-words text-babbleWhite"
                   dangerouslySetInnerHTML={{ __html: message.message }}
                 />
               </div>

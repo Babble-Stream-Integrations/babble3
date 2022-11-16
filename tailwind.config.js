@@ -12,7 +12,7 @@ module.exports = {
       boxShadow: {
         babbleOuter:
           "3px 3px 4px -1px rgba(0,0,0,0.64), inset 3px 3px 4px -1px rgba(0,0,0,0.64)",
-        babble: "3px 3px 4px -1px rgba(0,0,0,0.64)",
+        babble: "1px 1px 3px 2px rgba(0,0,0,0.35)",
       },
 
       backdropBlur: {
@@ -29,7 +29,7 @@ module.exports = {
       //add default babble colors
       colors: {
         //greys
-        babbleBlack: "#0E0E10",
+        babbleBlack: "#141416",
         babbleDarkerGray: "#1A1A1D",
         babbleDarkGray: "#212125",
         babbleGray: "#A8A8A8",
