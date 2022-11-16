@@ -1,4 +1,5 @@
 import { database } from "firebase-functions/v1";
+import { result } from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
 import hexToHSLGradient from "../../components/quizComponent/hexToHSLGradient";
@@ -6,21 +7,72 @@ import ResultsComponent from "../../components/resultsComponent/resultsComponent
 
 export default function QuizResults() {
   //define places
+  const results = [
+    {
+      username: "Leon",
+      score: "9000",
+      awnserdRight: "10",
+      awnserdWrong: "0",
+      reactionTime: "5",
+      roundsLeading: "9",
+    },
+    {
+      username: "Bidde",
+      score: "6969",
+      awnserdRight: "8",
+      awnserdWrong: "2",
+      reactionTime: "6",
+      roundsLeading: "1",
+    },
+    {
+      username: "Bid",
+      score: "420",
+      awnserdRight: "6",
+      awnserdWrong: "4",
+      reactionTime: "7",
+      roundsLeading: "0",
+    },
+  ];
+
+  //sort results
+  results.sort((a, b) => {
+    //sort by score, first convet to number
+    return Number(b.score) - Number(a.score);
+  });
+
   const placements = [
     {
       place: "second",
       color: "#646464",
       size: 0.8,
+      username: "Bidde",
+      score: "6969",
+      awnserdRight: "8",
+      awnserdWrong: "2",
+      reactionTime: "6",
+      roundsLeading: "1",
     },
     {
       place: "first",
       color: "#A47200",
       size: 1,
+      username: "Beon",
+      score: "9000",
+      awnserdRight: "10",
+      awnserdWrong: "0",
+      reactionTime: "5",
+      roundsLeading: "9",
     },
     {
       place: "third",
       color: "#4D2D11",
       size: 0.8,
+      username: "Bid",
+      score: "420",
+      awnserdRight: "6",
+      awnserdWrong: "4",
+      reactionTime: "7",
+      roundsLeading: "0",
     },
   ];
 
@@ -61,23 +113,27 @@ export default function QuizResults() {
                 </div>
               </div>
               <div className="flex h-1/2 flex-col justify-evenly">
-                <h1 className="text-center text-[25px] normal-case">Lionel</h1>
-                <h1 className="">Score 100000</h1>
-                <h1 className="">Right</h1>
-                <h1 className="">Wrong</h1>
-                <h1 className="">Reaction time</h1>
-                <h1 className="">Rounds leading</h1>
+                <h1 className="text-center text-[25px] normal-case">
+                  {placement.username}
+                </h1>
+                <h1 className="">Score {placement.score}</h1>
+                <h1 className="">Right {placement.awnserdRight}</h1>
+                <h1 className="">Wrong {placement.awnserdWrong}</h1>
+                <h1 className="">Reaction time {placement.reactionTime}</h1>
+                <h1 className="">Rounds leading {placement.roundsLeading}</h1>
               </div>
             </div>
           );
         })}
       </div>
-      <Link
-        to={"/"}
-        className="absolute bottom-[-50px] flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack"
-      >
-        continue
-      </Link>
+      <div>
+        <Link
+          to={"/"}
+          className="absolute bottom-[-100px] flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack"
+        >
+          continue
+        </Link>
+      </div>
       {/* Hiddes circels, met je poten vanaf blijven :)
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-br-full bg-babbleBlack"></div>
