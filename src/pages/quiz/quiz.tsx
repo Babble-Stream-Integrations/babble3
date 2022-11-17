@@ -17,33 +17,6 @@ import { motion } from "framer-motion";
 export default function Quiz() {
   const navigate = useNavigate();
 
-  const results = [
-    {
-      username: "Bid",
-      score: 420,
-      answeredRight: "6",
-      answeredWrong: "4",
-      reactionTime: "7",
-      roundsLeading: "0",
-    },
-    {
-      username: "Leon",
-      score: 9000,
-      answeredRight: "10",
-      answeredWrong: "0",
-      reactionTime: "5",
-      roundsLeading: "9",
-    },
-    {
-      username: "Bidde",
-      score: 6969,
-      answeredRight: "8",
-      answeredWrong: "2",
-      reactionTime: "6",
-      roundsLeading: "1",
-    },
-  ];
-
   const [account] = useSessionStorageState("account", {
     defaultValue: {
       username: "",
@@ -155,8 +128,11 @@ export default function Quiz() {
           results: data.results,
         }));
         console.log(data.results);
-        socket.disconnect();
-        <Navigate to="/quizResults"></Navigate>;
+        navigate("/quizresults", {
+          state: {
+            results: data.results,
+          },
+        });
       });
     }
   }, [start]);
@@ -300,15 +276,6 @@ export default function Quiz() {
           />
         </button>
       </div>
-      <button
-        onClick={() =>
-          navigate("/quizResults", {
-            state: { results: results },
-          })
-        }
-      >
-        navigate to results
-      </button>
     </motion.div>
   );
 }

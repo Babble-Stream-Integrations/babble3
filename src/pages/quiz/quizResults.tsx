@@ -9,37 +9,46 @@ export default function QuizResults() {
   }
   //eslint-disable-next-line
   quizResults.sort((a: any, b: any) => b.score - a.score);
+
   const placements = [
-    {
-      place: "second",
-      color: "#646464",
-      size: 0.8,
-      profile: "https://source.unsplash.com/random/400x400",
-      username: "Beon",
-      score: "9000",
-      answeredRight: "10",
-      answeredWrong: "0",
-    },
+    ...(quizResults.length > 1
+      ? [
+          {
+            place: "second",
+            color: "#A47200",
+            size: 0.8,
+            profile: "https://picsum.photos/400",
+            username: quizResults[1].username,
+            score: quizResults[1].score,
+            answeredRight: "7",
+            answeredWrong: "3",
+          },
+        ]
+      : []),
     {
       place: "first",
       color: "#A47200",
       size: 1,
       profile: "https://random.imagecdn.app/500/500",
-      username: "Bidde",
-      score: "10000000",
+      username: quizResults[0].username,
+      score: quizResults[0].score,
       answeredRight: "8",
       answeredWrong: "2",
     },
-    {
-      place: "third",
-      color: "#4D2D11",
-      size: 0.8,
-      profile: "https://picsum.photos/400",
-      username: "Bid",
-      score: "420",
-      answeredRight: "6",
-      answeredWrong: "4",
-    },
+    ...(quizResults.length > 2
+      ? [
+          {
+            place: "third",
+            color: "#A47200",
+            size: 0.6,
+            profile: "https://source.unsplash.com/random/400x400",
+            username: quizResults[2].username,
+            score: quizResults[2].score,
+            answeredRight: "6",
+            answeredWrong: "4",
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -81,11 +90,26 @@ export default function QuizResults() {
                 <h1 className="text-center text-[25px] normal-case">
                   {placement.username}
                 </h1>
-                <h1 className="">Score {placement.score}</h1>
-                <h1 className="">Right {placement.answeredRight}</h1>
-                <h1 className="">Wrong {placement.answeredWrong}</h1>
-                {/* <h1 className="">Reaction time {placement.reactionTime}</h1>
-                <h1 className="">Rounds leading {placement.roundsLeading}</h1> */}
+                <div className="flex justify-between">
+                  <h1 className="">Score </h1>
+                  <h1 className="">{placement.score}</h1>
+                </div>
+                <div className="flex justify-between">
+                  <h1 className="">Answered Right </h1>
+                  <h1 className="">{placement.answeredRight}</h1>
+                </div>
+                <div className="flex justify-between">
+                  <h1 className="">Answered Wrong </h1>
+                  <h1 className="">{placement.answeredWrong}</h1>
+                </div>
+                {/* <div className="flex justify-between">
+                  <h1 className="">Reaction time</h1>
+                  <h1 className=""></h1>
+                </div> */}
+                {/* <div className="flex justify-between">
+                  <h1 className="">Rounds leading</h1>
+                  <h1 className=""></h1>
+                </div> */}
               </div>
             </div>
           );
