@@ -95,24 +95,24 @@ export default function Login() {
         viewport={{
           once: true,
         }}
-        className="flex items-center justify-center gap-4 py-2 pb-[25px] text-[#A8A8A8]"
+        className="flex items-center justify-center gap-2 text-[#A8A8A8]"
       >
         <img
           src={session.avatar}
           className="h-10 w-10 rounded-full shadow-babble"
           alt=""
         />
-        <p className="pl-[10px] text-xl text-[#A8A8A8]">{session.username}</p>
+        <p className="pl-[5px] text-xl text-[#A8A8A8]">{session.username}</p>
         <button onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? (
             <FaCaretDown
               size={30}
-              className="transform transition duration-500"
+              className="rotate-180 transform transition duration-700"
             />
           ) : (
             <FaCaretDown
               size={30}
-              className="rotate-90 transform transition duration-500"
+              className="transform transition duration-700"
             />
           )}
         </button>
@@ -120,7 +120,7 @@ export default function Login() {
       {menuOpen && (
         <div className="flex flex-col items-center">
           <button onClick={() => signOut()}>
-            <p className="text-xl italic text-[#A8A8A8] underline underline-offset-4">
+            <p className="mt-2 text-xl text-[#A8A8A8] hover:text-babbleWhite">
               Sign out
             </p>
           </button>
@@ -141,7 +141,7 @@ export default function Login() {
         viewport={{
           once: true,
         }}
-        className="flex flex-col gap-[25px] pt-[25px]"
+        className="mt-12 flex flex-col gap-[25px]"
       >
         {buttonOptions.map((options, index) => {
           return (
@@ -164,7 +164,7 @@ export default function Login() {
             </label>
           );
         })}
-        <div className="flex justify-center text-babbleGray">
+        <div className="mt-5 flex justify-center text-babbleGray">
           <p>ALPHA V1.0</p>
         </div>
       </motion.div>

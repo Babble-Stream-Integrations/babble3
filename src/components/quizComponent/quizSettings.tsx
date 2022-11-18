@@ -54,7 +54,7 @@ export default function QuizSettings() {
   }
 
   return (
-    <div className="flex w-full justify-between px-[100px] text-left">
+    <div className="mb-12 flex w-full justify-between px-[100px] text-left">
       <div className="relative flex">
         <div className="absolute left-[-50px] h-full -rotate-90 flex-col items-end justify-end ">
           <h2 className="h-[36px] w-[250px] text-center text-babbleGray">

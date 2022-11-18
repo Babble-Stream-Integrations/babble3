@@ -44,7 +44,7 @@ export default function App() {
       path: "/",
       element: (
         <PrivateRoutes>
-          <DefaultLayout title="Main Menu">
+          <DefaultLayout title="Main menu">
             <Home />
           </DefaultLayout>
         </PrivateRoutes>
@@ -90,7 +90,14 @@ export default function App() {
       path: "/tutorial",
       element: (
         <PrivateRoutes>
-          <Tutorial />
+          <DefaultLayout
+            title="Tutorial"
+            subtitle="When you hit the 'Play Game' button your chat will be loaded in and the games can begin!
+A series of 10 trivia questions will appear on screen. You and your chat can answer by typing the corresponding letter in the chatbox. Keep in mind that you will get rewarded with points. Answering fast and scoring combo's will give you extra!
+When the game is over you'll be able to see how everyone performed."
+          >
+            <Tutorial />
+          </DefaultLayout>
         </PrivateRoutes>
       ),
     },
@@ -102,20 +109,9 @@ export default function App() {
             title="Settings"
             subtitle="You can change these settings to make the game more to your liking."
           >
-            <QuizSettings />
+            <Settings />
           </DefaultLayout>
         </PrivateRoutes>
-      ),
-    },
-    {
-      path: "/layout",
-      element: (
-        <DefaultLayout
-          title="Settings"
-          subtitle="You can change these settings to make the game more to your liking."
-        >
-          <QuizSettings />
-        </DefaultLayout>
       ),
     },
   ]);
