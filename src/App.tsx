@@ -14,6 +14,8 @@ import Settings from "./pages/settings";
 import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
 import Home from "./pages/home";
+import { DefaultLayout } from "./layouts/defaultLayout";
+import QuizSettings from "./components/quizComponent/quizSettings";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
@@ -42,7 +44,9 @@ export default function App() {
       path: "/",
       element: (
         <PrivateRoutes>
-          <Home />
+          <DefaultLayout title="Main Menu">
+            <Home />
+          </DefaultLayout>
         </PrivateRoutes>
       ),
     },
@@ -94,8 +98,24 @@ export default function App() {
       path: "/settings",
       element: (
         <PrivateRoutes>
-          <Settings />
+          <DefaultLayout
+            title="Settings"
+            subtitle="You can change these settings to make the game more to your liking."
+          >
+            <QuizSettings />
+          </DefaultLayout>
         </PrivateRoutes>
+      ),
+    },
+    {
+      path: "/layout",
+      element: (
+        <DefaultLayout
+          title="Settings"
+          subtitle="You can change these settings to make the game more to your liking."
+        >
+          <QuizSettings />
+        </DefaultLayout>
       ),
     },
   ]);
