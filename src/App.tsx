@@ -15,7 +15,6 @@ import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
 import Home from "./pages/home";
 import { DefaultLayout } from "./layouts/defaultLayout";
-import QuizSettings from "./components/quizComponent/quizSettings";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
