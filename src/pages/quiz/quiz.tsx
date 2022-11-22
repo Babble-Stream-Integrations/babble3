@@ -112,11 +112,11 @@ export default function Quiz() {
           rightAnswer: data.rightAnswer,
           percentages: data.percentages,
           announcements: {
-            mostPoints: data.mostPoints.username,
-            mostPointsAmount: data.mostPoints.points,
+            mostPoints: data.mostPoints?.username ?? "",
+            mostPointsAmount: data.mostPoints?.points ?? "",
             firstToGuess: data.firstToGuess,
-            onStreak: data.contestantData[0].username,
-            onStreakAmount: data.contestantData[0].currentStreak,
+            onStreak: data.contestantData[0]?.username ?? "",
+            onStreakAmount: data.contestantData[0]?.currentStreak ?? "",
           },
         }));
       });

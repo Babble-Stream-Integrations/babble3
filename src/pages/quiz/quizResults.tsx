@@ -26,16 +26,20 @@ export default function QuizResults() {
           },
         ]
       : []),
-    {
-      place: "first",
-      color: "#A47200",
-      size: 1,
-      profile: quizResults[0].profile,
-      username: quizResults[0].username,
-      points: quizResults[0].points,
-      answeredRight: quizResults[0].correctAnswers,
-      answeredWrong: quizResults[0].wrongAnswers,
-    },
+    ...(quizResults.length > 0
+      ? [
+          {
+            place: "first",
+            color: "#A47200",
+            size: 1,
+            profile: quizResults[0].profile,
+            username: quizResults[0].username,
+            points: quizResults[0].points,
+            answeredRight: quizResults[0].correctAnswers,
+            answeredWrong: quizResults[0].wrongAnswers,
+          },
+        ]
+      : []),
     ...(quizResults.length > 2
       ? [
           {
@@ -52,69 +56,75 @@ export default function QuizResults() {
       : []),
   ];
 
+  console.log(placements);
+
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
       <h1 className="pb-[10px] text-4xl font-bold ">Winners</h1>
       <div className="flex gap-4">
-        {placements.map((placement, index) => {
-          return (
-            <div
-              className="relative inset-0 z-10 flex h-[568px] w-[325px] flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
-              key={index}
-              style={{
-                height: "568px",
-                width: "325px",
-                transform: `scale(${placement.size})`,
-              }}
-            >
+        {placements.length > 0 ? (
+          placements.map((placement, index) => {
+            return (
               <div
-                className="w-full rounded-full p-4"
+                className="relative inset-0 z-10 flex h-[568px] w-[325px] flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
+                key={index}
                 style={{
-                  backgroundImage: hexToHSLGradient(
-                    placement.color,
-                    "right",
-                    "20",
-                    "lighter",
-                    40
-                  ),
+                  height: "568px",
+                  width: "325px",
+                  transform: `scale(${placement.size})`,
                 }}
               >
-                <div className="rounded-full ">
-                  <img
-                    className="rounded-full "
-                    src={placement.profile}
-                    alt="first place"
-                  />
+                <div
+                  className="w-full rounded-full p-4"
+                  style={{
+                    backgroundImage: hexToHSLGradient(
+                      placement.color,
+                      "right",
+                      "20",
+                      "lighter",
+                      40
+                    ),
+                  }}
+                >
+                  <div className="rounded-full ">
+                    <img
+                      className="rounded-full "
+                      src={placement.profile}
+                      alt="first place"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex h-1/2 flex-col justify-evenly">
-                <h1 className="text-center text-[25px] normal-case">
-                  {placement.username}
-                </h1>
-                <div className="flex justify-between">
-                  <h1 className="">Score </h1>
-                  <h1 className="">{placement.points}</h1>
-                </div>
-                <div className="flex justify-between">
-                  <h1 className="">Answered Right </h1>
-                  <h1 className="">{placement.answeredRight}</h1>
-                </div>
-                <div className="flex justify-between">
-                  <h1 className="">Answered Wrong </h1>
-                  <h1 className="">{placement.answeredWrong}</h1>
-                </div>
-                {/* <div className="flex justify-between">
+                <div className="flex h-1/2 flex-col justify-evenly">
+                  <h1 className="text-center text-[25px] normal-case">
+                    {placement.username}
+                  </h1>
+                  <div className="flex justify-between">
+                    <h1 className="">Score </h1>
+                    <h1 className="">{placement.points}</h1>
+                  </div>
+                  <div className="flex justify-between">
+                    <h1 className="">Answered Right </h1>
+                    <h1 className="">{placement.answeredRight}</h1>
+                  </div>
+                  <div className="flex justify-between">
+                    <h1 className="">Answered Wrong </h1>
+                    <h1 className="">{placement.answeredWrong}</h1>
+                  </div>
+                  {/* <div className="flex justify-between">
                   <h1 className="">Reaction time</h1>
                   <h1 className=""></h1>
                 </div> */}
-                {/* <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                   <h1 className="">Rounds leading</h1>
                   <h1 className=""></h1>
                 </div> */}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <h1>No one participated!</h1>
+        )}
       </div>
       <div>
         <Link
