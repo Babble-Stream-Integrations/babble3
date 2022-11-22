@@ -1,5 +1,11 @@
 import { Link, Navigate, useLocation } from "react-router-dom";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
+import trophy1 from "../../assets/trophy-1.png";
+import trophy2 from "../../assets/trophy-2.png";
+import trophy3 from "../../assets/trophy-3.png";
+import { optionsToEndpoint } from "firebase-functions/v1";
+import { result } from "lodash";
+import { FaTrophy } from "react-icons/fa";
 
 export default function QuizResults() {
   //get top 3 results from quiz page based on highest score
@@ -15,10 +21,11 @@ export default function QuizResults() {
     ...(quizResults.length > 1
       ? [
           {
-            place: "second",
-            color: "#A47200",
+            place: "2",
+            color: "#646464",
             size: 0.8,
             profile: quizResults[1].profile,
+            troph: trophy2,
             username: quizResults[1].username,
             points: quizResults[1].points,
             answeredRight: quizResults[1].correctAnswers,
@@ -29,10 +36,11 @@ export default function QuizResults() {
     ...(quizResults.length > 0
       ? [
           {
-            place: "first",
+            place: "1",
             color: "#A47200",
             size: 1,
             profile: quizResults[0].profile,
+            trophy: trophy1,
             username: quizResults[0].username,
             points: quizResults[0].points,
             answeredRight: quizResults[0].correctAnswers,
@@ -43,10 +51,11 @@ export default function QuizResults() {
     ...(quizResults.length > 2
       ? [
           {
-            place: "third",
-            color: "#A47200",
+            place: "3",
+            color: "#4D2D11",
             size: 0.6,
             profile: quizResults[2].profile,
+            trophy: trophy3,
             username: quizResults[2].username,
             points: quizResults[2].points,
             answeredRight: quizResults[2].correctAnswers,
@@ -92,6 +101,17 @@ export default function QuizResults() {
                       src={placement.profile}
                       alt="first place"
                     />
+                    <div className="absolute inset-0 bottom-[60px] z-10 flex items-center justify-center ">
+                      <FaTrophy
+                        size="4em"
+                        style={{
+                          color: placement.color,
+                        }}
+                      />
+                      <div className="absolute inset-0 bottom-[20px] z-10 flex items-center justify-center ">
+                        <h1>{placement.place}</h1>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex h-1/2 flex-col justify-evenly">
