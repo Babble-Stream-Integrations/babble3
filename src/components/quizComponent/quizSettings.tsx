@@ -43,10 +43,7 @@ export default function QuizSettings() {
     }));
   }
 
-  function handleColorChange(
-    letter: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) {
+  function handleColorChange(letter: string, e: HandleChange) {
     setColors((prevState) => ({
       ...prevState,
       [letter]: e.target.value,
@@ -54,7 +51,7 @@ export default function QuizSettings() {
   }
 
   return (
-    <div className="flex w-full justify-between px-[100px] text-left">
+    <div className="mb-12 flex w-full justify-between px-[100px] text-left">
       <div className="relative flex">
         <div className="absolute left-[-50px] h-full -rotate-90 flex-col items-end justify-end ">
           <h2 className="h-[36px] w-[250px] text-center text-babbleGray">
@@ -92,7 +89,7 @@ export default function QuizSettings() {
                 onChange={(e) => handleChange("questionAmount", e)}
                 value={quizSettings.questionAmount}
                 min={1}
-                max={50}
+                max={15}
               ></input>
             </div>
           </div>
@@ -172,7 +169,7 @@ export default function QuizSettings() {
                 {/* //color */}
                 <input
                   type="text"
-                  className="mr-[15px] h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                  className="z-50 mr-[15px] h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center uppercase focus:outline-none"
                   value={colors[letter]}
                   onChange={(e) => handleColorChange(letter, e)}
                 ></input>

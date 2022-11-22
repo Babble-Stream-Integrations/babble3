@@ -62,7 +62,7 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
               dangerouslySetInnerHTML={{ __html: quiz.question }}
             />
           </div>
-          <div className="flex h-7 w-full justify-between bg-babbleDarkerGray">
+          <div className="flex h-7 w-full justify-evenly bg-babbleDarkerGray">
             {/* make row number for every quiz question */}
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
