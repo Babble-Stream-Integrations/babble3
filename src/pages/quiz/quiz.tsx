@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import ChatComponent from "../../components/chatComponent/chatComponent";
@@ -115,8 +115,8 @@ export default function Quiz() {
             mostPoints: data.mostPoints.username,
             mostPointsAmount: data.mostPoints.points,
             firstToGuess: data.firstToGuess,
-            onStreak: data.contestantStreaks[0].username,
-            onStreakAmount: data.contestantStreaks[0].currentStreak,
+            onStreak: data.contestantData[0].username,
+            onStreakAmount: data.contestantData[0].currentStreak,
           },
         }));
       });
@@ -128,11 +128,14 @@ export default function Quiz() {
           results: data.results,
         }));
         console.log(data.results);
-        navigate("/quizresults", {
-          state: {
-            results: data.results,
-          },
-        });
+        //wait 5 seconds before navigating to the results page
+        setTimeout(() => {
+          navigate("/quizresults", {
+            state: {
+              results: data.results,
+            },
+          });
+        }, 5000);
       });
     }
   }, [start]);
@@ -178,27 +181,42 @@ export default function Quiz() {
             className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
           />
         </button>
-        <Link to="/settings">
-          <button
-            onClick={() => {
-              setStart(false);
-            }}
-            className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
-          >
-            <FaCog className="z-10" />
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
-          </button>
-        </Link>
-        <Link to="/">
-          <button className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
-            <FaHome className="z-10" />
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
-          </button>
-        </Link>
+        <button
+          onClick={() => {
+            if (start) {
+              if (window.confirm("Are you sure you want to end the game?")) {
+                setStart(false);
+                navigate("/settings");
+              }
+            } else {
+              navigate("/settings");
+            }
+          }}
+          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+        >
+          <FaCog className="z-10" />
+          <div
+            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+          />
+        </button>
+        <button
+          onClick={() => {
+            if (start) {
+              if (window.confirm("Are you sure you want to leave?")) {
+                setStart(false);
+                navigate("/");
+              }
+            } else {
+              navigate("/");
+            }
+          }}
+          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+        >
+          <FaHome className="z-10" />
+          <div
+            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+          />
+        </button>
       </div>
       <ResponsiveGridLayout
         className="overflow-hidden"
@@ -247,7 +265,7 @@ export default function Quiz() {
         </div>
       </ResponsiveGridLayout>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
-        {editable && (
+        {editable && !start && (
           <button
             className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
             onClick={() => {

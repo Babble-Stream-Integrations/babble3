@@ -61,7 +61,7 @@ export default function AnnouncementFeedComponent({
               <AutoTextSize
                 maxFontSizePx={18}
                 dangerouslySetInnerHTML={{
-                  __html: `STREAK: ${streak > 1 ? announcements.onStreak : ""}`,
+                  __html: `STREAK: ${streak > 2 ? announcements.onStreak : ""}`,
                 }}
               />
             </div>

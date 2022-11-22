@@ -7,8 +7,9 @@ export default function QuizResults() {
   if (!quizResults) {
     return <Navigate to="/quiz" />;
   }
+  console.log(quizResults);
   //eslint-disable-next-line
-  quizResults.sort((a: any, b: any) => b.score - a.score);
+  quizResults.sort((a: any, b: any) => b.points - a.points);
 
   const placements = [
     ...(quizResults.length > 1
@@ -17,11 +18,11 @@ export default function QuizResults() {
             place: "second",
             color: "#A47200",
             size: 0.8,
-            profile: "https://picsum.photos/400",
+            profile: quizResults[1].profile,
             username: quizResults[1].username,
-            score: quizResults[1].score,
-            answeredRight: "7",
-            answeredWrong: "3",
+            points: quizResults[1].points,
+            answeredRight: quizResults[1].correctAnswers,
+            answeredWrong: quizResults[1].wrongAnswers,
           },
         ]
       : []),
@@ -29,11 +30,11 @@ export default function QuizResults() {
       place: "first",
       color: "#A47200",
       size: 1,
-      profile: "https://random.imagecdn.app/500/500",
+      profile: quizResults[0].profile,
       username: quizResults[0].username,
-      score: quizResults[0].score,
-      answeredRight: "8",
-      answeredWrong: "2",
+      points: quizResults[0].points,
+      answeredRight: quizResults[0].correctAnswers,
+      answeredWrong: quizResults[0].wrongAnswers,
     },
     ...(quizResults.length > 2
       ? [
@@ -41,11 +42,11 @@ export default function QuizResults() {
             place: "third",
             color: "#A47200",
             size: 0.6,
-            profile: "https://source.unsplash.com/random/400x400",
+            profile: quizResults[2].profile,
             username: quizResults[2].username,
-            score: quizResults[2].score,
-            answeredRight: "6",
-            answeredWrong: "4",
+            points: quizResults[2].points,
+            answeredRight: quizResults[2].correctAnswers,
+            answeredWrong: quizResults[2].wrongAnswers,
           },
         ]
       : []),
@@ -92,7 +93,7 @@ export default function QuizResults() {
                 </h1>
                 <div className="flex justify-between">
                   <h1 className="">Score </h1>
-                  <h1 className="">{placement.score}</h1>
+                  <h1 className="">{placement.points}</h1>
                 </div>
                 <div className="flex justify-between">
                   <h1 className="">Answered Right </h1>
