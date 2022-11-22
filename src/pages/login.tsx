@@ -1,4 +1,4 @@
-import { ImTwitch, ImYoutube } from "react-icons/im";
+import { ImTwitch } from "react-icons/im";
 // import { IoLogoTiktok } from "react-icons/io5";
 import { useState } from "react";
 import { DefaultButton } from "../components/defaultButton/defaultButton";
@@ -17,10 +17,10 @@ export default function Login() {
 
   //define different sign in methods
   const signinOptions = [
-    {
-      platform: "youtube",
-      icon: <ImYoutube size={50} />,
-    },
+    // {
+    //   platform: "youtube",
+    //   icon: <ImYoutube size={50} />,
+    // },
     {
       platform: "twitch",
       icon: <ImTwitch size={50} />,
