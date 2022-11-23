@@ -206,7 +206,7 @@ export default function Quiz() {
         layouts={layout}
         breakpoints={{ lg: 100 }}
         cols={{ lg: 24 }}
-        rowHeight={height / 12 - 52.5}
+        rowHeight={height / 12 - 52.75}
         isBounded={true}
         compactType={"vertical"}
         resizeHandles={["se"]}
