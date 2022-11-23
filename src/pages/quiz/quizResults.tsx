@@ -22,7 +22,6 @@ export default function QuizResults() {
             color: "#646464",
             size: 0.8,
             profile: quizResults[1].profile,
-            troph: trophy2,
             username: quizResults[1].username,
             points: quizResults[1].points,
             answeredRight: quizResults[1].correctAnswers,
@@ -141,13 +140,8 @@ export default function QuizResults() {
           <h1>No one participated!</h1>
         )}
       </div>
-      <div>
-        <Link
-          to={"/"}
-          className="absolute bottom-[-100px] flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack"
-        >
-          continue
-        </Link>
+      <div className="absolute bottom-[10px] flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack">
+        <Link to={"/"}>continue</Link>
       </div>
       {/* Hiddes circels, met je poten vanaf blijven :)
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed">
