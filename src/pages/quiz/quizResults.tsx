@@ -1,8 +1,5 @@
 import { Link, Navigate, useLocation } from "react-router-dom";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
-import trophy1 from "../../assets/trophy-1.png";
-import trophy2 from "../../assets/trophy-2.png";
-import trophy3 from "../../assets/trophy-3.png";
 import { optionsToEndpoint } from "firebase-functions/v1";
 import { result } from "lodash";
 import { FaTrophy } from "react-icons/fa";
@@ -40,7 +37,6 @@ export default function QuizResults() {
             color: "#A47200",
             size: 1,
             profile: quizResults[0].profile,
-            trophy: trophy1,
             username: quizResults[0].username,
             points: quizResults[0].points,
             answeredRight: quizResults[0].correctAnswers,
@@ -55,7 +51,6 @@ export default function QuizResults() {
             color: "#4D2D11",
             size: 0.6,
             profile: quizResults[2].profile,
-            trophy: trophy3,
             username: quizResults[2].username,
             points: quizResults[2].points,
             answeredRight: quizResults[2].correctAnswers,
