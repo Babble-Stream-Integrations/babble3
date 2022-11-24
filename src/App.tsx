@@ -14,6 +14,7 @@ import Settings from "./pages/settings";
 import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
 import Home from "./pages/home";
+import { DefaultLayout } from "./layouts/defaultLayout";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
@@ -42,7 +43,9 @@ export default function App() {
       path: "/",
       element: (
         <PrivateRoutes>
-          <Home />
+          <DefaultLayout title="Main menu">
+            <Home />
+          </DefaultLayout>
         </PrivateRoutes>
       ),
     },
@@ -86,7 +89,14 @@ export default function App() {
       path: "/tutorial",
       element: (
         <PrivateRoutes>
-          <Tutorial />
+          <DefaultLayout
+            title="Tutorial"
+            subtitle="When you hit the 'Play Game' button your chat will be loaded in and the games can begin!
+A series of 10 trivia questions will appear on screen. You and your chat can answer by typing the corresponding letter in the chatbox. Keep in mind that you will get rewarded with points. Answering fast and scoring combo's will give you extra!
+When the game is over you'll be able to see how everyone performed."
+          >
+            <Tutorial />
+          </DefaultLayout>
         </PrivateRoutes>
       ),
     },
@@ -94,7 +104,12 @@ export default function App() {
       path: "/settings",
       element: (
         <PrivateRoutes>
-          <Settings />
+          <DefaultLayout
+            title="Settings"
+            subtitle="You can change these settings to make the game more to your liking."
+          >
+            <Settings />
+          </DefaultLayout>
         </PrivateRoutes>
       ),
     },

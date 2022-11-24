@@ -11,7 +11,7 @@ module.exports = {
     extend: {
       boxShadow: {
         babbleOuter:
-          "3px 3px 4px -1px rgba(0,0,0,0.64), inset 3px 3px 4px -1px rgba(0,0,0,0.64)",
+          "3px 3px 4px -1px rgba(0,0,0,0.54), inset 3px 3px 4px -1px rgba(0,0,0,0.54)",
         babble: "1px 1px 3px 2px rgba(0,0,0,0.35)",
       },
 
