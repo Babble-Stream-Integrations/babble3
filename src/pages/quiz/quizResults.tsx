@@ -1,7 +1,5 @@
 import { Link, Navigate, useLocation } from "react-router-dom";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
-import { optionsToEndpoint } from "firebase-functions/v1";
-import { result } from "lodash";
 import { FaTrophy } from "react-icons/fa";
 
 export default function QuizResults() {
@@ -20,6 +18,10 @@ export default function QuizResults() {
           {
             place: "2",
             color: "#646464",
+            trophy: {
+              startColor: "#A4A4A4",
+              endColor: "#B8B8B8",
+            },
             size: 0.8,
             profile: quizResults[1].profile,
             username: quizResults[1].username,
@@ -34,6 +36,10 @@ export default function QuizResults() {
           {
             place: "1",
             color: "#A47200",
+            trophy: {
+              startColor: "#E1B44A",
+              endColor: "#F0C45D",
+            },
             size: 1,
             profile: quizResults[0].profile,
             username: quizResults[0].username,
@@ -43,11 +49,15 @@ export default function QuizResults() {
           },
         ]
       : []),
-    ...(quizResults.length > 2
+    ...(quizResults.length > 0
       ? [
           {
             place: "3",
             color: "#4D2D11",
+            trophy: {
+              startColor: "#A56B39",
+              endColor: "#C28045",
+            },
             size: 0.6,
             profile: quizResults[2].profile,
             username: quizResults[2].username,
@@ -59,7 +69,20 @@ export default function QuizResults() {
       : []),
   ];
 
-  console.log(placements);
+  function getTrophy(placement: string, startColor: string, endColor: string) {
+    return (
+      <linearGradient
+        id={`gradient-${placement}`}
+        x1="0%"
+        y1="50%"
+        x2="100%"
+        y2="50%"
+      >
+        <stop stopColor={startColor} offset="0%" />
+        <stop stopColor={endColor} offset="100%" />
+      </linearGradient>
+    );
+  }
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
@@ -69,7 +92,7 @@ export default function QuizResults() {
           placements.map((placement, index) => {
             return (
               <div
-                className="relative inset-0 z-10 flex h-[568px] w-[325px] flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
+                className="inset-0 z-10 flex h-[568px] w-[325px] flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
                 key={index}
                 style={{
                   height: "568px",
@@ -95,12 +118,18 @@ export default function QuizResults() {
                       src={placement.profile}
                       alt="first place"
                     />
-                    <div className="absolute inset-0 bottom-[60px] z-10 flex items-center justify-center ">
+                    <div className=" absolute inset-0 bottom-[45px] z-10 flex items-center justify-center bg-transparent ">
+                      <svg width="0" height="0">
+                        {getTrophy(
+                          placement.place,
+                          placement.trophy.startColor,
+                          placement.trophy.endColor
+                        )}
+                      </svg>
                       <FaTrophy
                         size="4em"
-                        style={{
-                          color: placement.color,
-                        }}
+                        className=""
+                        style={{ fill: `url(#gradient-${placement.place})` }}
                       />
                       <div className="absolute inset-0 bottom-[20px] z-10 flex items-center justify-center ">
                         <h1>{placement.place}</h1>
