@@ -22,7 +22,7 @@ export default function QuizResults() {
               startColor: "#A4A4A4",
               endColor: "#B8B8B8",
             },
-            size: 0.8,
+            size: 0.7,
             profile: quizResults[1].profile,
             username: quizResults[1].username,
             points: quizResults[1].points,
@@ -40,7 +40,7 @@ export default function QuizResults() {
               startColor: "#E1B44A",
               endColor: "#F0C45D",
             },
-            size: 1,
+            size: 0.9,
             profile: quizResults[0].profile,
             username: quizResults[0].username,
             points: quizResults[0].points,
@@ -49,7 +49,7 @@ export default function QuizResults() {
           },
         ]
       : []),
-    ...(quizResults.length > 0
+    ...(quizResults.length > 2
       ? [
           {
             place: "3",
@@ -58,7 +58,7 @@ export default function QuizResults() {
               startColor: "#A56B39",
               endColor: "#C28045",
             },
-            size: 0.6,
+            size: 0.7,
             profile: quizResults[2].profile,
             username: quizResults[2].username,
             points: quizResults[2].points,
@@ -86,16 +86,16 @@ export default function QuizResults() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
-      <h1 className="pb-[10px] text-4xl font-bold ">Winners</h1>
+      <h1 className=" text-4xl font-bold ">Winners</h1>
       <div className="flex gap-4">
         {placements.length > 0 ? (
           placements.map((placement, index) => {
             return (
               <div
-                className="inset-0 z-10 flex h-[568px] w-[325px] flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
+                className="inset-0 z-10 flex flex-col justify-center gap-4 rounded-babble border border-babbleGray bg-babbleGray/5 p-4 text-left text-[18px] shadow-babble backdrop-blur-babble"
                 key={index}
                 style={{
-                  height: "568px",
+                  height: "auto",
                   width: "325px",
                   transform: `scale(${placement.size})`,
                 }}
@@ -112,13 +112,13 @@ export default function QuizResults() {
                     ),
                   }}
                 >
-                  <div className="rounded-full ">
+                  <div className="relative rounded-full">
                     <img
                       className="rounded-full "
                       src={placement.profile}
                       alt="first place"
                     />
-                    <div className=" absolute inset-0 bottom-[45px] z-10 flex items-center justify-center bg-transparent ">
+                    <div className=" absolute bottom-[-5px] left-0 right-0 z-10 flex items-center justify-center bg-transparent">
                       <svg width="0" height="0">
                         {getTrophy(
                           placement.place,
@@ -131,14 +131,14 @@ export default function QuizResults() {
                         className=""
                         style={{ fill: `url(#gradient-${placement.place})` }}
                       />
-                      <div className="absolute inset-0 bottom-[20px] z-10 flex items-center justify-center ">
+                      <div className="absolute inset-0 bottom-[20px] z-10 flex items-center justify-center">
                         <h1>{placement.place}</h1>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex h-1/2 flex-col justify-evenly">
-                  <h1 className="text-center text-[25px] normal-case">
+                <div className="flex h-1/2 flex-col justify-evenly gap-[18px]">
+                  <h1 className="text-center text-[20px] normal-case">
                     {placement.username}
                   </h1>
                   <div className="flex justify-between">
@@ -169,8 +169,8 @@ export default function QuizResults() {
           <h1>No one participated!</h1>
         )}
       </div>
-      <div className="absolute bottom-[10px] flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack">
-        <Link to={"/"}>continue</Link>
+      <div className=" flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack">
+        <Link to={"/"}>Continue</Link>
       </div>
       {/* Hiddes circels, met je poten vanaf blijven :)
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed">
