@@ -5,22 +5,25 @@ export default function CallBack() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  //need session for setSession
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [session, setSession] = useSessionStorageState("account", {
     defaultValue: {
-      accessToken: "",
+      avatar: "",
+      babbleToken: "",
+      displayName: "",
+      email: "",
+      platform: "",
+      uid: "",
+      username: "",
     },
   });
 
   searchParams.forEach((value, key) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setSession((session: any) => ({
-      ...session,
+    setSession((old) => ({
+      ...old,
       [key]: value,
     }));
   });
-  navigate("/");
+  if (session) navigate("/");
 
   return (
     <div className="flex min-h-screen w-screen flex-col items-center justify-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">

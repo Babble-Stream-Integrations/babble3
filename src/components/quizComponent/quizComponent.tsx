@@ -1,5 +1,7 @@
 import { AutoTextSize } from "auto-text-size";
-import useLocalStorageState from "use-local-storage-state";
+import useLocalStorageState, {
+  LocalStorageState,
+} from "use-local-storage-state";
 import { useMemo } from "react";
 import { Percentages, QuizComponentData } from "../../types";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
@@ -20,8 +22,12 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   }
 
   //get color from localstorage and convert to gradient with HSL
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [colors]: any = useLocalStorageState("colors", {
+  const [colors]: LocalStorageState<{
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+  }> = useLocalStorageState("colors", {
     defaultValue: {
       a: "#E42256",
       b: "#FDC74C",
@@ -31,7 +37,24 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   });
 
   function Color(letter: string) {
-    const hex: string = useMemo(() => colors[letter.toLowerCase()], [letter]);
+    let hex = "";
+    switch (letter.toLowerCase()) {
+      case "a":
+        hex = colors.a;
+        break;
+      case "b":
+        hex = colors.b;
+        break;
+      case "c":
+        hex = colors.c;
+        break;
+      case "d":
+        hex = colors.d;
+        break;
+      default:
+        hex = colors.a;
+        break;
+    }
     const hslGradient = useMemo(
       () => hexToHSLGradient(hex, "right", "50", "darker"),
       [hex]
