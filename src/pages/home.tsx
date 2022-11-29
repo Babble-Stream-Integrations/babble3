@@ -119,11 +119,13 @@ export default function Login() {
             <FaCaretDown
               size={30}
               className="rotate-180 transform transition duration-700"
+              aria-label="Close menu"
             />
           ) : (
             <FaCaretDown
               size={30}
               className="transform transition duration-700"
+              aria-label="Open menu"
             />
           )}
         </button>
