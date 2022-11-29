@@ -1,8 +1,8 @@
 import { AutoTextSize } from "auto-text-size";
-import { Percentages, QuizComponentData } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
-import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { useMemo } from "react";
+import { Percentages, QuizComponentData } from "../../types";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
 import TimerComponent from "../timerComponent/timerComponent";
 
 export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {

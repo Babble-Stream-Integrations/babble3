@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
-import ChatComponent from "../../components/chatComponent/chatComponent";
-import QuizComponent from "../../components/quizComponent/quizComponent";
-import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
-import { appConfig } from "../../config/app";
-import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import useSessionStorageState from "use-session-storage-state";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import { FaCog, FaHome, FaPencilAlt, FaPlay, FaRedo } from "react-icons/fa";
-import "./quiz.css";
-import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";
+import { appConfig } from "../../config/app";
+import { quizLayout } from "./quizLayout";
+import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
+import ChatComponent from "../../components/chatComponent/chatComponent";
+import QuizComponent from "../../components/quizComponent/quizComponent";
+import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
+import "./quiz.css";
 
 export default function Quiz() {
   const navigate = useNavigate();

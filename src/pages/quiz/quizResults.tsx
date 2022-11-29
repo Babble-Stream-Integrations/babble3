@@ -1,16 +1,25 @@
 import { Link, Navigate, useLocation } from "react-router-dom";
-import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { FaTrophy } from "react-icons/fa";
+import hexToHSLGradient from "../../common/hexToHSLGradient";
+
+type Results = {
+  correctAnswers: number;
+  wrongAnswers: number;
+  points: number;
+  profile: string;
+  username: string;
+};
 
 export default function QuizResults() {
   //get top 3 results from quiz page based on highest score
   const quizResults = useLocation().state?.results;
+
   if (!quizResults) {
     return <Navigate to="/quiz" />;
   }
   console.log(quizResults);
-  //eslint-disable-next-line
-  quizResults.sort((a: any, b: any) => b.points - a.points);
+
+  quizResults.sort((a: Results, b: Results) => b.points - a.points);
 
   const placements = [
     ...(quizResults.length > 1
@@ -71,16 +80,18 @@ export default function QuizResults() {
 
   function getTrophy(placement: string, startColor: string, endColor: string) {
     return (
-      <linearGradient
-        id={`gradient-${placement}`}
-        x1="0%"
-        y1="50%"
-        x2="100%"
-        y2="50%"
-      >
-        <stop stopColor={startColor} offset="0%" />
-        <stop stopColor={endColor} offset="100%" />
-      </linearGradient>
+      <svg width="0" height="0">
+        <linearGradient
+          id={`gradient-${placement}`}
+          x1="0%"
+          y1="50%"
+          x2="100%"
+          y2="50%"
+        >
+          <stop stopColor={startColor} offset="0%" />
+          <stop stopColor={endColor} offset="100%" />
+        </linearGradient>
+      </svg>
     );
   }
 
@@ -119,59 +130,52 @@ export default function QuizResults() {
                       alt="first place"
                     />
                     <div className=" absolute bottom-[-5px] left-0 right-0 z-10 flex items-center justify-center bg-transparent">
-                      <svg width="0" height="0">
-                        {getTrophy(
-                          placement.place,
-                          placement.trophy.startColor,
-                          placement.trophy.endColor
-                        )}
-                      </svg>
+                      {getTrophy(
+                        placement.place,
+                        placement.trophy.startColor,
+                        placement.trophy.endColor
+                      )}
                       <FaTrophy
                         size="4em"
                         className=""
                         style={{ fill: `url(#gradient-${placement.place})` }}
                       />
                       <div className="absolute inset-0 bottom-[20px] z-10 flex items-center justify-center">
-                        <h1>{placement.place}</h1>
+                        <h2>{placement.place}</h2>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="flex h-1/2 flex-col justify-evenly gap-[18px]">
-                  <h1 className="text-center text-[20px] normal-case">
+                  <h2 className="text-center text-[20px] normal-case">
                     {placement.username}
-                  </h1>
+                  </h2>
                   <div className="flex justify-between">
-                    <h1 className="">Score </h1>
-                    <h1 className="">{placement.points}</h1>
+                    <h2 className="">Score </h2>
+                    <h2 className="">{placement.points}</h2>
                   </div>
                   <div className="flex justify-between">
-                    <h1 className="">Answered Right </h1>
-                    <h1 className="">{placement.answeredRight}</h1>
+                    <h2 className="">Answered Right </h2>
+                    <h2 className="">{placement.answeredRight}</h2>
                   </div>
                   <div className="flex justify-between">
-                    <h1 className="">Answered Wrong </h1>
-                    <h1 className="">{placement.answeredWrong}</h1>
+                    <h2 className="">Answered Wrong </h2>
+                    <h2 className="">{placement.answeredWrong}</h2>
                   </div>
-                  {/* <div className="flex justify-between">
-                  <h1 className="">Reaction time</h1>
-                  <h1 className=""></h1>
-                </div> */}
-                  {/* <div className="flex justify-between">
-                  <h1 className="">Rounds leading</h1>
-                  <h1 className=""></h1>
-                </div> */}
                 </div>
               </div>
             );
           })
         ) : (
-          <h1>No one participated!</h1>
+          <h2>No one participated!</h2>
         )}
       </div>
-      <div className=" flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack">
-        <Link to={"/"}>Continue</Link>
-      </div>
+      <Link
+        to={"/"}
+        className=" flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack"
+      >
+        Continue
+      </Link>
       {/* Hiddes circels, met je poten vanaf blijven :)
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-br-full bg-babbleBlack"></div>
@@ -179,7 +183,6 @@ export default function QuizResults() {
       <div className="absolute right-0 bottom-0 flex h-[30rem] w-[30rem] items-end justify-end rounded-tl-full bg-gradient-to-t from-babbleLightblue to-babbleDarkblue">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-tl-full bg-babbleBlack"></div>
       </div> */}
-      <div className="absolute bottom-0"></div>
     </div>
   );
 }
