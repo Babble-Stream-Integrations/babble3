@@ -9,10 +9,18 @@ import { appConfig } from "../../config/app";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import useSessionStorageState from "use-session-storage-state";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
-import { FaCog, FaHome, FaPencilAlt, FaPlay, FaRedo } from "react-icons/fa";
+import {
+  FaCog,
+  FaHome,
+  FaPencilAlt,
+  FaPlay,
+  FaRedo,
+  FaCommentDots,
+} from "react-icons/fa";
 import "./quiz.css";
 import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -264,6 +272,25 @@ export default function Quiz() {
           />
         </div>
       </ResponsiveGridLayout>
+      <div className="absolute bottom-[150px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
+        <button
+          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+          onClick={() => {
+            axios.post(
+              `http://localhost:5001/babble-d6ef3/europe-west1/default/feedback`,
+              {
+                username: account.username,
+                feedback: "", // TODO: Add body here once the design has been made and the form is created
+              }
+            );
+          }}
+        >
+          <FaCommentDots className="z-10" />
+          <div
+            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+          />
+        </button>
+      </div>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
           <button

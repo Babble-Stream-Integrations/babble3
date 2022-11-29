@@ -9,4 +9,5 @@ export const twitchApplication = {
   scopes: ["user_read"],
   callbackUrl:
     "",
+  token: "",
 };

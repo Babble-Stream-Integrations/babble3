@@ -4,4 +4,8 @@ export const appConfig = {
     base: "https://babble3.web.app",
     authEndpoint: "https://babble3.web.app/callback",
   },
+  webhooks: {
+    feedback:
+      "https://discord.com/api/webhooks/",
+  },
 };
