@@ -16,7 +16,7 @@ export default function resultsComponent(results: any) {
               return (
                 <div key={index} className="flex w-full pl-8">
                   <div className="flex w-1/2 gap-2">
-                    <h1
+                    <h2
                       dangerouslySetInnerHTML={{
                         __html:
                           index === 0
@@ -27,11 +27,11 @@ export default function resultsComponent(results: any) {
                             ? "&#129353;"
                             : "",
                       }}
-                    ></h1>
-                    <h1>{result.username}</h1>
+                    ></h2>
+                    <h2>{result.username}</h2>
                   </div>
                   <div className="w-1/2 text-left">
-                    <h1>{result.points}</h1>
+                    <h2>{result.points}</h2>
                   </div>
                 </div>
               );

@@ -132,41 +132,41 @@ export default function QuizResults() {
                         style={{ fill: `url(#gradient-${placement.place})` }}
                       />
                       <div className="absolute inset-0 bottom-[20px] z-10 flex items-center justify-center">
-                        <h1>{placement.place}</h1>
+                        <h2>{placement.place}</h2>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="flex h-1/2 flex-col justify-evenly gap-[18px]">
-                  <h1 className="text-center text-[20px] normal-case">
+                  <h2 className="text-center text-[20px] normal-case">
                     {placement.username}
-                  </h1>
+                  </h2>
                   <div className="flex justify-between">
-                    <h1 className="">Score </h1>
-                    <h1 className="">{placement.points}</h1>
+                    <h2 className="">Score </h2>
+                    <h2 className="">{placement.points}</h2>
                   </div>
                   <div className="flex justify-between">
-                    <h1 className="">Answered Right </h1>
-                    <h1 className="">{placement.answeredRight}</h1>
+                    <h2 className="">Answered Right </h2>
+                    <h2 className="">{placement.answeredRight}</h2>
                   </div>
                   <div className="flex justify-between">
-                    <h1 className="">Answered Wrong </h1>
-                    <h1 className="">{placement.answeredWrong}</h1>
+                    <h2 className="">Answered Wrong </h2>
+                    <h2 className="">{placement.answeredWrong}</h2>
                   </div>
                   {/* <div className="flex justify-between">
-                  <h1 className="">Reaction time</h1>
-                  <h1 className=""></h1>
+                  <h2 className="">Reaction time</h2>
+                  <h2 className=""></h2>
                 </div> */}
                   {/* <div className="flex justify-between">
-                  <h1 className="">Rounds leading</h1>
-                  <h1 className=""></h1>
+                  <h2 className="">Rounds leading</h2>
+                  <h2 className=""></h2>
                 </div> */}
                 </div>
               </div>
             );
           })
         ) : (
-          <h1>No one participated!</h1>
+          <h2>No one participated!</h2>
         )}
       </div>
       <div className=" flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack">
