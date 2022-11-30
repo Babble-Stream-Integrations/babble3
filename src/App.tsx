@@ -81,7 +81,9 @@ export default function App() {
       path: "/quizResults",
       element: (
         <PrivateRoutes>
-          <QuizResults />
+          <DefaultLayout title="Winners">
+            <QuizResults />
+          </DefaultLayout>
         </PrivateRoutes>
       ),
     },

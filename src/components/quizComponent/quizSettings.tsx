@@ -59,13 +59,13 @@ export default function QuizSettings() {
           </h2>
           <div className="h-px w-[250px] bg-babbleGray"></div>
         </div>
-        <div className="ph-full z-10 flex w-full flex-col items-start gap-[25px] pr-[15px] font-bold text-babbleGray">
+        <div className="ph-full z-10 flex w-full flex-col items-start gap-[25px] pr-[15px]  text-babbleGray">
           <div>
             <h2 className="pb-[15px]">Category</h2>
             <div>
               <select
                 name="category"
-                className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                className="h-[50px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center text-babbleWhite focus:outline-none"
                 id=""
                 value={quizSettings.category}
                 onChange={(e) => handleChange("category", e)}
@@ -84,7 +84,7 @@ export default function QuizSettings() {
             <h2 className="pb-[15px]">Amount of questions</h2>
             <div>
               <input
-                className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                className="h-[50px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center text-babbleWhite focus:outline-none"
                 type={"number"}
                 onChange={(e) => handleChange("questionAmount", e)}
                 value={quizSettings.questionAmount}
@@ -100,7 +100,7 @@ export default function QuizSettings() {
                 onChange={(e) => handleChange("difficulty", e)}
                 value={quizSettings.difficulty}
                 name="difficulty"
-                className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                className="h-[50px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center text-babbleWhite focus:outline-none"
                 id=""
               >
                 {/* <option value="easy">Easy</option> */}
@@ -110,12 +110,12 @@ export default function QuizSettings() {
             </div>
           </div>
         </div>
-        <div className="flex h-full w-full flex-col items-start gap-[25px] font-bold text-babbleGray">
+        <div className="flex h-full w-full flex-col items-start gap-[25px]  text-babbleGray">
           <div>
             <h2 className="pb-[15px]">Time to answer (sec)</h2>
             <div>
               <input
-                className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                className="h-[50px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center text-babbleWhite text-babbleWhite focus:outline-none"
                 type={"number"}
                 onChange={(e) => handleChange("timePerQuestion", e)}
                 value={quizSettings.timePerQuestion}
@@ -129,7 +129,7 @@ export default function QuizSettings() {
             </h2>
             <div>
               <input
-                className="h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center focus:outline-none"
+                className="h-[50px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center text-babbleWhite focus:outline-none"
                 type={"number"}
                 onChange={(e) => handleChange("timeInBetween", e)}
                 value={quizSettings.timeInBetween}
@@ -158,27 +158,29 @@ export default function QuizSettings() {
           <div className="h-px w-[250px] bg-babbleGray"></div>
         </div>
         <div>
-          <div className="flex h-full w-full flex-col items-center justify-center  font-bold text-babbleGray">
+          <div className="flex h-full w-full flex-col items-center justify-center text-babbleWhite">
             {/* //map over uesstate colors, and return letters and colors */}
             {Object.keys(colors).map((letter) => (
               <div key={letter} className="flex pb-[15px]">
                 {/* //letter */}
-                <h2 className="mr-[15px] inline-flex w-6 text-3xl font-bold italic text-babbleWhite">
+                <h2 className="mr-[15px] inline-flex w-6 text-3xl  italic text-babbleWhite">
                   {letter.toUpperCase()}
                 </h2>
                 {/* //color */}
                 <input
                   type="text"
-                  className="z-50 mr-[15px] h-[40px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center uppercase focus:outline-none"
+                  className="z-50 mr-[15px] h-[50px] w-[200px] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-0 text-center uppercase focus:outline-none"
                   value={colors[letter]}
                   onChange={(e) => handleColorChange(letter, e)}
                 ></input>
-                <input
-                  type={"color"}
-                  onChange={(e) => handleColorChange(letter, e)}
-                  value={colors[letter]}
-                  className="h-[36px] w-[36px] cursor-pointer appearance-none border-babbleGray bg-transparent bg-babbleDarkGray text-center focus:outline-none"
-                ></input>
+                <div className="flex h-[50px] w-[50px] items-center justify-center rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray">
+                  <input
+                    type={"color"}
+                    onChange={(e) => handleColorChange(letter, e)}
+                    value={colors[letter]}
+                    className="h-[36px] w-[36px] cursor-pointer appearance-none border-babbleGray bg-transparent bg-babbleDarkGray text-center focus:outline-none"
+                  ></input>
+                </div>
               </div>
             ))}
           </div>
