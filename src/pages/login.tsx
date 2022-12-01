@@ -158,7 +158,7 @@ export default function Login() {
             viewport={{
               once: true,
             }}
-            className="py-[75px]"
+            className="pt-[75px]"
           >
             <DefaultButton
               text="Continue"
