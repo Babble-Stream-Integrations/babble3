@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaLightbulb, FaBug, FaComment, FaSpinner } from "react-icons/fa";
 import { useState } from "react";
+import { DefaultButton } from "../components/defaultButton/defaultButton";
 
 import axios from "axios";
 import useSessionStorageState from "use-session-storage-state";
@@ -158,12 +159,11 @@ export default function Feedback() {
           </div>
 
           <div className="mt-5 flex items-center justify-end">
-            <button
-              className="m-5 font-bold uppercase text-gray-400"
-              onClick={() => navigate(-1)}
-            >
-              Cancel
-            </button>
+            <DefaultButton
+              simplified
+              text="Cancel"
+              buttonClick={() => navigate(-1)}
+            />
 
             <button
               className={`${
