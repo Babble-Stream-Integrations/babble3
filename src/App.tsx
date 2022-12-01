@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createBrowserRouter,
   Navigate,
@@ -15,7 +14,6 @@ import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
 import Home from "./pages/home";
 import { DefaultLayout } from "./layouts/defaultLayout";
-import QuizSettings from "./components/quizComponent/quizSettings";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
@@ -23,20 +21,21 @@ export default function App() {
       babbleToken: "",
     },
   });
-  const PrivateRoutes = ({ children }: any) => {
-    const auth = { token: session.babbleToken };
-    if (!auth.token) {
-      return <Navigate to="/login" replace />;
-    }
-    return children;
-  };
 
-  const PublicRoutes = ({ children }: any) => {
+  const PublicRoutes = ({ children }: { children: JSX.Element }) => {
     const auth = { token: session.babbleToken };
     if (auth.token) {
       return <Navigate to="/" replace />;
     }
     return children;
+  };
+
+  const PrivateRoutes = ({ children }: { children: JSX.Element }) => {
+    const auth = { token: session.babbleToken };
+    if (auth.token) {
+      return children;
+    }
+    return <Navigate to="/login" replace />;
   };
 
   const router = createBrowserRouter([

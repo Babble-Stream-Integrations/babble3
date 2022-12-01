@@ -8,15 +8,17 @@ import { motion } from "framer-motion";
 export default function Login() {
   const navigate = useNavigate();
 
-  //need setSession to get removeItem to work
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [session, setSession, { removeItem }] = useSessionStorageState(
     "account",
     {
       defaultValue: {
-        username: "",
         avatar: "",
         babbleToken: "",
+        displayName: "",
+        email: "",
+        platform: "",
+        uid: "",
+        username: "",
       },
     }
   );
@@ -58,6 +60,15 @@ export default function Login() {
     //     body: JSON.stringify(session.babbleToken),
     //   }
     // );
+    setSession({
+      avatar: "",
+      babbleToken: "",
+      displayName: "",
+      email: "",
+      platform: "",
+      uid: "",
+      username: "",
+    });
     removeItem();
     navigate("/login");
   }
@@ -108,11 +119,13 @@ export default function Login() {
             <FaCaretDown
               size={30}
               className="rotate-180 transform transition duration-700"
+              aria-label="Close menu"
             />
           ) : (
             <FaCaretDown
               size={30}
               className="transform transition duration-700"
+              aria-label="Open menu"
             />
           )}
         </button>

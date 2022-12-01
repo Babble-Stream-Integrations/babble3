@@ -61,39 +61,45 @@ export default function ChatComponent({
       setViewCount,
     });
   }
-
-  function color(
-    name: string,
-    announcements: Announcements
-    // twitchColor: string
-  ) {
+  //give the backgrount a gradient if user is in announcements
+  function color(name: string, announcements: Announcements) {
+    console.log(name, announcements);
+    if (name === "" || name === undefined || name === null) return;
     let chatColor =
       "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)";
-    //check if user is in announcements
+    //check if user is in the announcements
     if (
       announcements.mostPointsAmount > 0 &&
+      announcements.mostPoints !== null &&
       announcements.mostPoints.toLowerCase().includes(name.toLowerCase())
     ) {
-      chatColor = hexToHSLGradient("#FDC74C", "right", "1", "darker");
+      chatColor = hexToHSLGradient("#FDC74C", "left", "1", "darker");
+      return chatColor;
+    } else if (
+      announcements.onStreakAmount > 2 &&
+      announcements.onStreak !== null &&
+      announcements.onStreak.toLowerCase().includes(name.toLowerCase())
+    ) {
+      chatColor = hexToHSLGradient("#FF2E2E", "left", "1", "darker");
+      return chatColor;
+      // } else if (
+      //   // announcements.onComebackAmount > 3 &&
+      //   // announcements.onComeback.toLowerCase().includes(name.toLowerCase())
+      // ) {
+      //   chatColor = hexToHSLGradient("#39EF39", "left", "1", "darker");
+      //   return chatColor;
+      // } else if (
+      //     // announcements.isFrozen.toLowerCase().includes(name.toLowerCase())
+      // ) {
+      //   chatColor = hexToHSLGradient("#4DDAFE", "left", "1", "darker");
+      //   return chatColor;
+    } else if (
+      announcements.firstToGuess !== null &&
+      announcements.firstToGuess.toLowerCase().includes(name.toLowerCase())
+    ) {
+      chatColor = hexToHSLGradient("#9146FF", "left", "1", "darker");
+      return chatColor;
     }
-
-    //check all announcments for names, and give those names a background color in chat
-    // Object.values(announcements).forEach((announcement) => {
-    //   if (
-    //     typeof announcement === "string" &&
-    //     announcement !== "" &&
-    //     name.toLowerCase().includes(announcement.toLowerCase())
-    //   ) {
-    //     console.log("announcement", announcement, "name", name);
-    //     chatColor = hexToHSLGradient(
-    //       invertColor(twitchColor),
-    //       "right",
-    //       "1",
-    //       "darker"
-    //     );
-    //     return;
-    //   }
-    // });
     return chatColor;
   }
 
@@ -121,31 +127,24 @@ export default function ChatComponent({
       <div className="relative h-full overflow-hidden pt-[50px]">
         <div className="absolute bottom-[50px] w-full px-4">
           {messages.map((message, index) => {
-            const bg = color(
-              message.username,
-              announcements
-              // message.color ? message.color : "000000"
-            );
+            const bg = color(message.username, announcements);
             return (
               <div
                 key={index}
                 className="z-20 my-4 w-fit whitespace-pre-wrap rounded-babbleSmall px-4 py-1 shadow-babble"
                 style={{
                   backgroundImage: bg,
-                  //if color is black show message in white
-                  color: bg === "black" ? message.color : "babbleWhite",
+                  //if bg is not linear-gradient(to right, rgb(27, 27, 29), 1%, rgb(27, 27, 29))
+                  //then set text color to white
+                  color:
+                    bg !==
+                    "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)"
+                      ? "white"
+                      : message.color,
                 }}
               >
                 <span
                   className="w-full font-bold"
-                  //if bg isnt  "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)", show message in white
-                  style={{
-                    color:
-                      bg ===
-                      "linear-gradient(to right, hsl(42,98%,65%) , 1%, hsl(42,98%,45%))"
-                        ? "babbleWhite"
-                        : "babbleWhite",
-                  }}
                   dangerouslySetInnerHTML={{ __html: message.displayname }}
                 />
                 :{" "}

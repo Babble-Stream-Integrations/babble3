@@ -1,5 +1,5 @@
 import axios from "axios";
-import { helixConfig } from "../config/twitch";
+import { twitchApplication } from "../config/twitch";
 import { youtubeConfig } from "../config/youtube";
 
 // class ViewCountController {
@@ -24,15 +24,21 @@ import { youtubeConfig } from "../config/youtube";
 
 export async function getViewCount(channel: string, platform: string) {
   if (platform === "twitch") {
-    const result = await axios
-      .get(`https://api.twitch.tv/helix/streams?user_login=${channel}`, {
-        headers: {
-          Authorization: helixConfig.token,
-          "Client-Id": helixConfig.clientId,
-        },
-      })
-      .then((response) => response.data.data[0].viewer_count);
-    return result;
+    try {
+      const result = await axios.get(
+        `https://api.twitch.tv/helix/streams?user_login=${channel}`,
+        {
+          headers: {
+            Authorization: twitchApplication.token,
+            "Client-Id": twitchApplication.clientId,
+          },
+        }
+      );
+      return result.data.data[0].viewer_count;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
   } else if (platform === "youtube") {
     const channelId = await axios({
       method: "GET",
