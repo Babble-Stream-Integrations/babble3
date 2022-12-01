@@ -20,7 +20,6 @@ import {
 import "./quiz.css";
 import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";
-import axios from "axios";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -276,13 +275,7 @@ export default function Quiz() {
         <button
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
           onClick={() => {
-            axios.post(
-              `http://localhost:5001/babble-d6ef3/europe-west1/default/feedback`,
-              {
-                username: account.username,
-                feedback: "", // TODO: Add body here once the design has been made and the form is created
-              }
-            );
+            navigate("/feedback");
           }}
         >
           <FaCommentDots className="z-10" />

@@ -4,10 +4,10 @@ const router = express.Router();
 import { submitFeedback } from "../controllers/FeedbackController";
 
 // create application/json parser
-var bodyParser = require("body-parser");
-var bodyEncoder = bodyParser.json();
+import bodyParser from "body-parser";
+const bodyEncoder = bodyParser.json();
 
-// oAuth2 callback end-point
+// Feedback POST endpoint
 router.post("/", bodyEncoder, submitFeedback);
 
 export default router;
