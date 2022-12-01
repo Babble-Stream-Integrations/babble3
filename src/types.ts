@@ -43,6 +43,16 @@ export type Announcements = {
   onStreak: string;
   onStreakAmount: number;
 };
+export type FeedList = {
+  type: string;
+  name: string;
+  icon: JSX.Element;
+  title: string;
+  value: number;
+  startColor: string;
+  endColor: string;
+  key: string;
+};
 
 export type QuizBackend = {
   question: string;

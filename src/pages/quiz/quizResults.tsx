@@ -1,6 +1,7 @@
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { FaTrophy } from "react-icons/fa";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
+import IconGradient from "../../common/iconGradient";
 
 type Results = {
   correctAnswers: number;
@@ -78,23 +79,6 @@ export default function QuizResults() {
       : []),
   ];
 
-  function getTrophy(placement: string, startColor: string, endColor: string) {
-    return (
-      <svg width="0" height="0">
-        <linearGradient
-          id={`gradient-${placement}`}
-          x1="0%"
-          y1="50%"
-          x2="100%"
-          y2="50%"
-        >
-          <stop stopColor={startColor} offset="0%" />
-          <stop stopColor={endColor} offset="100%" />
-        </linearGradient>
-      </svg>
-    );
-  }
-
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
       <h1 className=" text-4xl font-bold ">Winners</h1>
@@ -130,10 +114,11 @@ export default function QuizResults() {
                       alt="first place"
                     />
                     <div className=" absolute bottom-[-5px] left-0 right-0 z-10 flex items-center justify-center bg-transparent">
-                      {getTrophy(
+                      {IconGradient(
                         placement.place,
                         placement.trophy.startColor,
-                        placement.trophy.endColor
+                        placement.trophy.endColor,
+                        [0, 50, 100, 50]
                       )}
                       <FaTrophy
                         size="4em"

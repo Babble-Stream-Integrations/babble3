@@ -1,79 +1,89 @@
-import { FaTrophy } from "react-icons/fa";
-import { IoSpeedometerSharp } from "react-icons/io5";
-import { AiFillFire } from "react-icons/ai";
-import { AutoTextSize } from "auto-text-size";
 import { Announcements } from "../../types";
+import { useEffect, useState } from "react";
+import IconGradient from "../../common/iconGradient";
+import AnnouncementLogic from "./announcementLogic";
+import { FeedList } from "../../types";
 
 export default function AnnouncementFeedComponent({
   announcements,
 }: {
   announcements: Announcements;
 }) {
-  let streak = 0;
-  if (announcements.onStreakAmount > streak) {
-    streak = announcements.onStreakAmount;
-  } else if (announcements.onStreakAmount <= streak) {
-    streak = 0;
-  }
+  const [feedList, setFeedList] = useState<FeedList[]>([]);
+  AnnouncementLogic({ announcements, setFeedList });
 
+  useEffect(() => {
+    //remove the first item in the list after there are 3 items in the list
+    if (feedList.length > 3) {
+      setFeedList((feedList: FeedList[]) => {
+        feedList.shift();
+        return [...feedList];
+      });
+    }
+  }, [feedList]);
+
+  //loop through the announcements, if the announcement is a string, add it to the list.
   return (
-    <div className="h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-3xl text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
-      <div className="flex h-full items-center justify-between">
-        <div className="flex h-full w-full flex-col justify-evenly gap-2">
-          <div className="flex h-1/4 w-full items-center justify-between gap-2 rounded-babbleSmall bg-babbleDarkerGray p-4 shadow-babble">
-            <FaTrophy />
-            <div className="flex w-5/6 justify-center px-4">
-              <AutoTextSize
-                maxFontSizePx={18}
-                dangerouslySetInnerHTML={{
-                  __html: `MOST POINTS: ${
-                    announcements.mostPointsAmount > 0
-                      ? `${announcements.mostPoints} (${announcements.mostPointsAmount})`
-                      : ""
-                  }`,
-                }}
-              />
-            </div>
-            <FaTrophy />
-          </div>
-          <div className="flex h-1/4  w-full items-center justify-between gap-2 rounded-babbleSmall bg-babbleDarkerGray p-4 shadow-babble">
-            <IoSpeedometerSharp />
-            <div className="flex w-5/6 justify-center px-4">
-              <AutoTextSize
-                maxFontSizePx={18}
-                dangerouslySetInnerHTML={{
-                  __html: `FIRST: ${
-                    announcements.firstToGuess ? announcements.firstToGuess : ""
-                  }`,
-                }}
-              />
-            </div>
-            <IoSpeedometerSharp />
-          </div>
-          <div className="flex h-1/4  w-full items-center justify-between gap-2 rounded-babbleSmall bg-babbleDarkerGray p-4 shadow-babble">
-            <div className="relative flex items-center">
-              <AiFillFire className="absolute" />
-              <h3 className="absolute left-3  pt-2 text-[10px] text-babbleDarkerGray">
-                {streak}
-              </h3>
-            </div>
-            <div className="flex w-5/6 justify-center px-4">
-              <AutoTextSize
-                maxFontSizePx={18}
-                dangerouslySetInnerHTML={{
-                  __html: `STREAK: ${streak > 2 ? announcements.onStreak : ""}`,
-                }}
-              />
-            </div>
-            <div className="relative flex items-center ">
-              <AiFillFire className="absolute right-0" />
-              <h3 className="absolute right-3 pt-2 text-[10px] text-babbleDarkerGray">
-                {streak}
-              </h3>
-            </div>
-          </div>
-        </div>
+    <div className="h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
+      <div className="flex flex-col gap-3">
+        {feedList
+          .slice(0)
+          .reverse()
+          .map((announcement: FeedList) => {
+            const key = Math.random();
+            return (
+              <div
+                key={key}
+                className="flex w-full items-center justify-between rounded-babble bg-babbleDarkerGray p-4"
+              >
+                {IconGradient(
+                  announcement.type,
+                  announcement.startColor,
+                  announcement.endColor,
+                  [0, 50, 100, 50]
+                )}
+                <div className="text-2xl">{announcement.icon}</div>
+                <div className="flex ">
+                  <h2>{announcement.title} </h2>
+                  <h2 className="w-2">&nbsp;</h2>
+                  <h2 className=" font-extralight">{announcement.name}</h2>
+                  <h2 className="w-2">&nbsp;</h2>
+                  <h2 className=" font-extralight">{announcement.value}</h2>
+                </div>
+                <div className="text-2xl">{announcement.icon}</div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
 }
+// useEffect(() => {
+//   for (const [key, value] of Object.entries(announcements)) {
+//     if (typeof value === "string") {
+//       const announcement = {
+//         type: key,
+//         name: value,
+//         icon: <></>,
+//         title: "",
+//         value: 0,
+//       };
+//       switch (announcement.type) {
+//         case "mostPoints":
+//           announcement.icon = <FaTrophy />;
+//           announcement.title = "Most Points";
+//           announcement.value = announcements.mostPointsAmount;
+//           break;
+//         case "onStreak":
+//           announcement.icon = <IoSpeedometerSharp />;
+//           announcement.title = "On Streak";
+//           break;
+//         case "firstToGuess":
+//           announcement.icon = <AiFillFire />;
+//           announcement.title = "First To Guess";
+//           break;
+//       }
+//       setFeedList((feedList: any) => [...feedList, announcement]);
+//     }
+//   }
+// }, []);

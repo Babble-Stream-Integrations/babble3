@@ -63,17 +63,21 @@ export default function ChatComponent({
   }
   //give the backgrount a gradient if user is in announcements
   function color(name: string, announcements: Announcements) {
+    console.log(name, announcements);
+    if (name === "" || name === undefined || name === null) return;
     let chatColor =
       "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)";
     //check if user is in the announcements
     if (
       announcements.mostPointsAmount > 0 &&
+      announcements.mostPoints !== null &&
       announcements.mostPoints.toLowerCase().includes(name.toLowerCase())
     ) {
       chatColor = hexToHSLGradient("#FDC74C", "left", "1", "darker");
       return chatColor;
     } else if (
       announcements.onStreakAmount > 2 &&
+      announcements.onStreak !== null &&
       announcements.onStreak.toLowerCase().includes(name.toLowerCase())
     ) {
       chatColor = hexToHSLGradient("#FF2E2E", "left", "1", "darker");
@@ -90,6 +94,7 @@ export default function ChatComponent({
       //   chatColor = hexToHSLGradient("#4DDAFE", "left", "1", "darker");
       //   return chatColor;
     } else if (
+      announcements.firstToGuess !== null &&
       announcements.firstToGuess.toLowerCase().includes(name.toLowerCase())
     ) {
       chatColor = hexToHSLGradient("#9146FF", "left", "1", "darker");
