@@ -34,7 +34,7 @@ export default function Quiz() {
     useLocalStorageState<TriviaSettings>("quizSettings", {
       defaultValue: {
         channel: streamer.channel,
-        startAfter: 1,
+        startAfter: 0.000000000001,
         questionAmount: 10,
         timePerQuestion: 15,
         timeInBetween: 5,
@@ -51,12 +51,13 @@ export default function Quiz() {
   }));
 
   const [start, setStart] = useState(false);
+  const [connect, setConnect] = useState(false);
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
-    question: "Use the play button to start the game!",
-    possibilities: ["Example 1", "Example 2", "Example 3", "Example 4"],
-    time: 0,
+    question: "",
+    possibilities: ["", "", "", ""],
+    time: 1,
     rightAnswer: "",
     percentages: [],
     questionIndex: 0,
@@ -87,7 +88,7 @@ export default function Quiz() {
           time: data.in,
         }));
         //confirm the connection with back-end
-        setStart(true);
+        setConnect(true);
       });
 
       //when getting a new question, update the data
@@ -234,7 +235,7 @@ export default function Quiz() {
           className="z-10 flex w-[570px] justify-center"
           key="quiz-component"
         >
-          <QuizComponent quiz={quiz} start={start} />
+          <QuizComponent quiz={quiz} start={connect} />
         </div>
         <div
           className="z-10 flex items-center justify-center"

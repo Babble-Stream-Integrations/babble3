@@ -6,6 +6,7 @@ import useLocalStorageState, {
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { Percentages, QuizComponentData } from "../../types";
 import TimerComponent from "../timerComponent/timerComponent";
+import { motion } from "framer-motion";
 
 export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
   //get color from localstorage and convert to gradient with HSL
@@ -70,8 +71,40 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
       return "#D22A2A";
     }
   }
+
+  const variants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
+  const item = {
+    hidden: {
+      y: 50,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: 1,
+      },
+    },
+  };
+
   return (
-    <div className="overflow-visable flex h-full flex-col gap-[15px] text-center text-[30px] font-[500] text-babbleWhite">
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate="visible"
+      className="flex h-full flex-col gap-[15px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite"
+    >
       <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
         <div className="flex h-full items-center py-5">
           <AutoTextSize
@@ -103,7 +136,8 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
       {quiz.possibilities.map((answer, index) => {
         const letter = String.fromCharCode(65 + index);
         return (
-          <div
+          <motion.div
+            variants={item}
             key={index}
             className="relative flex h-1/6 items-center rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
           >
@@ -129,9 +163,9 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
                 backgroundColor: RightAnswer(answer, quiz.rightAnswer),
               }}
             ></div>
-          </div>
+          </motion.div>
         );
       })}
-    </div>
+    </motion.div>
   );
 }
