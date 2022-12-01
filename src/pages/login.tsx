@@ -45,9 +45,8 @@ export default function Login() {
         viewport={{
           once: true,
         }}
-        className="flex min-h-screen w-screen items-center justify-center bg-gradient-radial from-[#202024] to-[#0E0E10]"
       >
-        <div className="flex flex-col items-center justify-center py-8 font-thin">
+        <div className="flex flex-col items-center justify-center font-thin">
           <motion.div
             initial={{
               y: 50,
@@ -63,11 +62,7 @@ export default function Login() {
             viewport={{
               once: true,
             }}
-          >
-            <h1 className="mb-[25px] text-center text-5xl font-normal text-babbleWhite ">
-              Welcome
-            </h1>
-          </motion.div>
+          ></motion.div>
           <motion.div
             initial={{
               y: 50,
@@ -84,13 +79,8 @@ export default function Login() {
               once: true,
             }}
             className="flex"
-          >
-            <p className="text-center text-xl text-babbleGray">
-              Select your main&nbsp;
-            </p>
-            <p className="text-xl text-babbleLightGray">streaming platform</p>
-          </motion.div>
-          <div className="flex gap-[50px] py-[50px]">
+          ></motion.div>
+          <div className="flex gap-[50px]">
             {signinOptions.map((options) => {
               const platform = options.platform;
               return (
@@ -146,10 +136,11 @@ export default function Login() {
             viewport={{
               once: true,
             }}
+            className="flex flex-col items-center justify-center"
           >
-            <p className="w-[600px] text-center text-xl text-babbleGray">
-              You will be asked to verify your account. After which you <br />{" "}
-              will be redirected back to us.
+            <p className="z-10 mt-12 flex min-w-[300px] max-w-[60%] text-center text-base font-thin text-babbleGray">
+              You will be asked to verify your account. After which you will be
+              redirected back to us.
             </p>
           </motion.div>
           <motion.div

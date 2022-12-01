@@ -53,7 +53,12 @@ export default function App() {
       path: "/login",
       element: (
         <PublicRoutes>
-          <Login />
+          <DefaultLayout
+            title="Welcome"
+            subtitle="Select your main streaming platform."
+          >
+            <Login />
+          </DefaultLayout>
         </PublicRoutes>
       ),
     },
