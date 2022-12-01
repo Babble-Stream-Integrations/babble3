@@ -49,7 +49,7 @@ export default function Quiz() {
     ...prevState,
     channel: account.username,
   }));
-  //start timer on first connection with back-end
+
   const [start, setStart] = useState(false);
 
   //get quiz data from back-end
@@ -234,7 +234,7 @@ export default function Quiz() {
           className="z-10 flex w-[570px] justify-center"
           key="quiz-component"
         >
-          <QuizComponent quiz={quiz} />
+          <QuizComponent quiz={quiz} start={start} />
         </div>
         <div
           className="z-10 flex items-center justify-center"
