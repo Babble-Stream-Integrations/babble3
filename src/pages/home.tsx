@@ -157,9 +157,7 @@ export default function Login() {
                 <div className="z-10 flex w-full justify-center text-xl">
                   <p>{options.name}</p>
                 </div>
-                <div
-                  className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-                />
+                <div className="absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
               </div>
             </label>
           );

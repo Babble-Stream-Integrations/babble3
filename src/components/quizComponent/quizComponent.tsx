@@ -4,6 +4,7 @@ import useLocalStorageState from "use-local-storage-state";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { useMemo } from "react";
 import TimerComponent from "../timerComponent/timerComponent";
+import clsx from "clsx";
 
 export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
   // calculate width based on the percentage of people that gave that answer
@@ -67,10 +68,10 @@ export default function QuizComponent({ quiz }: { quiz: QuizComponentData }) {
             {Array.from({ length: quiz.questionAmount }, (_, i) => (
               <div
                 key={i}
-                //if the current question is the same as the row number, color it
-                className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleBlack from-platformDark to-platformLight text-sm ${
+                className={clsx(
+                  "flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleBlack from-platformDark to-platformLight text-sm",
                   quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
-                }`}
+                )}
               >
                 <h3>{i + 1}</h3>
               </div>
