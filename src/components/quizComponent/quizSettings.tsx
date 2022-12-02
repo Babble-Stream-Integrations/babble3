@@ -65,7 +65,7 @@ export default function QuizSettings() {
             <div>
               <select
                 name="category"
-                className="h-[3.125 rem] w-[12.5rem] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center text-babbleWhite focus:outline-none"
+                className="h-[3.125rem] w-[12.5rem] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center text-babbleWhite focus:outline-none"
                 id=""
                 value={quizSettings.category}
                 onChange={(e) => handleChange("category", e)}
