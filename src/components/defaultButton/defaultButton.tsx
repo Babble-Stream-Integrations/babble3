@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { clsx } from "clsx";
 
 type ButtonProps = {
   text: string;
@@ -15,11 +16,11 @@ export const DefaultButton = ({
 
   return (
     <button
-      className={`${
+      className={clsx(
         simplified
           ? "m-5 font-bold uppercase"
           : "h-[50px] min-w-[200px] cursor-pointer rounded-full bg-babbleLightGray py-[14px] px-[44px] transition duration-300 hover:opacity-80"
-      }`}
+      )}
       onClick={() => {
         setLoading(true);
         buttonClick();
@@ -27,9 +28,10 @@ export const DefaultButton = ({
       disabled={loading}
     >
       <p
-        className={`z-10 text-xl font-bold uppercase leading-none ${
+        className={clsx(
+          "z-10 text-xl font-bold uppercase leading-none",
           simplified ? "text-gray-400" : "text-babbleBlack"
-        }`}
+        )}
       >
         {loading && !simplified ? "Loading..." : text}
       </p>
