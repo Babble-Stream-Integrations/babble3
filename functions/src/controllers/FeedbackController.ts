@@ -37,7 +37,7 @@ export const submitFeedback = (req: Request, res: Response) => {
   );
 
   // Return success message
-  res
+  return res
     .set("Access-Control-Allow-Origin", "https://babble3.web.app")
     .status(201)
     .json({
