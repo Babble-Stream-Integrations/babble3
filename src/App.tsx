@@ -14,6 +14,7 @@ import Settings from "./pages/settings";
 import useSessionStorageState from "use-session-storage-state";
 import Callback from "./pages/callback";
 import Home from "./pages/home";
+import Feedback from "./pages/feedback";
 import { DefaultLayout } from "./layouts/defaultLayout";
 
 export default function App() {
@@ -111,6 +112,19 @@ When the game is over you'll be able to see how everyone performed."
             subtitle="You can change these settings to make the game more to your liking."
           >
             <Settings />
+          </DefaultLayout>
+        </PrivateRoutes>
+      ),
+    },
+    {
+      path: "/feedback",
+      element: (
+        <PrivateRoutes>
+          <DefaultLayout
+            title="Feedback"
+            subtitle="Your feedback helps us improve the application. What would you like to share with us?"
+          >
+            <Feedback />
           </DefaultLayout>
         </PrivateRoutes>
       ),
