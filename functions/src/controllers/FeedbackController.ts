@@ -37,8 +37,10 @@ export const submitFeedback = (req: Request, res: Response) => {
   );
 
   // Return success message
-  // TODO: Set this Allow-Orgin header to the web app URL
-  return res.set("Access-Control-Allow-Origin", "*").status(201).json({
-    message: "Feedback submitted successfully",
-  });
+  return res
+    .set("Access-Control-Allow-Origin", "https://babble3.web.app")
+    .status(201)
+    .json({
+      message: "Feedback submitted successfully",
+    });
 };
