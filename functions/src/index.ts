@@ -26,5 +26,4 @@ app.use("/feedback", feedbackRoutes);
 // Example route using Babble Token authentication
 // app.use("/example-auth-route", exampleAuthRoute);
 
-// eslint-disable-next-line no-undef
 export default functions.region("europe-west1").https.onRequest(app);

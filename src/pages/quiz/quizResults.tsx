@@ -3,17 +3,25 @@ import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { FaTrophy } from "react-icons/fa";
 import { DefaultButton } from "../../components/defaultButton/defaultButton";
 import { useNavigate } from "react-router-dom";
+type Results = {
+  correctAnswers: number;
+  wrongAnswers: number;
+  points: number;
+  profile: string;
+  username: string;
+};
 
 export default function QuizResults() {
   const navigate = useNavigate();
   //get top 3 results from quiz page based on highest score
   const quizResults = useLocation().state?.results;
+
   if (!quizResults) {
     return <Navigate to="/quiz" />;
   }
   console.log(quizResults);
-  //eslint-disable-next-line
-  quizResults.sort((a: any, b: any) => b.points - a.points);
+
+  quizResults.sort((a: Results, b: Results) => b.points - a.points);
 
   const placements = [
     ...(quizResults.length > 1
@@ -74,16 +82,18 @@ export default function QuizResults() {
 
   function getTrophy(placement: string, startColor: string, endColor: string) {
     return (
-      <linearGradient
-        id={`gradient-${placement}`}
-        x1="0%"
-        y1="50%"
-        x2="100%"
-        y2="50%"
-      >
-        <stop stopColor={startColor} offset="0%" />
-        <stop stopColor={endColor} offset="100%" />
-      </linearGradient>
+      <svg width="0" height="0">
+        <linearGradient
+          id={`gradient-${placement}`}
+          x1="0%"
+          y1="50%"
+          x2="100%"
+          y2="50%"
+        >
+          <stop stopColor={startColor} offset="0%" />
+          <stop stopColor={endColor} offset="100%" />
+        </linearGradient>
+      </svg>
     );
   }
 
@@ -121,13 +131,11 @@ export default function QuizResults() {
                       alt="first place"
                     />
                     <div className=" absolute bottom-[-5px] left-0 right-0 z-10 flex items-center justify-center bg-transparent">
-                      <svg width="0" height="0">
-                        {getTrophy(
-                          placement.place,
-                          placement.trophy.startColor,
-                          placement.trophy.endColor
-                        )}
-                      </svg>
+                      {getTrophy(
+                        placement.place,
+                        placement.trophy.startColor,
+                        placement.trophy.endColor
+                      )}
                       <FaTrophy
                         size="4em"
                         className=""
@@ -155,14 +163,6 @@ export default function QuizResults() {
                     <h2 className="">Answered Wrong </h2>
                     <h2 className="">{placement.answeredWrong}</h2>
                   </div>
-                  {/* <div className="flex justify-between">
-                  <h2 className="">Reaction time</h2>
-                  <h2 className=""></h2>
-                </div> */}
-                  {/* <div className="flex justify-between">
-                  <h2 className="">Rounds leading</h2>
-                  <h2 className=""></h2>
-                </div> */}
                 </div>
               </div>
             );
