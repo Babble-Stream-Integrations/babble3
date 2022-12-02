@@ -10,4 +10,8 @@ const bodyEncoder = bodyParser.json();
 // Feedback POST endpoint
 router.post("/", bodyEncoder, submitFeedback);
 
+router.get("test", (req, res) => {
+  res.send("Hello World!");
+});
+
 export default router;
