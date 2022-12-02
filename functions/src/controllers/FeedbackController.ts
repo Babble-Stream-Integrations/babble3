@@ -4,6 +4,8 @@ import { appConfig } from "../config/app";
 // Import Axios
 import axios from "axios";
 
+import type { Request, Response } from "express";
+
 /**
  * Submit feedback using a Discord Webhook
  *
@@ -11,7 +13,7 @@ import axios from "axios";
  * @param {Response} res
  * @returns string
  */
-export const submitFeedback = (req: any, res: any) => {
+export const submitFeedback = (req: Request, res: Response) => {
   // Validate the given data
   if (
     typeof req.body.type === "undefined" ||
@@ -35,7 +37,9 @@ export const submitFeedback = (req: any, res: any) => {
   );
 
   // Return success message
-  res.status(201).json({
+  res.set("Access-Control-Allow-Origin", "https://babble3.web.app");
+  res.status(201);
+  res.json({
     message: "Feedback submitted successfully",
   });
 };
