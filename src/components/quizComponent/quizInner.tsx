@@ -76,7 +76,7 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
     hidden: {
       opacity: 0,
     },
-    visible: {
+    show: {
       opacity: 1,
       transition: {
         staggerChildren: 0.5,
@@ -85,15 +85,15 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
   };
   const item = {
     hidden: {
-      y: 50,
+      y: 30,
       opacity: 0,
     },
-    visible: {
+    show: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        duration: 1,
+        bounce: 0,
+        duration: 0.6,
       },
     },
   };
@@ -102,7 +102,7 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
     <motion.div
       variants={variants}
       initial="hidden"
-      animate="visible"
+      animate="show"
       className="flex h-full flex-col gap-[15px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite"
     >
       <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
