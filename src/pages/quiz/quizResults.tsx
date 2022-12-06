@@ -81,7 +81,11 @@ export default function QuizResults() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
-      <h1 className=" text-4xl font-bold ">Winners</h1>
+      {quizResults.length === 0 ? (
+        <h1 className=" text-4xl font-bold ">No winners</h1>
+      ) : (
+        <h1 className=" text-4xl font-bold ">Winners</h1>
+      )}
       <div className="flex gap-4">
         {placements.length > 0 ? (
           placements.map((placement, index) => {
@@ -152,7 +156,7 @@ export default function QuizResults() {
             );
           })
         ) : (
-          <h2>No one participated!</h2>
+          <h2 className="p-8">No one participated!</h2>
         )}
       </div>
       <Link
