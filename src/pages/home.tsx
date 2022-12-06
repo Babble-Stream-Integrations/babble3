@@ -28,7 +28,7 @@ export default function Login() {
   //define different sign in methods
   const buttonOptions = [
     {
-      name: "Play game",
+      name: "Play Game",
       icon: <FaPlay size={25} />,
       nav: "quiz",
     },
@@ -73,41 +73,34 @@ export default function Login() {
     navigate("/login");
   }
 
+  const variants = {
+    hidden: {
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
+  const item = {
+    hidden: {
+      y: 30,
+      opacity: 0,
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
+
   return (
     <div className="font-thin">
-      <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 1,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-      ></motion.div>
-      <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 1.25,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        className="flex items-center justify-center gap-2 text-[#A8A8A8]"
-      >
+      <div className="flex items-center justify-center gap-2 text-[#A8A8A8]">
         <img
           src={session.avatar}
           className="h-10 w-10 rounded-full shadow-babble"
@@ -129,7 +122,7 @@ export default function Login() {
             />
           )}
         </button>
-      </motion.div>
+      </div>
       {menuOpen && (
         <div className="flex flex-col items-center">
           <button onClick={() => signOut()}>
@@ -140,41 +133,32 @@ export default function Login() {
         </div>
       )}
       <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 1.5,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
+        variants={variants}
+        initial="hidden"
+        animate="show"
         className="mt-12 flex flex-col gap-[25px]"
       >
         {buttonOptions.map((options, index) => {
           return (
-            <label key={index}>
-              <input
-                type="radio"
-                name="option"
-                className="peer hidden"
-                onChange={() => buttonClicked(options.nav)}
-              />
-              <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
-                <div className="z-10 pl-8">{options.icon}</div>
-                <div className="z-10 flex w-full justify-center text-xl">
-                  <p>{options.name}</p>
-                </div>
-                <div
-                  className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            <motion.div variants={item} key={index}>
+              <label>
+                <input
+                  type="radio"
+                  name="option"
+                  className="peer hidden"
+                  onChange={() => buttonClicked(options.nav)}
                 />
-              </div>
-            </label>
+                <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
+                  <div className="z-10 pl-8">{options.icon}</div>
+                  <div className="z-10 flex w-full justify-center text-xl">
+                    <p>{options.name}</p>
+                  </div>
+                  <div
+                    className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+                  />
+                </div>
+              </label>
+            </motion.div>
           );
         })}
         <div className="mt-5 flex justify-center text-babbleGray">
