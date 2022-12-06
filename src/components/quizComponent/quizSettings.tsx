@@ -1,6 +1,7 @@
 import { Colors, HandleChange, TriviaSettings } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
 import { categories } from "./options";
+import { useState } from "react";
 
 export default function QuizSettings() {
   const [quizSettings, setQuizSettings] = useLocalStorageState<TriviaSettings>(
@@ -42,6 +43,16 @@ export default function QuizSettings() {
       [p]: eliminations,
     }));
   }
+
+  const InputWithLimit = () => {
+    const [numValue, setNumValue] = useState("");
+    const handleNumberChange = (event) => {
+      const inputValue = event.target.value;
+      if (inputValue <= 20) {
+        setNumValue(inputValue);
+      }
+    };
+  };
 
   function handleColorChange(letter: string, e: HandleChange) {
     setColors((prevState) => ({
@@ -86,10 +97,10 @@ export default function QuizSettings() {
               <input
                 className="h-[3.125rem] w-[12.5rem] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center text-babbleWhite focus:outline-none"
                 type={"number"}
-                onChange={(e) => handleChange("questionAmount", e)}
-                value={quizSettings.questionAmount}
-                min={1}
-                max={15}
+                onChange={handleNumberChange}
+                value={numValue}
+                min="1"
+                max="15"
               ></input>
             </div>
           </div>
