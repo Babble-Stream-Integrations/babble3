@@ -158,7 +158,7 @@ export default function Quiz() {
         opacity: 0,
       }}
       transition={{
-        duration: 1,
+        duration: 0.5,
       }}
       whileInView={{
         opacity: 1,
@@ -239,7 +239,16 @@ export default function Quiz() {
           }));
         }}
       >
-        <div
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
           className="z-10 flex w-[450px] items-center justify-center "
           key="chat-component"
         >
@@ -248,14 +257,35 @@ export default function Quiz() {
             platform={account.platform}
             announcements={quiz.announcements}
           />
-        </div>
-        <div
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
           className="z-10 flex w-[570px] justify-center"
           key="quiz-component"
         >
           <QuizComponent quiz={quiz} start={connect} />
-        </div>
-        <div
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
           className="z-10 flex items-center justify-center"
           key="first-to-answer"
         >
@@ -263,7 +293,7 @@ export default function Quiz() {
             key="first-to-answer"
             announcements={quiz.announcements}
           />
-        </div>
+        </motion.div>
       </ResponsiveGridLayout>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
@@ -279,21 +309,25 @@ export default function Quiz() {
             />
           </button>
         )}
-        <button
-          className={
-            editable
-              ? "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border-2 border-babbleOrange bg-babbleOrange/5 bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite "
-              : "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
-          }
-          onClick={() => {
-            setEditable(!editable);
-          }}
-        >
-          <FaPencilAlt className="z-10" />
-          <div
-            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-          />
-        </button>
+        {start ? (
+          <div />
+        ) : (
+          <button
+            className={
+              editable
+                ? "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border-2 border-babbleOrange bg-babbleOrange/5 bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite "
+                : "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+            }
+            onClick={() => {
+              setEditable(!editable);
+            }}
+          >
+            <FaPencilAlt className="z-10" />
+            <div
+              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            />
+          </button>
+        )}
       </div>
     </motion.div>
   );
