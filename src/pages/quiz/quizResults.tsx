@@ -21,7 +21,16 @@ export default function QuizResults() {
   console.log(quizResults);
 
   quizResults.sort((a: Results, b: Results) => b.points - a.points);
-
+  if (quizResults.length === 2) {
+    quizResults.push({
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      points: 0,
+      profile:
+        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media&token=c8b34bd6-3ddf-4698-b0bc-687e6c2f246a",
+      username: "No third place",
+    });
+  }
   const placements = [
     ...(quizResults.length > 1
       ? [
@@ -32,7 +41,7 @@ export default function QuizResults() {
               startColor: "#A4A4A4",
               endColor: "#B8B8B8",
             },
-            size: 0.7,
+            size: 0.8,
             profile: quizResults[1].profile,
             username: quizResults[1].username,
             points: quizResults[1].points,
@@ -68,7 +77,7 @@ export default function QuizResults() {
               startColor: "#A56B39",
               endColor: "#C28045",
             },
-            size: 0.7,
+            size: 0.8,
             profile: quizResults[2].profile,
             username: quizResults[2].username,
             points: quizResults[2].points,
