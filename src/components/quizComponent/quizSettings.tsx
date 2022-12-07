@@ -1,7 +1,6 @@
 import { Colors, HandleChange, TriviaSettings } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
 import { categories } from "./options";
-import { useState } from "react";
 
 export default function QuizSettings() {
   const [quizSettings, setQuizSettings] = useLocalStorageState<TriviaSettings>(
@@ -44,14 +43,24 @@ export default function QuizSettings() {
     }));
   }
 
-  const InputWithLimit = () => {
-    const [numValue, setNumValue] = useState("");
-    const handleNumberChange = (event) => {
-      const inputValue = event.target.value;
-      if (inputValue <= 20) {
-        setNumValue(inputValue);
+  const handleNumberChange = (p: string, e: HandleChange) => {
+    const inputValue = e.target.value;
+    const numValue = Number(inputValue);
+    if (e.target instanceof HTMLInputElement) {
+      const max = Number(e.target.max);
+      if (numValue <= Number(e.target.max) && numValue % 1 === 0) {
+        //check if number is smaller than max and if it is a whole number
+        setQuizSettings((prevState) => ({
+          ...prevState,
+          [p]: numValue,
+        }));
+      } else {
+        setQuizSettings((prevState) => ({
+          ...prevState,
+          [p]: max,
+        }));
       }
-    };
+    }
   };
 
   function handleColorChange(letter: string, e: HandleChange) {
@@ -97,10 +106,10 @@ export default function QuizSettings() {
               <input
                 className="h-[3.125rem] w-[12.5rem] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center text-babbleWhite focus:outline-none"
                 type={"number"}
-                onChange={handleNumberChange}
-                value={numValue}
-                min="1"
-                max="15"
+                onChange={(e) => handleNumberChange("questionAmount", e)}
+                value={quizSettings.questionAmount}
+                min={1}
+                max={15}
               ></input>
             </div>
           </div>
@@ -128,9 +137,10 @@ export default function QuizSettings() {
               <input
                 className="h-[3.125rem] w-[12.5rem] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center text-babbleWhite text-babbleWhite focus:outline-none"
                 type={"number"}
-                onChange={(e) => handleChange("timePerQuestion", e)}
+                onChange={(e) => handleNumberChange("timePerQuestion", e)}
                 value={quizSettings.timePerQuestion}
                 min={1}
+                max={60}
               ></input>
             </div>
           </div>
@@ -142,9 +152,10 @@ export default function QuizSettings() {
               <input
                 className="h-[3.125rem] w-[12.5rem] rounded-lg border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center text-babbleWhite focus:outline-none"
                 type={"number"}
-                onChange={(e) => handleChange("timeInBetween", e)}
+                onChange={(e) => handleNumberChange("timeInBetween", e)}
                 value={quizSettings.timeInBetween}
                 min={1}
+                max={20}
               ></input>
             </div>
           </div>
