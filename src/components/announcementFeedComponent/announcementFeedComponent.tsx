@@ -48,7 +48,9 @@ export default function AnnouncementFeedComponent({
                   <h2 className="w-2">&nbsp;</h2>
                   <h2 className=" font-extralight">{announcement.name}</h2>
                   <h2 className="w-2">&nbsp;</h2>
-                  <h2 className=" font-extralight">{announcement.value}</h2>
+                  {announcement.value > 0 && (
+                    <h2 className=" font-extralight">{announcement.value}</h2>
+                  )}
                 </div>
                 <div className="text-2xl">{announcement.icon}</div>
               </div>
