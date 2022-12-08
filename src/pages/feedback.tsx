@@ -21,6 +21,7 @@ export default function Feedback() {
     defaultValue: {
       username: "",
       platform: "",
+      babbleToken: "",
       uid: "",
     },
   });
@@ -43,7 +44,7 @@ export default function Feedback() {
         `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
         {
           type: type,
-          username: account.username,
+          token: account.babbleToken,
           subject: subject,
           feedback: body,
         }
