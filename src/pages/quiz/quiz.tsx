@@ -13,6 +13,8 @@ import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import "./quiz.css";
+import toast from "react-hot-toast";
+import ResolvableToast from "../../components/toasts/resolvableToast";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -131,6 +133,7 @@ export default function Quiz() {
         console.log(data.results);
         //wait 5 seconds before navigating to the results page
         setTimeout(() => {
+          toast.dismiss();
           navigate("/quizresults", {
             state: {
               results: data.results,
@@ -151,7 +154,6 @@ export default function Quiz() {
   const [editable, setEditable] = useState(false);
 
   const height = window.innerHeight - 20;
-
   return (
     <motion.div
       initial={{
@@ -173,6 +175,7 @@ export default function Quiz() {
         {/* create menu button */}
         <button
           onClick={() => {
+            toast.success("Game started");
             setStart(true);
           }}
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
@@ -203,13 +206,23 @@ export default function Quiz() {
         <button
           onClick={() => {
             if (start) {
-              if (window.confirm("Are you sure you want to leave?")) {
-                setStart(false);
-                navigate("/");
-              }
-            } else {
-              navigate("/");
-            }
+              toast.loading(
+                (t) => (
+                  <ResolvableToast
+                    t={t}
+                    text="Are you sure you want to quit?"
+                    confirm="Quit"
+                    cancel="Continue"
+                    setState={setStart}
+                    nav="/"
+                  />
+                ),
+                {
+                  icon: <></>,
+                  id: "exit",
+                }
+              );
+            } else navigate("/");
           }}
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
         >
@@ -300,13 +313,25 @@ export default function Quiz() {
           <button
             className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
             onClick={() => {
-              removeItem();
+              toast.loading(
+                (t) => (
+                  <ResolvableToast
+                    t={t}
+                    text="Are you sure you want to reset the layout?"
+                    confirm="Reset layout"
+                    cancel="Keep layout"
+                    setState={removeItem}
+                  />
+                ),
+                {
+                  icon: <></>,
+                  id: "reset",
+                }
+              );
             }}
           >
             <FaRedo className="z-10" />
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
+            <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
           </button>
         )}
         {start ? (
