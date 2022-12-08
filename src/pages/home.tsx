@@ -165,6 +165,12 @@ export default function Login() {
         })}
         <div className="mt-5 flex justify-center text-babbleGray">
           <p>ALPHA V1.0</p>
+
+          <span className="mx-5">|</span>
+
+          <button className="underline" onClick={() => navigate("/feedback")}>
+            Feedback
+          </button>
         </div>
       </motion.div>
     </div>
