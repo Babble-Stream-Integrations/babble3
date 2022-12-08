@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
 
@@ -16,14 +18,18 @@ export default function CallBack() {
       username: "",
     },
   });
-
-  searchParams.forEach((value, key) => {
-    setSession((old) => ({
-      ...old,
-      [key]: value,
-    }));
-  });
-  if (session) navigate("/");
+  useEffect(() => {
+    searchParams.forEach((value, key) => {
+      setSession((old) => ({
+        ...old,
+        [key]: value,
+      }));
+    });
+    if (session) {
+      toast.success("Logged in successfully!");
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen w-screen flex-col items-center justify-center bg-gradient-radial from-[#2D2D31] via-[#1A1A1D] to-[#1A1A1D]">
