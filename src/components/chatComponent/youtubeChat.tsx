@@ -27,10 +27,7 @@ export default function YoutubeChat({
         });
       });
 
-    client.on("message", async (data) => {
-      // console.log(messages.includes(data));
-      console.log(messages);
-      console.log(messages.find((message) => message.id == data.id));
+    client.on("message", (data) => {
       if (messages.find((message) => message.id == data.id) == null) {
         console.log("New Message");
         setMessages((messages) => [...messages, data]);
