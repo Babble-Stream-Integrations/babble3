@@ -63,7 +63,6 @@ export default function ChatComponent({
   }
   //give the backgrount a gradient if user is in announcements
   function color(name: string, announcements: Announcements) {
-    console.log(name, announcements);
     if (name === "" || name === undefined || name === null) return;
     let chatColor =
       "linear-gradient(to right, hsl(240, 5%, 11%) , 1%, hsl(240, 5%, 11%)";

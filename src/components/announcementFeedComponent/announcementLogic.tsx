@@ -30,7 +30,11 @@ export default function AnnouncementLogic({
         switch (announcement.type) {
           case "mostPoints":
             //check if the value is not empty
-            if (announcements.mostPoints !== "") {
+            if (
+              announcements.mostPoints !== "" &&
+              announcements.mostPointsAmount > 0
+            ) {
+              //set icon with correct color
               announcement.icon = (
                 <FaTrophy
                   style={{ fill: `url(#gradient-${announcement.type})` }}

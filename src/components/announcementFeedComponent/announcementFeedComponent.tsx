@@ -25,36 +25,46 @@ export default function AnnouncementFeedComponent({
   //loop through the announcements, if the announcement is a string, add it to the list.
   return (
     <div className="h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
-      <div className="flex flex-col gap-3">
-        {feedList
-          .slice(0)
-          .reverse()
-          .map((announcement: FeedList) => {
-            const key = Math.random();
-            return (
-              <div
-                key={key}
-                className="flex w-full items-center justify-between rounded-babble bg-babbleDarkerGray p-4"
-              >
-                {IconGradient(
-                  announcement.type,
-                  announcement.startColor,
-                  announcement.endColor,
-                  [0, 50, 100, 50]
-                )}
-                <div className="text-2xl">{announcement.icon}</div>
-                <div className="flex ">
-                  <h2>{announcement.title} </h2>
-                  <h2 className="w-2">&nbsp;</h2>
-                  <h2 className=" font-extralight">{announcement.name}</h2>
-                  <h2 className="w-2">&nbsp;</h2>
-                  <h2 className=" font-extralight">{announcement.value}</h2>
+      {feedList.length <= 0 ? (
+        <div className="flex h-full items-center justify-center">
+          <h2 className="text-babbleGray">NO ANNOUNCEMENTS YET</h2>
+        </div>
+      ) : (
+        <div className="flex h-full flex-col justify-evenly gap-3">
+          {feedList
+            .slice(0)
+            .reverse()
+            .map((announcement: FeedList) => {
+              console.log(announcement);
+
+              const key = Math.random();
+              return (
+                <div
+                  key={key}
+                  className="flex h-1/3 max-h-[80px] w-full items-center justify-between rounded-babble bg-babbleDarkerGray py-2 px-5"
+                >
+                  {IconGradient(
+                    announcement.type,
+                    announcement.startColor,
+                    announcement.endColor,
+                    [0, 50, 100, 50]
+                  )}
+                  <div className="text-2xl">{announcement.icon}</div>
+                  <div className="flex ">
+                    <h2>{announcement.title} </h2>
+                    <h2 className="w-2">&nbsp;</h2>
+                    <h2 className=" font-extralight">{announcement.name}</h2>
+                    <h2 className="w-2">&nbsp;</h2>
+                    {announcement.value > 0 && (
+                      <h2 className=" font-extralight">{announcement.value}</h2>
+                    )}
+                  </div>
+                  <div className="text-2xl">{announcement.icon}</div>
                 </div>
-                <div className="text-2xl">{announcement.icon}</div>
-              </div>
-            );
-          })}
-      </div>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 }

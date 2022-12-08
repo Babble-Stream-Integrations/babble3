@@ -21,7 +21,16 @@ export default function QuizResults() {
   console.log(quizResults);
 
   quizResults.sort((a: Results, b: Results) => b.points - a.points);
-
+  if (quizResults.length === 2) {
+    quizResults.push({
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      points: 0,
+      profile:
+        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media&token=c8b34bd6-3ddf-4698-b0bc-687e6c2f246a",
+      username: "No third place",
+    });
+  }
   const placements = [
     ...(quizResults.length > 1
       ? [
@@ -32,7 +41,7 @@ export default function QuizResults() {
               startColor: "#A4A4A4",
               endColor: "#B8B8B8",
             },
-            size: 0.7,
+            size: 0.8,
             profile: quizResults[1].profile,
             username: quizResults[1].username,
             points: quizResults[1].points,
@@ -68,7 +77,7 @@ export default function QuizResults() {
               startColor: "#A56B39",
               endColor: "#C28045",
             },
-            size: 0.7,
+            size: 0.8,
             profile: quizResults[2].profile,
             username: quizResults[2].username,
             points: quizResults[2].points,
@@ -81,7 +90,11 @@ export default function QuizResults() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
-      <h1 className=" text-4xl font-bold ">Winners</h1>
+      {quizResults.length === 0 ? (
+        <h1 className=" text-4xl font-bold ">No winners</h1>
+      ) : (
+        <h1 className=" text-4xl font-bold ">Winners</h1>
+      )}
       <div className="flex gap-4">
         {placements.length > 0 ? (
           placements.map((placement, index) => {
@@ -152,7 +165,7 @@ export default function QuizResults() {
             );
           })
         ) : (
-          <h2>No one participated!</h2>
+          <h2 className="p-8">No one participated!</h2>
         )}
       </div>
       <Link
