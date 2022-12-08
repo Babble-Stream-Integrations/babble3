@@ -11,4 +11,8 @@ router.get("/:platform(youtube|twitch)/:channel", async (req, res) => {
   });
 });
 
+router.get("/poll-test", (req, res) => {
+  res.status(418).send("Hello World!");
+});
+
 export default router;
