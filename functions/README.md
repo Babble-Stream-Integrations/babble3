@@ -27,4 +27,3 @@ You could in turn use this to, for example, retrieve the email address of the us
 ```js
 const email = res.locals.user.email;
 ```
-
