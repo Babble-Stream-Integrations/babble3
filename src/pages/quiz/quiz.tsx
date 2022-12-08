@@ -2,11 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
-import ChatComponent from "../../components/chatComponent/chatComponent";
-import QuizComponent from "../../components/quizComponent/quizComponent";
-import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
-import { appConfig } from "../../config/app";
-import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import useSessionStorageState from "use-session-storage-state";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import {
@@ -20,6 +15,12 @@ import {
 import "./quiz.css";
 import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";
+import { appConfig } from "../../config/app";
+import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
+import ChatComponent from "../../components/chatComponent/chatComponent";
+import QuizComponent from "../../components/quizComponent/quizComponent";
+import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
+import "./quiz.css";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function Quiz() {
     useLocalStorageState<TriviaSettings>("quizSettings", {
       defaultValue: {
         channel: streamer.channel,
-        startAfter: 1,
+        startAfter: 0.000000000001,
         questionAmount: 10,
         timePerQuestion: 15,
         timeInBetween: 5,
@@ -56,14 +57,15 @@ export default function Quiz() {
     ...prevState,
     channel: account.username,
   }));
-  //start timer on first connection with back-end
+
   const [start, setStart] = useState(false);
+  const [connect, setConnect] = useState(false);
 
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
-    question: "Use the play button to start the game!",
-    possibilities: ["Example 1", "Example 2", "Example 3", "Example 4"],
-    time: 0,
+    question: ".",
+    possibilities: ["", "", "", ""],
+    time: 1,
     rightAnswer: "",
     percentages: [],
     questionIndex: 0,
@@ -94,7 +96,7 @@ export default function Quiz() {
           time: data.in,
         }));
         //confirm the connection with back-end
-        setStart(true);
+        setConnect(true);
       });
 
       //when getting a new question, update the data
@@ -164,7 +166,7 @@ export default function Quiz() {
         opacity: 0,
       }}
       transition={{
-        duration: 1,
+        duration: 0.5,
       }}
       whileInView={{
         opacity: 1,
@@ -231,7 +233,7 @@ export default function Quiz() {
         layouts={layout}
         breakpoints={{ lg: 100 }}
         cols={{ lg: 24 }}
-        rowHeight={height / 12 - 52.5}
+        rowHeight={height / 12 - 52.75}
         isBounded={true}
         compactType={"vertical"}
         resizeHandles={["se"]}
@@ -245,7 +247,16 @@ export default function Quiz() {
           }));
         }}
       >
-        <div
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
           className="z-10 flex w-[450px] items-center justify-center "
           key="chat-component"
         >
@@ -254,14 +265,35 @@ export default function Quiz() {
             platform={account.platform}
             announcements={quiz.announcements}
           />
-        </div>
-        <div
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
           className="z-10 flex w-[570px] justify-center"
           key="quiz-component"
         >
-          <QuizComponent quiz={quiz} />
-        </div>
-        <div
+          <QuizComponent quiz={quiz} start={connect} />
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
           className="z-10 flex items-center justify-center"
           key="first-to-answer"
         >
@@ -269,7 +301,7 @@ export default function Quiz() {
             key="first-to-answer"
             announcements={quiz.announcements}
           />
-        </div>
+        </motion.div>
       </ResponsiveGridLayout>
       <div className="absolute bottom-[150px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         <button
@@ -298,21 +330,25 @@ export default function Quiz() {
             />
           </button>
         )}
-        <button
-          className={
-            editable
-              ? "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border-2 border-babbleOrange bg-babbleOrange/5 bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite "
-              : "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
-          }
-          onClick={() => {
-            setEditable(!editable);
-          }}
-        >
-          <FaPencilAlt className="z-10" />
-          <div
-            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-          />
-        </button>
+        {start ? (
+          <div />
+        ) : (
+          <button
+            className={
+              editable
+                ? "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border-2 border-babbleOrange bg-babbleOrange/5 bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite "
+                : "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+            }
+            onClick={() => {
+              setEditable(!editable);
+            }}
+          >
+            <FaPencilAlt className="z-10" />
+            <div
+              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            />
+          </button>
+        )}
       </div>
     </motion.div>
   );

@@ -23,7 +23,7 @@ export default async function YoutubeViewCount({
         console.log(res.data.videoId);
       } catch (error) {
         // clearInterval(interval);
-        setViewCount("Offline");
+        setViewCount("0");
       }
     }, 1000);
     //repeat call every 30 seconds

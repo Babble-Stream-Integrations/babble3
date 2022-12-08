@@ -28,10 +28,8 @@ export default function YoutubeChat({
       });
 
     client.on("message", (data) => {
-      if (messages.find((message) => message.id == data.id) == null) {
-        console.log("New Message");
-        setMessages((messages) => [...messages, data]);
-      }
+      console.log(data);
+      setMessages((messages) => [...messages, data]);
     });
   }, []);
 

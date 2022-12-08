@@ -5,6 +5,7 @@ export type Message = {
   message: string;
   color: string | undefined;
   username: string;
+  image?: string;
 };
 
 //type for streamer info
@@ -42,6 +43,16 @@ export type Announcements = {
   firstToGuess: string;
   onStreak: string;
   onStreakAmount: number;
+};
+export type FeedList = {
+  type: string;
+  name: string;
+  icon: JSX.Element;
+  title: string;
+  value: number;
+  startColor: string;
+  endColor: string;
+  key: string;
 };
 
 export type QuizBackend = {

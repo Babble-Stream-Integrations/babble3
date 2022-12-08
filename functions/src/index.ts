@@ -25,5 +25,4 @@ app.use("/oauth2", oAuth2Routes);
 app.use("/feedback", feedbackRoutes);
 app.use("/youtube", youtubeRoutes);
 
-// eslint-disable-next-line no-undef
 export default functions.region("europe-west1").https.onRequest(app);

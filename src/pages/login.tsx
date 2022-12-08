@@ -1,8 +1,7 @@
 import { ImTwitch } from "react-icons/im";
-// import { IoLogoTiktok } from "react-icons/io5";
 import { useState } from "react";
-import { DefaultButton } from "../components/defaultButton/defaultButton";
 import { motion } from "framer-motion";
+import { DefaultButton } from "../components/defaultButton/defaultButton";
 
 export default function Login() {
   const [platform, setPlatform] = useState("");
