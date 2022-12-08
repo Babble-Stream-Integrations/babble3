@@ -23,9 +23,5 @@ app.use("/view-count", viewCountRoutes);
 app.use("/oauth2", oAuth2Routes);
 app.use("/feedback", feedbackRoutes);
 
-app.get("/poll-test", (req, res) => {
-  return res.status(418).send("Hello World!");
-});
-
 // eslint-disable-next-line no-undef
 export default functions.region("europe-west1").https.onRequest(app);
