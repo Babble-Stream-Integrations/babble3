@@ -18,6 +18,7 @@ export const submitFeedback = (req: Request, res: Response) => {
   if (
     typeof req.body.type === "undefined" ||
     typeof req.body.subject === "undefined" ||
+    typeof req.body.username === "undefined" ||
     typeof req.body.feedback === "undefined" ||
     ["ideas", "bugs", "comments"].includes(req.body.type) === false
   ) {
@@ -29,8 +30,7 @@ export const submitFeedback = (req: Request, res: Response) => {
     appConfig.webhooks[req.body.type as keyof typeof appConfig.webhooks],
     {
       content: `@here **Feedback received from: ${
-        // Username using Babble authorization, as a security/anti-impersonation measure
-        res.locals.user.username
+        req.body.username
       }**\n\nSubject: ${req.body.subject ?? "No subject"}\n\`\`\`${
         req.body.feedback ?? "No feedback"
       }\`\`\``,
