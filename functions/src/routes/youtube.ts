@@ -7,7 +7,7 @@ router.get("/livechat/:channel", async (req, res) => {
   const result = await getLiveChatId(req.params.channel);
   res.set("Access-Control-Allow-Origin", "*");
   res.json({
-    count: result,
+    liveChatId: result,
   });
 });
 

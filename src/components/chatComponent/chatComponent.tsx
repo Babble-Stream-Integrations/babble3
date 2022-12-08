@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
-// import YoutubeChat from "./youtubeChat.tsx";
+import YoutubeChat from "./youtubeChat";
 import YoutubeViewCount from "./youtubeViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
@@ -49,7 +49,7 @@ export default function ChatComponent({
       setViewCount,
     });
   } else if (platform === "youtube") {
-    // YoutubeChat({ liveChatId, messages, setMessages });
+    YoutubeChat({ streamer: streamer, messages, setMessages });
     YoutubeViewCount({
       streamer: streamer,
       setViewCount,
