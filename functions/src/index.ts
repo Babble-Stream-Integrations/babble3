@@ -14,7 +14,6 @@ app.use((req, res, next) => {
 });
 
 // Import routing files
-// import exampleAuthRoute from "./routes/exampleAuthRoute";
 import viewCountRoutes from "./routes/viewCount";
 import oAuth2Routes from "./routes/oauth2";
 import feedbackRoutes from "./routes/feedback";
@@ -25,11 +24,8 @@ app.use("/oauth2", oAuth2Routes);
 app.use("/feedback", feedbackRoutes);
 
 app.get("/poll-test", (req, res) => {
-  res.status(418).send("Hello World!");
+  return res.status(418).send("Hello World!");
 });
-
-// Example route using Babble Token authentication
-// app.use("/example-auth-route", exampleAuthRoute);
 
 // eslint-disable-next-line no-undef
 export default functions.region("europe-west1").https.onRequest(app);
