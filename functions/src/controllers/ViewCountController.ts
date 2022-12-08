@@ -34,7 +34,9 @@ export async function getViewCount(channel: string, platform: string) {
           },
         }
       );
-      return result.data.data[0].viewer_count;
+      return typeof result.data.data[0] !== "undefined"
+        ? result.data.data[0].viewer_count
+        : 0;
     } catch (error) {
       console.log(error);
       return 0;
