@@ -38,7 +38,13 @@ export const submitFeedback = (req: Request, res: Response) => {
   );
 
   // Return success message
-  return res.status(201).json({
-    message: "Feedback submitted successfully",
-  });
+  return res
+    .set("Access-Control-Allow-Origin", "https://babble3.web.app")
+    .set("Access-Control-Allow-Methods", "POST")
+    .set("Access-Control-Allow-Headers", "Content-Type")
+    .set("Content-Type", "application/json")
+    .status(201)
+    .json({
+      message: "Feedback submitted successfully",
+    });
 };
