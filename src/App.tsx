@@ -144,14 +144,17 @@ When the game is over you'll be able to see how everyone performed."
     {
       path: "/feedback",
       element: (
-        <PrivateRoutes>
-          <DefaultLayout
-            title="Feedback"
-            subtitle="Your feedback helps us improve the application. What would you like to share with us?"
-          >
-            <Feedback />
-          </DefaultLayout>
-        </PrivateRoutes>
+        <>
+          <Toaster />
+          <PrivateRoutes>
+            <DefaultLayout
+              title="Feedback"
+              subtitle="Your feedback helps us improve the application. What would you like to share with us?"
+            >
+              <Feedback />
+            </DefaultLayout>
+          </PrivateRoutes>
+        </>
       ),
     },
   ]);

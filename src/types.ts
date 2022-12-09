@@ -5,6 +5,7 @@ export type Message = {
   message: string;
   color: string | undefined;
   username: string;
+  image?: string;
 };
 
 //type for streamer info

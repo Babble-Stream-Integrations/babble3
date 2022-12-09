@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
-// import YoutubeChat from "./youtubeChat.tsx";
+import YoutubeChat from "./youtubeChat";
 import YoutubeViewCount from "./youtubeViewCount";
 import { FaUserAlt } from "react-icons/fa";
 import { ImTwitch, ImYoutube } from "react-icons/im";
@@ -49,7 +49,7 @@ export default function ChatComponent({
       setViewCount,
     });
   } else if (platform === "youtube") {
-    // YoutubeChat({ liveChatId, messages, setMessages });
+    YoutubeChat({ streamer: streamer, messages, setMessages });
     YoutubeViewCount({
       streamer: streamer,
       setViewCount,
@@ -130,7 +130,7 @@ export default function ChatComponent({
             return (
               <div
                 key={index}
-                className="z-20 my-4 w-fit whitespace-pre-wrap rounded-babbleSmall px-4 py-1 shadow-babble"
+                className="z-20 my-4 flex w-fit whitespace-pre-wrap rounded-babbleSmall px-4 py-1 shadow-babble"
                 style={{
                   backgroundImage: bg,
                   //if bg is not linear-gradient(to right, rgb(27, 27, 29), 1%, rgb(27, 27, 29))
@@ -142,15 +142,24 @@ export default function ChatComponent({
                       : message.color,
                 }}
               >
-                <span
-                  className="w-full font-bold"
-                  dangerouslySetInnerHTML={{ __html: message.displayname }}
-                />
-                :{" "}
-                <span
-                  className="w-full max-w-full break-words text-babbleWhite"
-                  dangerouslySetInnerHTML={{ __html: message.message }}
-                />
+                {message.image && (
+                  <img
+                    className="my-1 mr-4 h-6 w-6 rounded-full"
+                    src={message.image}
+                    alt={message.displayname}
+                  />
+                )}
+                <div>
+                  <span
+                    className="w-full font-bold"
+                    dangerouslySetInnerHTML={{ __html: message.displayname }}
+                  />
+                  :{" "}
+                  <span
+                    className="w-full max-w-full break-words text-babbleWhite"
+                    dangerouslySetInnerHTML={{ __html: message.message }}
+                  />
+                </div>
               </div>
             );
           })}

@@ -13,9 +13,9 @@ import {
   FaCommentDots,
 } from "react-icons/fa";
 import "./quiz.css";
+import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";
 import { appConfig } from "../../config/app";
-import { quizLayout } from "./quizLayout";
 import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
