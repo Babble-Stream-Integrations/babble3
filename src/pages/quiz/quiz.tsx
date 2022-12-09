@@ -4,14 +4,7 @@ import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import useSessionStorageState from "use-session-storage-state";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
-import {
-  FaCog,
-  FaHome,
-  FaPencilAlt,
-  FaPlay,
-  FaRedo,
-  FaCommentDots,
-} from "react-icons/fa";
+import { FaCog, FaHome, FaPencilAlt, FaPlay, FaRedo } from "react-icons/fa";
 import "./quiz.css";
 import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";

@@ -16,7 +16,7 @@ export default function YoutubeChat({
 }: Props) {
   useEffect(() => {
     const client: Socket = io(appConfig.backendUrl);
-    const liveChatId = axios
+    axios
       .get(
         "http://localhost:5001/babble-d6ef3/europe-west1/default/youtube/livechat/" +
           streamer.channel
