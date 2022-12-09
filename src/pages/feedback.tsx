@@ -8,6 +8,7 @@ import axios from "axios";
 import useSessionStorageState from "use-session-storage-state";
 import clsx from "clsx";
 import RadioButton from "../components/defaultButton/radioButton";
+import { toast } from "react-hot-toast";
 
 export default function Feedback() {
   const navigate = useNavigate();
@@ -49,6 +50,35 @@ export default function Feedback() {
    * Handle the submission of the feedback form
    * @returns void
    */
+
+  function onSuccess() {
+    return (
+      <>
+        {navigate("/")}
+        <span>Feedback submitted!</span>
+      </>
+    );
+  }
+
+  // If the feedback submission fails, display an error message with option to mail
+  function onError() {
+    return (
+      <>
+        <span>
+          error submitting feedback please email it to us{" "}
+          <a
+            className="text-blue-500 underline"
+            target="_blank"
+            href={`mailto:jarno.akkerman@student.hu.nl?subject=from ${account.username}, ${subject}&body=${body}`}
+            rel="noreferrer"
+          >
+            here
+          </a>
+        </span>
+      </>
+    );
+  }
+
   function handleSubmit() {
     if (subject === "" || body === "") {
       return;
@@ -57,21 +87,39 @@ export default function Feedback() {
     // Set 'posting' to true to disable the submit button
     setPosting(true);
 
-    // Send the feedback to Functions
-    axios
-      .post(
-        `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
-        {
-          type: type,
-          username: account.username,
-          subject: subject,
-          feedback: body,
-        }
-      )
-      .finally(() => {
-        alert("Thank you for your valued opinion!");
-        navigate(-1);
-      });
+    // Send the feedback to the backend and display a toast
+    toast.promise(
+      new Promise((resolve, reject) => {
+        axios
+          .post(
+            `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
+            {
+              type: type,
+              username: account.username,
+              subject: subject,
+              feedback: body,
+            }
+          )
+          .then((res) => {
+            if (res.status === 201) {
+              resolve(200);
+              setPosting(false);
+            } else {
+              reject(400);
+              setPosting(false);
+            }
+          })
+          .catch(() => {
+            reject(400);
+            setPosting(false);
+          });
+      }),
+      {
+        loading: "Submitting feedback...",
+        success: onSuccess(),
+        error: onError(),
+      }
+    );
   }
 
   return (
