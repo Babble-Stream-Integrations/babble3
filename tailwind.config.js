@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-// eslint-disable-next-line no-undef
-module.exports = {
+const config = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     //change font family
@@ -138,3 +137,5 @@ module.exports = {
     "fade-in-up-4",
   ],
 };
+
+module.exports = config;

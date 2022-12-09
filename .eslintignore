@@ -1,2 +1,4 @@
 node_modules
 /root/src/helpers/*.js
+tailwind.config.js
+prettier.config.js

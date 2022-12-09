@@ -17,11 +17,13 @@ app.use((req, res, next) => {
 import viewCountRoutes from "./routes/viewCount";
 import oAuth2Routes from "./routes/oauth2";
 import feedbackRoutes from "./routes/feedback";
+import youtubeRoutes from "./routes/youtube";
 
 // Declare routes
 app.use("/view-count", viewCountRoutes);
 app.use("/oauth2", oAuth2Routes);
 app.use("/feedback", feedbackRoutes);
+app.use("/youtube", youtubeRoutes);
 
 // eslint-disable-next-line no-undef
 export default functions.region("europe-west1").https.onRequest(app);

@@ -4,19 +4,22 @@ import { useNavigate } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
 
-  //need setSession to get removeItem to work
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [session, setSession, { removeItem }] = useSessionStorageState(
     "account",
     {
       defaultValue: {
-        username: "",
         avatar: "",
         babbleToken: "",
+        displayName: "",
+        email: "",
+        platform: "",
+        uid: "",
+        username: "",
       },
     }
   );
@@ -26,7 +29,7 @@ export default function Login() {
   //define different sign in methods
   const buttonOptions = [
     {
-      name: "Play game",
+      name: "Play Game",
       icon: <FaPlay size={25} />,
       nav: "quiz",
     },
@@ -58,45 +61,48 @@ export default function Login() {
     //     body: JSON.stringify(session.babbleToken),
     //   }
     // );
+    setSession({
+      avatar: "",
+      babbleToken: "",
+      displayName: "",
+      email: "",
+      platform: "",
+      uid: "",
+      username: "",
+    });
     removeItem();
     navigate("/login");
+    toast.success("Signed out");
   }
+
+  const variants = {
+    hidden: {
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
+  const item = {
+    hidden: {
+      y: 30,
+      opacity: 0,
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
 
   return (
     <div className="font-thin">
-      <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 1,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-      ></motion.div>
-      <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 1.25,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        className="flex items-center justify-center gap-2 text-[#A8A8A8]"
-      >
+      <div className="flex items-center justify-center gap-2 text-[#A8A8A8]">
         <img
           src={session.avatar}
           className="h-10 w-10 rounded-full shadow-babble"
@@ -108,15 +114,17 @@ export default function Login() {
             <FaCaretDown
               size={30}
               className="rotate-180 transform transition duration-700"
+              aria-label="Close menu"
             />
           ) : (
             <FaCaretDown
               size={30}
               className="transform transition duration-700"
+              aria-label="Open menu"
             />
           )}
         </button>
-      </motion.div>
+      </div>
       {menuOpen && (
         <div className="flex flex-col items-center">
           <button onClick={() => signOut()}>
@@ -127,41 +135,32 @@ export default function Login() {
         </div>
       )}
       <motion.div
-        initial={{
-          y: 50,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 1.5,
-        }}
-        whileInView={{
-          y: 0,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
+        variants={variants}
+        initial="hidden"
+        animate="show"
         className="mt-12 flex flex-col gap-[25px]"
       >
         {buttonOptions.map((options, index) => {
           return (
-            <label key={index}>
-              <input
-                type="radio"
-                name="option"
-                className="peer hidden"
-                onChange={() => buttonClicked(options.nav)}
-              />
-              <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
-                <div className="z-10 pl-8">{options.icon}</div>
-                <div className="z-10 flex w-full justify-center text-xl">
-                  <p>{options.name}</p>
-                </div>
-                <div
-                  className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+            <motion.div variants={item} key={index}>
+              <label>
+                <input
+                  type="radio"
+                  name="option"
+                  className="peer hidden"
+                  onChange={() => buttonClicked(options.nav)}
                 />
-              </div>
-            </label>
+                <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
+                  <div className="z-10 pl-8">{options.icon}</div>
+                  <div className="z-10 flex w-full justify-center text-xl">
+                    <p>{options.name}</p>
+                  </div>
+                  <div
+                    className={`absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+                  />
+                </div>
+              </label>
+            </motion.div>
           );
         })}
         <div className="mt-5 flex justify-center text-babbleGray">

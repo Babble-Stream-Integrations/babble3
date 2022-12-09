@@ -6,6 +6,9 @@ import { DefaultButton } from "../components/defaultButton/defaultButton";
 
 import axios from "axios";
 import useSessionStorageState from "use-session-storage-state";
+import clsx from "clsx";
+import RadioButton from "../components/defaultButton/radioButton";
+import { toast } from "react-hot-toast";
 
 export default function Feedback() {
   const navigate = useNavigate();
@@ -25,10 +28,57 @@ export default function Feedback() {
     },
   });
 
+  const reasons = [
+    {
+      name: "Ideas",
+      icon: <FaLightbulb size={30} />,
+      value: "ideas",
+    },
+    {
+      name: "Bugs",
+      icon: <FaBug size={30} />,
+      value: "bugs",
+    },
+    {
+      name: "Comments",
+      icon: <FaComment size={30} />,
+      value: "comments",
+    },
+  ];
+
   /**
    * Handle the submission of the feedback form
    * @returns void
    */
+
+  function onSuccess() {
+    return (
+      <>
+        {navigate("/")}
+        <span>Feedback submitted!</span>
+      </>
+    );
+  }
+
+  // If the feedback submission fails, display an error message with option to mail
+  function onError() {
+    return (
+      <>
+        <span>
+          error submitting feedback please email it to us{" "}
+          <a
+            className="text-blue-500 underline"
+            target="_blank"
+            href={`mailto:jarno.akkerman@student.hu.nl?subject=from ${account.username}, ${subject}&body=${body}`}
+            rel="noreferrer"
+          >
+            here
+          </a>
+        </span>
+      </>
+    );
+  }
+
   function handleSubmit() {
     if (subject === "" || body === "") {
       return;
@@ -37,21 +87,39 @@ export default function Feedback() {
     // Set 'posting' to true to disable the submit button
     setPosting(true);
 
-    // Send the feedback to Functions
-    axios
-      .post(
-        `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
-        {
-          type: type,
-          username: account.username,
-          subject: subject,
-          feedback: body,
-        }
-      )
-      .finally(() => {
-        alert("Thank you for your valued opinion!");
-        navigate(-1);
-      });
+    // Send the feedback to the backend and display a toast
+    toast.promise(
+      new Promise((resolve, reject) => {
+        axios
+          .post(
+            `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
+            {
+              type: type,
+              username: account.username,
+              subject: subject,
+              feedback: body,
+            }
+          )
+          .then((res) => {
+            if (res.status === 201) {
+              resolve(200);
+              setPosting(false);
+            } else {
+              reject(400);
+              setPosting(false);
+            }
+          })
+          .catch(() => {
+            reject(400);
+            setPosting(false);
+          });
+      }),
+      {
+        loading: "Submitting feedback...",
+        success: onSuccess(),
+        error: onError(),
+      }
+    );
   }
 
   return (
@@ -75,59 +143,18 @@ export default function Feedback() {
           <div className="w-[130px] pb-2 text-center">
             <h2 className="uppercase text-white">Reason</h2>
           </div>
-          <button
-            className={`${
-              type === "ideas"
-                ? "border-babbleOrange bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 text-white"
-                : ""
-            } group relative flex h-[130px] w-[130px] flex-col items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite`}
-            onClick={() => {
-              setType("ideas");
-            }}
-          >
-            <FaLightbulb className="z-10" size={30} />
-            <p className="weight pt-3 font-thin">Idea</p>
-
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
+          {reasons.map((reason) => (
+            <RadioButton
+              key={reason.value}
+              name={reason.name}
+              icon={reason.icon}
+              value={reason.value}
+              setValue={setType}
+              color="babbleOrange"
+              startColor=""
+              endColor=""
             />
-          </button>
-
-          <button
-            className={`${
-              type === "bugs"
-                ? "border-babbleOrange bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 text-white"
-                : ""
-            } group relative mt-5 flex h-[130px] w-[130px] flex-col items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite`}
-            onClick={() => {
-              setType("bugs");
-            }}
-          >
-            <FaBug className="z-10" size={30} />
-            <p className="weight pt-3 font-thin">Bug</p>
-
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
-          </button>
-
-          <button
-            className={`${
-              type === "comments"
-                ? "border-babbleOrange bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 text-white"
-                : ""
-            } group relative mt-5 flex h-[130px] w-[130px] flex-col items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite`}
-            onClick={() => {
-              setType("comments");
-            }}
-          >
-            <FaComment className="z-10" size={30} />
-            <p className="weight pt-3 font-thin">Comment</p>
-
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
-          </button>
+          ))}
         </div>
 
         <div className="col-span-4 text-white">
@@ -164,11 +191,11 @@ export default function Feedback() {
               text="Cancel"
               buttonClick={() => navigate(-1)}
             />
-
             <button
-              className={`${
-                posting ? "opacity-70" : ""
-              } m-5 mr-0 rounded-3xl bg-white px-10 py-2 font-bold uppercase text-babbleDarkGray`}
+              className={clsx(
+                posting ? "opacity-70" : "",
+                "m-5 mr-0 rounded-3xl bg-white px-10 py-2 font-bold uppercase text-babbleDarkGray"
+              )}
               disabled={posting}
               onClick={() => {
                 handleSubmit();

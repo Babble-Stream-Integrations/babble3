@@ -1,13 +1,8 @@
-export const helixConfig = {
-  token: "Bearer ",
-  clientId: "",
-};
-
 export const twitchApplication = {
   clientSecret: "",
   clientId: "",
   scopes: ["user_read"],
   callbackUrl:
     "",
-  token: "",
+  token: "Bearer ...",
 };
