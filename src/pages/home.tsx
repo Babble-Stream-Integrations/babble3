@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ export default function Login() {
     });
     removeItem();
     navigate("/login");
+    toast.success("Signed out");
   }
 
   const variants = {
@@ -163,6 +165,12 @@ export default function Login() {
         })}
         <div className="mt-5 flex justify-center text-babbleGray">
           <p>ALPHA V1.0</p>
+
+          <span className="mx-5">|</span>
+
+          <button className="underline" onClick={() => navigate("/feedback")}>
+            Feedback
+          </button>
         </div>
       </motion.div>
     </div>

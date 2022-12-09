@@ -4,7 +4,15 @@ import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import useSessionStorageState from "use-session-storage-state";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
-import { FaCog, FaHome, FaPencilAlt, FaPlay, FaRedo } from "react-icons/fa";
+import {
+  FaCog,
+  FaHome,
+  FaPencilAlt,
+  FaPlay,
+  FaRedo,
+  FaCommentDots,
+} from "react-icons/fa";
+import "./quiz.css";
 import { motion } from "framer-motion";
 import { appConfig } from "../../config/app";
 import { quizLayout } from "./quizLayout";
@@ -13,6 +21,8 @@ import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
 import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
 import "./quiz.css";
+import toast from "react-hot-toast";
+import ResolvableToast from "../../components/toasts/resolvableToast";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -131,6 +141,7 @@ export default function Quiz() {
         console.log(data.results);
         //wait 5 seconds before navigating to the results page
         setTimeout(() => {
+          toast.dismiss();
           navigate("/quizresults", {
             state: {
               results: data.results,
@@ -151,7 +162,6 @@ export default function Quiz() {
   const [editable, setEditable] = useState(false);
 
   const height = window.innerHeight - 20;
-
   return (
     <motion.div
       initial={{
@@ -173,14 +183,13 @@ export default function Quiz() {
         {/* create menu button */}
         <button
           onClick={() => {
+            toast.success("Game started");
             setStart(true);
           }}
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
         >
           <FaPlay className="z-10" />
-          <div
-            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-          />
+          <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
         </button>
         <button
           onClick={() => {
@@ -196,27 +205,33 @@ export default function Quiz() {
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
         >
           <FaCog className="z-10" />
-          <div
-            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-          />
+          <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
         </button>
         <button
           onClick={() => {
             if (start) {
-              if (window.confirm("Are you sure you want to leave?")) {
-                setStart(false);
-                navigate("/");
-              }
-            } else {
-              navigate("/");
-            }
+              toast.loading(
+                (t) => (
+                  <ResolvableToast
+                    t={t}
+                    text="Are you sure you want to quit?"
+                    confirm="Quit"
+                    cancel="Continue"
+                    setState={setStart}
+                    nav="/"
+                  />
+                ),
+                {
+                  icon: <></>,
+                  id: "exit",
+                }
+              );
+            } else navigate("/");
           }}
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
         >
           <FaHome className="z-10" />
-          <div
-            className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-          />
+          <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
         </button>
       </div>
       <ResponsiveGridLayout
@@ -295,18 +310,41 @@ export default function Quiz() {
           />
         </motion.div>
       </ResponsiveGridLayout>
+      <div className="absolute bottom-[150px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
+        <button
+          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+          onClick={() => {
+            navigate("/feedback");
+          }}
+        >
+          <FaCommentDots className="z-10" />
+          <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
+        </button>
+      </div>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
           <button
             className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
             onClick={() => {
-              removeItem();
+              toast.loading(
+                (t) => (
+                  <ResolvableToast
+                    t={t}
+                    text="Are you sure you want to reset the layout?"
+                    confirm="Reset layout"
+                    cancel="Keep layout"
+                    setState={removeItem}
+                  />
+                ),
+                {
+                  icon: <></>,
+                  id: "reset",
+                }
+              );
             }}
           >
             <FaRedo className="z-10" />
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
+            <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
           </button>
         )}
         {start ? (
@@ -323,9 +361,7 @@ export default function Quiz() {
             }}
           >
             <FaPencilAlt className="z-10" />
-            <div
-              className={`absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
-            />
+            <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
           </button>
         )}
       </div>
