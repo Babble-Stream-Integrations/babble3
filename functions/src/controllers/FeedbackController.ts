@@ -17,8 +17,9 @@ export const submitFeedback = (req: Request, res: Response) => {
   // Validate the given data
   if (
     typeof req.body.type === "undefined" ||
-    typeof req.body.feedback === "undefined" ||
     typeof req.body.subject === "undefined" ||
+    typeof req.body.username === "undefined" ||
+    typeof req.body.feedback === "undefined" ||
     ["ideas", "bugs", "comments"].includes(req.body.type) === false
   ) {
     return res.status(400).send("Invalid request");
