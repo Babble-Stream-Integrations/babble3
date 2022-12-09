@@ -310,17 +310,6 @@ export default function Quiz() {
           />
         </motion.div>
       </ResponsiveGridLayout>
-      <div className="absolute bottom-[150px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
-        <button
-          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleGray shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
-          onClick={() => {
-            navigate("/feedback");
-          }}
-        >
-          <FaCommentDots className="z-10" />
-          <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
-        </button>
-      </div>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
           <button

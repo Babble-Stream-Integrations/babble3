@@ -21,6 +21,16 @@ export default function QuizResults() {
   console.log(quizResults);
 
   quizResults.sort((a: Results, b: Results) => b.points - a.points);
+  if (quizResults.length === 1) {
+    quizResults.push({
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      points: 0,
+      profile:
+        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media",
+      username: "No second place",
+    });
+  }
   if (quizResults.length === 2) {
     quizResults.push({
       correctAnswers: 0,
