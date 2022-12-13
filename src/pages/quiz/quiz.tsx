@@ -157,7 +157,18 @@ export default function Quiz() {
 
   const [editable, setEditable] = useState(false);
 
-  const height = window.innerHeight - 20;
+  // update height every time the window.innerHeight changes
+  const [height, setHeight] = useState(window.innerHeight - 20);
+  useEffect(() => {
+    const handleResize = () => {
+      setHeight(window.innerHeight - 20);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{
