@@ -218,14 +218,14 @@ const handleGoogleCallback = (req: Request, res: Response) => {
                 platform: req.params.platform.toLowerCase(),
               };
               console.log(profile);
-              const accountDocument: AccountDocument = {
-                ...profile,
-                token: token,
-              };
+              // const accountDocument: AccountDocument = {
+              //   ...profile,
+              //   token: token,
+              // };
 
               // Store the profile and token in FireStore
-              const snapshot = collection(firestore, "accounts");
-              const accountReference = doc(snapshot);
+              // const snapshot = collection(firestore, "accounts");
+              // const accountReference = doc(snapshot);
 
               const redirectUrl = new URL(appConfig.webApp.authEndpoint);
 
@@ -250,35 +250,35 @@ const handleGoogleCallback = (req: Request, res: Response) => {
               if (results.empty === false) {
                 // Account already exists, lets update it and then redirect
 
-                const accountDocumentId = results.docs[0].id;
-                const documentReference = doc(
-                  firestore,
-                  "accounts",
-                  accountDocumentId
-                );
+                // const accountDocumentId = results.docs[0].id;
+                // const documentReference = doc(
+                //   firestore,
+                //   "accounts",
+                //   accountDocumentId
+                // );
 
                 // Merge the new information with the existing document
-                setDoc(
-                  documentReference,
-                  {
-                    ...accountDocument,
-                  },
-                  {
-                    merge: true,
-                  }
-                ).then(() => {
-                  // Redirect back to the front-end application
-                  res.redirect(redirectUrl.toString());
-                });
+                // setDoc(
+                //   documentReference,
+                //   {
+                //     ...accountDocument,
+                //   },
+                //   {
+                //     merge: true,
+                //   }
+                // ).then(() => {
+                // Redirect back to the front-end application
+                res.redirect(redirectUrl.toString());
+                // });
 
                 return;
               } else {
                 // Account does not yet exist, lets create it before redirecting
 
-                await setDoc(accountReference, accountDocument).then(() => {
-                  // Redirect back to the front-end application
-                  res.redirect(redirectUrl.toString());
-                });
+                // await setDoc(accountReference, accountDocument).then(() => {
+                // Redirect back to the front-end application
+                res.redirect(redirectUrl.toString());
+                // });
               }
             });
         });

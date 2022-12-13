@@ -24,6 +24,7 @@ export const DefaultButton = ({
       onClick={() => {
         setLoading(true);
         buttonClick();
+        setLoading(false);
       }}
       disabled={loading}
     >
