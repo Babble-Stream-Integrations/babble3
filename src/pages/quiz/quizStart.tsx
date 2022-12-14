@@ -42,9 +42,9 @@ export default function QuizStart() {
           Go back to home
         </Link>
       </div>
-      <h1 className="absolute bottom-[100px] text-babbleWhite">
+      <h2 className="absolute bottom-[100px] text-babbleWhite">
         © 2022 Babble stream integrations
-      </h1>
+      </h2>
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed ">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-br-full bg-babbleBlack"></div>
       </div>
