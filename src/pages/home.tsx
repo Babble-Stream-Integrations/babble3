@@ -99,6 +99,7 @@ export default function Login() {
       },
     },
   };
+  let clickCount = 0;
 
   return (
     <div className="font-thin">
@@ -164,10 +165,20 @@ export default function Login() {
           );
         })}
         <div className="mt-5 flex justify-center text-babbleGray">
-          <p>ALPHA V1.0</p>
-
+          <p>ALPHA V0.1.1&nbsp;</p>{" "}
+          <p
+            onClick={() => {
+              clickCount++;
+              if (clickCount === 10) {
+                window.open(
+                  "https://open.spotify.com/track/3AwscQQi2ATJxOEwxzjv7A?si=afe726bfa3a548c1"
+                );
+              }
+            }}
+          >
+            (hangmat)
+          </p>
           <span className="mx-5">|</span>
-
           <button className="underline" onClick={() => navigate("/feedback")}>
             Feedback
           </button>

@@ -16,6 +16,8 @@ import AnnouncementFeedComponent from "../../components/announcementFeedComponen
 import "./quiz.css";
 import toast from "react-hot-toast";
 import ResolvableToast from "../../components/toasts/resolvableToast";
+import clsx from "clsx";
+import { MdDragIndicator } from "react-icons/md";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -145,6 +147,7 @@ export default function Quiz() {
     }
   }, [start]);
 
+  //useLocalStorageState hook to save the layout
   const [layout, setLayout, { removeItem }] = useLocalStorageState(
     "quizLayout",
     {
@@ -154,7 +157,18 @@ export default function Quiz() {
 
   const [editable, setEditable] = useState(false);
 
-  const height = window.innerHeight - 20;
+  // update height every time the window.innerHeight changes
+  const [height, setHeight] = useState(window.innerHeight - 20);
+  useEffect(() => {
+    const handleResize = () => {
+      setHeight(window.innerHeight - 20);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{
@@ -235,6 +249,8 @@ export default function Quiz() {
         cols={{ lg: 24 }}
         rowHeight={height / 12 - 52.75}
         isBounded={true}
+        useCSSTransforms={true}
+        // allowOverlap={true}
         compactType={"vertical"}
         resizeHandles={["se"]}
         margin={[50, 50]}
@@ -257,9 +273,15 @@ export default function Quiz() {
           whileInView={{
             opacity: 1,
           }}
-          className="z-10 flex w-[450px] items-center justify-center "
+          className={clsx(
+            "relative z-10 flex w-[450px] items-center justify-center ",
+            editable && !start && "cursor-grab"
+          )}
           key="chat-component"
         >
+          {editable && !start && (
+            <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
+          )}
           <ChatComponent
             streamer={streamer}
             platform={account.platform}
@@ -276,9 +298,15 @@ export default function Quiz() {
           whileInView={{
             opacity: 1,
           }}
-          className="z-10 flex w-[570px] justify-center"
+          className={clsx(
+            "relative z-10 flex items-center justify-center",
+            editable && !start && "cursor-grab"
+          )}
           key="quiz-component"
         >
+          {editable && !start && (
+            <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
+          )}
           <QuizComponent quiz={quiz} start={connect} />
         </motion.div>
         <motion.div
@@ -294,9 +322,15 @@ export default function Quiz() {
           viewport={{
             once: true,
           }}
-          className="z-10 flex items-center justify-center"
+          className={clsx(
+            "relative z-10 flex items-center justify-center",
+            editable && !start && "cursor-grab"
+          )}
           key="first-to-answer"
         >
+          {editable && !start && (
+            <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
+          )}
           <AnnouncementFeedComponent
             key="first-to-answer"
             announcements={quiz.announcements}

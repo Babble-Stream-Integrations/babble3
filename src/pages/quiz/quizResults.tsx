@@ -136,7 +136,7 @@ export default function QuizResults() {
                       src={placement.profile}
                       alt="first place"
                     />
-                    <div className=" absolute bottom-[-5px] left-0 right-0 z-10 flex items-center justify-center bg-transparent">
+                    <div className=" absolute inset-x-0 bottom-[-5px] z-10 flex items-center justify-center bg-transparent">
                       {IconGradient(
                         placement.place,
                         placement.trophy.startColor,
