@@ -280,7 +280,7 @@ export default function Quiz() {
           key="chat-component"
         >
           {editable && !start && (
-            <MdDragIndicator className="absolute left-2 top-2 bottom-2 z-20 m-auto text-xl text-white" />
+            <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
           )}
           <ChatComponent
             streamer={streamer}
@@ -305,7 +305,7 @@ export default function Quiz() {
           key="quiz-component"
         >
           {editable && !start && (
-            <MdDragIndicator className="absolute left-2 top-2 bottom-2 z-20 m-auto text-xl text-white" />
+            <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
           )}
           <QuizComponent quiz={quiz} start={connect} />
         </motion.div>
@@ -329,7 +329,7 @@ export default function Quiz() {
           key="first-to-answer"
         >
           {editable && !start && (
-            <MdDragIndicator className="absolute left-2 top-2 bottom-2 z-20 m-auto text-xl text-white" />
+            <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
           )}
           <AnnouncementFeedComponent
             key="first-to-answer"
