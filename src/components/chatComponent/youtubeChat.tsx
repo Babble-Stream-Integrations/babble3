@@ -18,7 +18,7 @@ export default function YoutubeChat({
     const client: Socket = io(appConfig.backendUrl);
     axios
       .get(
-        "http://localhost:5001/babble-d6ef3/europe-west1/default/youtube/livechat/" +
+        "https://europe-west1-babble-d6ef3.cloudfunctions.net/default/youtube/livechat/" +
           streamer.channel
       )
       .then((data) => {
