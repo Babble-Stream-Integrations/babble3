@@ -102,7 +102,9 @@ export default function App() {
         <>
           <Toaster />
           <PrivateRoutes>
-            <QuizResults />
+            <DefaultLayout title="Winners">
+              <QuizResults />
+            </DefaultLayout>
           </PrivateRoutes>
         </>
       ),

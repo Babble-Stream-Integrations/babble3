@@ -1,7 +1,9 @@
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { FaTrophy } from "react-icons/fa";
+import { Navigate, useLocation } from "react-router-dom";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import IconGradient from "../../common/iconGradient";
+import { FaTrophy } from "react-icons/fa";
+import { DefaultButton } from "../../components/defaultButton/defaultButton";
+import { useNavigate } from "react-router-dom";
 
 type Results = {
   correctAnswers: number;
@@ -12,13 +14,13 @@ type Results = {
 };
 
 export default function QuizResults() {
+  const navigate = useNavigate();
   //get top 3 results from quiz page based on highest score
   const quizResults = useLocation().state?.results;
 
   if (!quizResults) {
     return <Navigate to="/quiz" />;
   }
-  console.log(quizResults);
 
   quizResults.sort((a: Results, b: Results) => b.points - a.points);
   if (quizResults.length === 1) {
@@ -27,7 +29,7 @@ export default function QuizResults() {
       wrongAnswers: 0,
       points: 0,
       profile:
-        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media",
+        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media&token=c8b34bd6-3ddf-4698-b0bc-687e6c2f246a",
       username: "No second place",
     });
   }
@@ -99,11 +101,9 @@ export default function QuizResults() {
   ];
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
-      {quizResults.length === 0 ? (
+    <div className="relative flex flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
+      {quizResults.length === 0 && (
         <h1 className=" text-4xl font-bold ">No winners</h1>
-      ) : (
-        <h1 className=" text-4xl font-bold ">Winners</h1>
       )}
       <div className="flex gap-4">
         {placements.length > 0 ? (
@@ -178,12 +178,12 @@ export default function QuizResults() {
           <h2 className="p-8">No one participated!</h2>
         )}
       </div>
-      <Link
-        to={"/"}
-        className=" flex rounded-full bg-babbleLightGray px-10 py-2 font-bold uppercase text-babbleBlack"
-      >
-        Continue
-      </Link>
+      <DefaultButton
+        text="Continue"
+        buttonClick={() => {
+          navigate("/");
+        }}
+      />
       {/* Hiddes circels, met je poten vanaf blijven :)
       <div className="absolute left-0 top-0 h-[30rem] w-[30rem] items-start justify-start rounded-br-full bg-gradient-to-t from-babbleYellow to-babbleRed">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-br-full bg-babbleBlack"></div>
