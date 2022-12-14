@@ -73,17 +73,17 @@ export default function QuizSettings() {
   }
 
   return (
-    <div className="mb-12 flex w-full justify-between px-[6.25rem] text-left">
+    <div className="mb-12 flex w-full justify-between overflow-hidden px-[6.25rem] text-left">
       <div className="relative flex">
         <div className="absolute left-[-3.125rem] h-full -rotate-90 flex-col items-end justify-end ">
-          <h2 className="h-[2.25rem] w-[15.625rem] text-center text-babbleGray">
+          <h2 className="h-[2.25rem] w-[395px] text-center text-babbleGray">
             Quiz settings
           </h2>
           <div className="h-px w-[395px] bg-babbleGray"></div>
         </div>
         <div className="ph-full z-10 flex w-full flex-col items-start gap-[1.563rem] pr-[0.938rem]  text-babbleGray">
           <div>
-            <h2 className="pb-[0.938rem]">Category</h2>
+            <h2 className="pb-[10px]">Category</h2>
             <div>
               <select
                 name="category"
@@ -103,7 +103,7 @@ export default function QuizSettings() {
             </div>
           </div>
           <div>
-            <h2 className="pb-[0.938rem]">Amount of questions</h2>
+            <h2 className="pb-[10px]">Amount of questions</h2>
             <div>
               <input
                 className="h-[80px] w-[300px] rounded-babble border border-[#A8A8A8] bg-babbleDarkGray px-[0.938rem] text-center text-white shadow-babbleOuter"
@@ -116,7 +116,7 @@ export default function QuizSettings() {
             </div>
           </div>
           <div>
-            <h2 className="pb-[0.938rem]">Difficulty</h2>
+            <h2 className="pb-[10px]">Difficulty</h2>
             <div>
               <select
                 onChange={(e) => handleChange("difficulty", e)}
@@ -134,7 +134,7 @@ export default function QuizSettings() {
         </div>
         <div className="flex h-full w-full flex-col items-start gap-[1.563rem]  text-babbleGray">
           <div>
-            <h2 className="pb-[0.938rem]">Time to answer (sec)</h2>
+            <h2 className="pb-[10px]">Time to answer (sec)</h2>
             <div>
               <input
                 className="h-[80px] w-[300px] rounded-babble border border-[#A8A8A8] bg-babbleDarkGray px-[0.938rem] text-center text-white shadow-babbleOuter"
@@ -147,7 +147,7 @@ export default function QuizSettings() {
             </div>
           </div>
           <div>
-            <h2 className="w-[15.625rem] pb-[0.938rem]">
+            <h2 className="w-[15.625rem] pb-[10px]">
               Time till next question (sec)
             </h2>
             <div>
@@ -162,7 +162,7 @@ export default function QuizSettings() {
             </div>
           </div>
           <div>
-            <h2 className="pb-[0.938rem]">Elimination</h2>
+            <h2 className="pb-[10px]">Elimination</h2>
             <label className="switch mt-[0.25rem]">
               <input
                 type="checkbox"
@@ -175,8 +175,8 @@ export default function QuizSettings() {
         </div>
       </div>
       <div className="relative ml-[6.25rem] flex">
-        <div className="absolute left-[-3.125rem] flex h-full w-full -rotate-90 flex-col items-center px-[3.125rem]">
-          <h2 className="h-[2.25rem] w-[15.625rem] text-center text-babbleGray">
+        <div className="absolute left-[-3.125rem] h-full -rotate-90 flex-col items-end justify-end">
+          <h2 className="h-[2.25rem] w-[395px] text-center text-babbleGray">
             Quiz colors
           </h2>
           <div className="h-px w-[395px] bg-babbleGray"></div>
@@ -187,22 +187,22 @@ export default function QuizSettings() {
             {Object.keys(colors).map((letter) => (
               <div key={letter} className="flex pb-[0.938rem]">
                 {/* //letter */}
-                <h2 className="mr-[0.938rem] inline-flex w-6 text-3xl  italic text-babbleWhite">
+                <h2 className="mr-[0.938rem] inline-flex w-6 text-3xl  italic">
                   {letter.toUpperCase()}
                 </h2>
                 {/* //color */}
                 <input
                   type="text"
-                  className="z-50 mr-[0.938rem] h-[5rem] w-[12.5rem] rounded-babble border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center uppercase focus:outline-none"
+                  className="z-50 mr-[0.938rem] h-[5rem] w-[12.5rem] rounded-babble border-[1px] border-babbleGray bg-babbleDarkGray px-[0.938rem] py-0 text-center uppercase shadow-babbleOuter focus:outline-none"
                   value={colors[letter]}
                   onChange={(e) => handleColorChange(letter, e)}
                 ></input>
-                <div className="flex h-[5rem] w-[5rem] items-center justify-center rounded-babble border-[1px] border-babbleGray bg-babbleDarkGray">
+                <div className="flex h-[5rem] w-[5rem] items-center justify-center rounded-babble border-[1px] border-babbleGray bg-babbleDarkGray shadow-babbleOuter">
                   <input
                     type={"color"}
                     onChange={(e) => handleColorChange(letter, e)}
                     value={colors[letter]}
-                    className="h-[2.25rem] w-[2.25rem] cursor-pointer appearance-none border-babbleGray bg-transparent bg-babbleDarkGray text-center focus:outline-none"
+                    className="z-50 h-[50px] w-[50px] cursor-pointer appearance-none border-none border-babbleGray bg-transparent bg-babbleDarkGray text-center focus:outline-none"
                   ></input>
                 </div>
               </div>
