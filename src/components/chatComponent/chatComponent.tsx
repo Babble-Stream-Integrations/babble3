@@ -10,6 +10,7 @@ import { Announcements, Message, Streamer } from "../../types";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { AutoTextSize } from "auto-text-size";
 // import invertColor from "../../common/invertColor";
+import { motion } from "framer-motion";
 
 export default function ChatComponent({
   streamer,
@@ -103,7 +104,23 @@ export default function ChatComponent({
   }
 
   return (
-    <div className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  ">
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 1.1,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
+      className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  "
+    >
       <div className="z-40 mx-4 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
         <div className="relative flex items-center justify-end gap-0.5 text-[18px] font-normal uppercase">
           <Icon />
@@ -165,6 +182,6 @@ export default function ChatComponent({
           })}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

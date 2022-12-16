@@ -170,19 +170,7 @@ export default function Quiz() {
   }, []);
 
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      transition={{
-        duration: 0.5,
-      }}
-      whileInView={{
-        opacity: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
+    <div
       className="overflow-hidden [background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
       data-theme={account.platform}
     >
@@ -263,16 +251,7 @@ export default function Quiz() {
           }));
         }}
       >
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
+        <div
           className={clsx(
             "relative z-10 flex w-[450px] items-center justify-center ",
             editable && !start && "cursor-grab"
@@ -287,17 +266,8 @@ export default function Quiz() {
             platform={account.platform}
             announcements={quiz.announcements}
           />
-        </motion.div>
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
+        </div>
+        <div
           className={clsx(
             "relative z-10 flex items-center justify-center",
             editable && !start && "cursor-grab"
@@ -308,20 +278,8 @@ export default function Quiz() {
             <MdDragIndicator className="absolute left-2 top-2 bottom-2 z-20 m-auto text-xl text-white" />
           )}
           <QuizComponent quiz={quiz} start={connect} />
-        </motion.div>
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
-          viewport={{
-            once: true,
-          }}
+        </div>
+        <div
           className={clsx(
             "relative z-10 flex items-center justify-center",
             editable && !start && "cursor-grab"
@@ -335,7 +293,7 @@ export default function Quiz() {
             key="first-to-answer"
             announcements={quiz.announcements}
           />
-        </motion.div>
+        </div>
       </ResponsiveGridLayout>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
@@ -381,6 +339,6 @@ export default function Quiz() {
           </button>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
