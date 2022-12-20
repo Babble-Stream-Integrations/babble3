@@ -53,7 +53,7 @@ img {
 
 ::-webkit-color-swatch {
   border-radius: 50%;
-  border: 3px white solid;
+  /* border: 3px white solid; */
   appearance: none;
   width: 100%;
 }
@@ -64,7 +64,7 @@ img {
 
 ::-moz-color-swatch {
   border-radius: 50%;
-  border: 3px white solid;
+  /* border: 3px white solid; */
   appearance: none;
   width: 100%;
 }

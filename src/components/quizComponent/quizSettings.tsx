@@ -202,7 +202,7 @@ export default function QuizSettings() {
                     type={"color"}
                     onChange={(e) => handleColorChange(letter, e)}
                     value={colors[letter]}
-                    className="z-50 h-[50px] w-[50px] cursor-pointer appearance-none border-none border-babbleGray bg-transparent bg-babbleDarkGray text-center focus:outline-none"
+                    className="z-50 h-[50px] w-[50px] cursor-pointer appearance-none border-none bg-transparent bg-babbleDarkGray text-center focus:outline-none"
                   ></input>
                 </div>
               </div>
