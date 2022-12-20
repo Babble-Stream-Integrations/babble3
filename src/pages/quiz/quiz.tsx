@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { io, Socket } from "socket.io-client";
 import useLocalStorageState from "use-local-storage-state";
 import useSessionStorageState from "use-session-storage-state";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import { FaCog, FaHome, FaPencilAlt, FaPlay, FaRedo } from "react-icons/fa";
-import "./quiz.css";
+import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
 import { quizLayout } from "./quizLayout";
 import { motion } from "framer-motion";
-import { appConfig } from "../../config/app";
 import { Layout, QuizBackend, Streamer, TriviaSettings } from "../../types";
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
@@ -18,6 +16,8 @@ import toast from "react-hot-toast";
 import ResolvableToast from "../../components/toasts/resolvableToast";
 import clsx from "clsx";
 import { MdDragIndicator } from "react-icons/md";
+import { io, Socket } from "socket.io-client";
+import { appConfig } from "../../config/app";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -58,6 +58,8 @@ export default function Quiz() {
   const [start, setStart] = useState(false);
   const [connect, setConnect] = useState(false);
 
+  //show toast when user tries to leave page, only if quiz has started. use window.history to prevent user from going back before he has answered the toast
+
   //get quiz data from back-end
   const [quiz, setQuiz] = useState<QuizBackend>({
     question: ".",
@@ -79,10 +81,20 @@ export default function Quiz() {
   });
 
   //WebSocket logic
+  const [socket, setSocket] = useState<Socket>();
   useEffect(() => {
-    //connect with socket.io
-    if (start === true) {
-      const socket: Socket = io(appConfig.backendUrl);
+    const socket = io(appConfig.backendUrl);
+    setSocket(socket);
+  }, []);
+
+  function disConnect() {
+    console.log("disconnecting");
+    socket?.disconnect();
+  }
+
+  useEffect(() => {
+    if (start) {
+      if (!socket) return;
       //on first connection, send quiz to back-end
       socket.emit("trivia-start", triviaSettings);
 
@@ -127,7 +139,7 @@ export default function Quiz() {
         }));
       });
 
-      //when the game is finished, disconnect from the back-end
+      //when the game is finished, show the results
       socket.on("game-finished", (data) => {
         setQuiz((prevState) => ({
           ...prevState,
@@ -137,6 +149,7 @@ export default function Quiz() {
         //wait 5 seconds before navigating to the results page
         setTimeout(() => {
           toast.dismiss();
+          disConnect();
           navigate("/quizresults", {
             state: {
               results: data.results,
@@ -147,6 +160,40 @@ export default function Quiz() {
     }
   }, [start]);
 
+  //when the user tries to leave the page, show a toast to confirm the action
+  //issue, when returning to this page via nav(-1), it will show the toast again.
+  //temporary fix: always navigate to / from settings page (instead of -1)
+  if (start) {
+    window.history.pushState(null, window.location.href);
+    window.onpopstate = function () {
+      toast.loading(
+        (t) => (
+          <ResolvableToast
+            t={t}
+            text="Are you sure you want to quit?"
+            confirm="Quit"
+            cancel="Continue"
+            func={() => {
+              setStart(false);
+              disConnect();
+              history.pushState(null, "", "/");
+              navigate("/");
+            }}
+          />
+        ),
+        {
+          icon: <></>,
+          id: "exit",
+        }
+      );
+    };
+  } else {
+    window.onpopstate = function () {
+      history.pushState(null, "", "/");
+      navigate("/");
+    };
+  }
+
   //useLocalStorageState hook to save the layout
   const [layout, setLayout, { removeItem }] = useLocalStorageState(
     "quizLayout",
@@ -156,6 +203,7 @@ export default function Quiz() {
   );
 
   const [editable, setEditable] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
 
   // update height every time the window.innerHeight changes
   const [height, setHeight] = useState(window.innerHeight - 20);
@@ -168,7 +216,6 @@ export default function Quiz() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   return (
     <motion.div
       initial={{
@@ -183,7 +230,7 @@ export default function Quiz() {
       viewport={{
         once: true,
       }}
-      className="overflow-hidden [background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
+      className="overflow-hidden"
       data-theme={account.platform}
     >
       <div className="absolute top-[50px] left-[50px] z-40 flex flex-col gap-6 text-[25px] font-[1000] uppercase text-babbleLightGray">
@@ -201,10 +248,26 @@ export default function Quiz() {
         <button
           onClick={() => {
             if (start) {
-              if (window.confirm("Are you sure you want to end the game?")) {
-                setStart(false);
-                navigate("/settings");
-              }
+              toast.loading(
+                (t) => (
+                  <ResolvableToast
+                    t={t}
+                    text="Are you sure you want to quit?"
+                    confirm="Quit"
+                    cancel="Continue"
+                    func={() => {
+                      setStart(false);
+                      disConnect();
+                      navigate("/settings");
+                      //add this page to the history so the user can go back to it
+                    }}
+                  />
+                ),
+                {
+                  icon: <></>,
+                  id: "exit",
+                }
+              );
             } else {
               navigate("/settings");
             }
@@ -224,8 +287,11 @@ export default function Quiz() {
                     text="Are you sure you want to quit?"
                     confirm="Quit"
                     cancel="Continue"
-                    setState={setStart}
-                    nav="/"
+                    func={() => {
+                      setStart(false);
+                      disConnect();
+                      navigate("/");
+                    }}
                   />
                 ),
                 {
@@ -349,7 +415,9 @@ export default function Quiz() {
                     text="Are you sure you want to reset the layout?"
                     confirm="Reset layout"
                     cancel="Keep layout"
-                    setState={removeItem}
+                    func={() => {
+                      removeItem();
+                    }}
                   />
                 ),
                 {
@@ -380,6 +448,24 @@ export default function Quiz() {
             <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
           </button>
         )}
+        <button
+          onClick={() => {
+            setFullscreen(!fullscreen);
+            if (fullscreen) {
+              document.exitFullscreen();
+            } else {
+              document.documentElement.requestFullscreen();
+            }
+          }}
+          className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+        >
+          {fullscreen ? (
+            <BsFullscreenExit className="z-10" />
+          ) : (
+            <BsFullscreen className="z-10" />
+          )}
+          <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
+        </button>
       </div>
     </motion.div>
   );

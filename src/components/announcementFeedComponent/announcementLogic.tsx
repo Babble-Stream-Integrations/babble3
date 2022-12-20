@@ -12,7 +12,6 @@ export default function AnnouncementLogic({
   announcements: Announcements;
   setFeedList: React.Dispatch<React.SetStateAction<FeedList[]>>;
 }) {
-  console.log(setFeedList);
   const [localFeed, setLocalFeed] = useState<FeedList[]>([]);
   useEffect(() => {
     for (const [key, value] of Object.entries(announcements)) {

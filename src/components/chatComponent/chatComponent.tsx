@@ -41,7 +41,6 @@ export default function ChatComponent({
     }
   };
 
-  //futureproofing for youtube chat
   if (platform === "twitch") {
     TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
@@ -156,7 +155,7 @@ export default function ChatComponent({
                   />
                   :{" "}
                   <span
-                    className="w-full max-w-full break-words text-babbleWhite"
+                    className="w-full max-w-fit text-babbleWhite [overflow-wrap:anywhere]"
                     dangerouslySetInnerHTML={{ __html: message.message }}
                   />
                 </div>

@@ -44,7 +44,10 @@
 }
 
 body {
-  background: #0E0E10;
+  background: transparent
+    radial-gradient(closest-side at 50% 50%, #202024 0%, #0e0e10 100%) 0% 0%
+    no-repeat padding-box;
+  overflow: hidden;
 }
 
 img {
