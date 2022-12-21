@@ -170,7 +170,19 @@ export default function Quiz() {
   }, []);
 
   return (
-    <div
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      whileInView={{
+        opacity: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
       className="overflow-hidden [background:_transparent_radial-gradient(closest-side_at_50%_50%,_#202024_0%,_#0E0E10_100%)_0%_0%_no-repeat_padding-box]"
       data-theme={account.platform}
     >
@@ -339,6 +351,6 @@ export default function Quiz() {
           </button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
