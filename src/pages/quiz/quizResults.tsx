@@ -2,6 +2,7 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import { FaTrophy } from "react-icons/fa";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import IconGradient from "../../common/iconGradient";
+import { motion } from "framer-motion";
 
 type Results = {
   correctAnswers: number;
@@ -27,7 +28,7 @@ export default function QuizResults() {
       wrongAnswers: 0,
       points: 0,
       profile:
-        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media",
+        "https://firebasestorage.googleapis.com/v0/b/babble-d6ef3.appspot.com/o/defaultProfile.png?alt=media&token=c8b34bd6-3ddf-4698-b0bc-687e6c2f246a",
       username: "No second place",
     });
   }
@@ -99,7 +100,21 @@ export default function QuizResults() {
   ];
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite">
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      whileInView={{
+        opacity: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-radial from-[#202024] to-[#0E0E10] p-4 uppercase text-babbleWhite"
+    >
       {quizResults.length === 0 ? (
         <h1 className=" text-4xl font-bold ">No winners</h1>
       ) : (
@@ -191,6 +206,6 @@ export default function QuizResults() {
       <div className="absolute right-0 bottom-0 flex h-[30rem] w-[30rem] items-end justify-end rounded-tl-full bg-gradient-to-t from-babbleLightblue to-babbleDarkblue">
         <div className=" h-[29.2rem] w-[29.2rem] rounded-tl-full bg-babbleBlack"></div>
       </div> */}
-    </div>
+    </motion.div>
   );
 }
