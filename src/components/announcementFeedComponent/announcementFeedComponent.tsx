@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import IconGradient from "../../common/iconGradient";
 import AnnouncementLogic from "./announcementLogic";
 import { FeedList } from "../../types";
+import { motion } from "framer-motion";
 
 export default function AnnouncementFeedComponent({
   announcements,
@@ -24,7 +25,23 @@ export default function AnnouncementFeedComponent({
 
   //loop through the announcements, if the announcement is a string, add it to the list.
   return (
-    <div className="h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 1.1,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
+      className="h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble"
+    >
       {feedList.length <= 0 ? (
         <div className="flex h-full items-center justify-center">
           <h2 className="text-babbleGray">NO ANNOUNCEMENTS YET</h2>
@@ -65,7 +82,7 @@ export default function AnnouncementFeedComponent({
             })}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 // useEffect(() => {

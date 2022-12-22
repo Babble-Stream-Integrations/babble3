@@ -305,16 +305,7 @@ export default function Quiz() {
           }));
         }}
       >
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
+        <div
           className={clsx(
             "relative z-10 flex w-[450px] items-center justify-center ",
             editable && !start && "cursor-grab"
@@ -330,17 +321,8 @@ export default function Quiz() {
             announcements={quiz.announcements}
             socket={socket}
           />
-        </motion.div>
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
+        </div>
+        <div
           className={clsx(
             "relative z-10 flex items-center justify-center",
             editable && !start && "cursor-grab"
@@ -351,20 +333,8 @@ export default function Quiz() {
             <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
           )}
           <QuizComponent quiz={quiz} start={connect} />
-        </motion.div>
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
-          viewport={{
-            once: true,
-          }}
+        </div>
+        <div
           className={clsx(
             "relative z-10 flex items-center justify-center",
             editable && !start && "cursor-grab"
@@ -378,7 +348,7 @@ export default function Quiz() {
             key="first-to-answer"
             announcements={quiz.announcements}
           />
-        </motion.div>
+        </div>
       </ResponsiveGridLayout>
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
