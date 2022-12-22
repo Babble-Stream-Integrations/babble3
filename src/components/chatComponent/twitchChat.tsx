@@ -44,7 +44,6 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
   }
 
   //connect to twitch chat
-  const channelId = streamer.uid;
   const client = new tmi.Client({
     channels: [streamer.channel],
   });
@@ -53,14 +52,10 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
     client.connect();
   }, []);
 
-  const options = {
-    channelId,
-  };
-
   //add new message to messages, parse emotes and badgers
   client.on("message", async (_channel, tags, message) => {
-    const parsedMessage = await parseEmotes(message, tags.emotes, options);
-    const parsedBadges = await parseBadges(tags.badges as never, options);
+    const parsedMessage = await parseEmotes(message, tags.emotes);
+    const parsedBadges = await parseBadges(tags.badges as never);
     const htmlMessage = parsedMessage.toHtml();
     const htmlBadges = parsedBadges.toHtml();
     const color = generateColor(tags["display-name"], tags["color"]);

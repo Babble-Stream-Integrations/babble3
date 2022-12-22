@@ -79,7 +79,7 @@ export default function QuizSettings() {
           <h2 className="h-[2.25rem] w-[395px] text-center text-babbleGray">
             Quiz settings
           </h2>
-          <div className="h-px w-[395px] bg-babbleGray"></div>
+          <div className="mb-5 h-px w-[395px] bg-babbleGray"></div>
         </div>
         <div className="ph-full z-10 flex w-full flex-col items-start gap-[1.563rem] pr-[0.938rem]  text-babbleGray">
           <div>
@@ -183,11 +183,11 @@ export default function QuizSettings() {
         </div>
         <div>
           <div className="flex h-full w-full flex-col items-center justify-center text-babbleWhite">
-            {/* //map over uesstate colors, and return letters and colors */}
+            {/* //map over usestate colors, and return letters and colors */}
             {Object.keys(colors).map((letter) => (
               <div key={letter} className="flex pb-[0.938rem]">
                 {/* //letter */}
-                <h2 className="mr-[0.938rem] inline-flex w-6 text-3xl  italic">
+                <h2 className="mr-[0.938rem] inline-flex w-6 items-center justify-center text-3xl italic">
                   {letter.toUpperCase()}
                 </h2>
                 {/* //color */}
@@ -202,7 +202,7 @@ export default function QuizSettings() {
                     type={"color"}
                     onChange={(e) => handleColorChange(letter, e)}
                     value={colors[letter]}
-                    className="z-50 h-[50px] w-[50px] cursor-pointer appearance-none border-none border-babbleGray bg-transparent bg-babbleDarkGray text-center focus:outline-none"
+                    className="z-50 h-[50px] w-[50px] cursor-pointer appearance-none border-none bg-transparent bg-babbleDarkGray text-center focus:outline-none"
                   ></input>
                 </div>
               </div>

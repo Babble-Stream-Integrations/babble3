@@ -1,14 +1,11 @@
-import React from "react";
 import toast, { type Toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 type ResolvableToast = {
   t: Toast;
   text: string;
   confirm: string;
   cancel: string;
-  nav?: string;
-  setState?: React.Dispatch<React.SetStateAction<boolean>>;
+  func?: () => void;
 };
 
 export default function ResolvableToast({
@@ -16,10 +13,8 @@ export default function ResolvableToast({
   text,
   confirm,
   cancel,
-  nav,
-  setState,
+  func,
 }: ResolvableToast) {
-  const navigate = useNavigate();
   return (
     <span className="flex flex-col pt-2 text-center">
       {text}
@@ -28,8 +23,9 @@ export default function ResolvableToast({
           className="mt-2 rounded-xl bg-red-300 p-4 text-red-900"
           onClick={() => {
             toast.dismiss(t.id);
-            setState && setState(false);
-            nav && navigate(nav);
+            if (func) {
+              func();
+            }
           }}
         >
           {confirm}

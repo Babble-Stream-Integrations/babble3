@@ -1,5 +1,6 @@
 import { QuizComponentData } from "../../types";
 import QuizInner from "./quizInner";
+import { motion } from "framer-motion";
 
 export default function QuizComponent({
   quiz,
@@ -10,7 +11,23 @@ export default function QuizComponent({
 }) {
   return (
     // display the question and answers
-    <div className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble">
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 1.1,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
+      className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble"
+    >
       {!start ? (
         <div className="flex h-full items-center justify-center">
           <h2 className="text-babbleGray">
@@ -21,6 +38,6 @@ export default function QuizComponent({
       ) : (
         <QuizInner quiz={quiz} />
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -51,7 +51,7 @@ export default function Login() {
 
   function signOut() {
     // fetch(
-    //   "http://localhost:5001/babble-d6ef3/europe-west1/default/oauth2/logout",
+    //   `${appConfig.base}/oauth2/logout`,
     //   {
     //     method: "POST",
     //     headers: {

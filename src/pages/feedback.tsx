@@ -9,12 +9,13 @@ import useSessionStorageState from "use-session-storage-state";
 import clsx from "clsx";
 import RadioButton from "../components/defaultButton/radioButton";
 import { toast } from "react-hot-toast";
+import { appConfig } from "../config/app";
 
 export default function Feedback() {
   const navigate = useNavigate();
 
   // State
-  const [type, setType] = useState("ideas");
+  const [type, setType] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [posting, setPosting] = useState(false);
@@ -80,7 +81,8 @@ export default function Feedback() {
   }
 
   function handleSubmit() {
-    if (subject === "" || body === "") {
+    if (subject === "" || body === "" || type === "") {
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -91,15 +93,12 @@ export default function Feedback() {
     toast.promise(
       new Promise((resolve, reject) => {
         axios
-          .post(
-            `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
-            {
-              type: type,
-              username: account.username,
-              subject: subject,
-              feedback: body,
-            }
-          )
+          .post(`${appConfig.base}/feedback`, {
+            type: type,
+            username: account.username,
+            subject: subject,
+            feedback: body,
+          })
           .then((res) => {
             if (res.status === 201) {
               resolve(200);
@@ -128,7 +127,7 @@ export default function Feedback() {
         opacity: 0,
       }}
       transition={{
-        duration: 1,
+        duration: 0.5,
       }}
       whileInView={{
         opacity: 1,
@@ -158,17 +157,15 @@ export default function Feedback() {
         </div>
 
         <div className="col-span-4 text-white">
+          <h2 className="ml-[16px] pb-2 uppercase">Subject</h2>
           <div>
-            <h2 className="ml-[16px] pb-2 uppercase">Subject</h2>
-            <div>
-              <input
-                className=" w-full rounded-3xl border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-[7px] focus:outline-none"
-                type={"text"}
-                onChange={(e) => {
-                  setSubject(e.target.value);
-                }}
-              />
-            </div>
+            <input
+              className=" w-full rounded-3xl border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-[7px] focus:outline-none"
+              type={"text"}
+              onChange={(e) => {
+                setSubject(e.target.value);
+              }}
+            />
           </div>
 
           <div>
