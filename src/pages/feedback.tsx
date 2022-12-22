@@ -9,6 +9,7 @@ import useSessionStorageState from "use-session-storage-state";
 import clsx from "clsx";
 import RadioButton from "../components/defaultButton/radioButton";
 import { toast } from "react-hot-toast";
+import { appConfig } from "../config/app";
 
 export default function Feedback() {
   const navigate = useNavigate();
@@ -91,15 +92,12 @@ export default function Feedback() {
     toast.promise(
       new Promise((resolve, reject) => {
         axios
-          .post(
-            `https://europe-west1-babble-d6ef3.cloudfunctions.net/default/feedback`,
-            {
-              type: type,
-              username: account.username,
-              subject: subject,
-              feedback: body,
-            }
-          )
+          .post(`${appConfig.base}/feedback`, {
+            type: type,
+            username: account.username,
+            subject: subject,
+            feedback: body,
+          })
           .then((res) => {
             if (res.status === 201) {
               resolve(200);
