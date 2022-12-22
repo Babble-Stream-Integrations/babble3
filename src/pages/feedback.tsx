@@ -14,7 +14,7 @@ export default function Feedback() {
   const navigate = useNavigate();
 
   // State
-  const [type, setType] = useState("ideas");
+  const [type, setType] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [posting, setPosting] = useState(false);
@@ -80,7 +80,8 @@ export default function Feedback() {
   }
 
   function handleSubmit() {
-    if (subject === "" || body === "") {
+    if (subject === "" || body === "" || type === "") {
+      toast.error("Please fill in all fields");
       return;
     }
 
