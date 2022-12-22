@@ -28,7 +28,7 @@ export const DefaultLayout = ({ title, subtitle, children }: LayoutProps) => {
       </h1>
 
       {subtitle && (
-        <p className="z-10 mb-12 min-w-[300px] max-w-[20%] text-center text-base font-thin text-babbleGray">
+        <p className="z-10 mb-12 min-w-[300px] max-w-[30%] text-center text-base font-thin text-babbleGray">
           {subtitle}
         </p>
       )}

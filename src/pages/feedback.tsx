@@ -128,7 +128,7 @@ export default function Feedback() {
         opacity: 0,
       }}
       transition={{
-        duration: 1,
+        duration: 0.5,
       }}
       whileInView={{
         opacity: 1,
@@ -158,17 +158,15 @@ export default function Feedback() {
         </div>
 
         <div className="col-span-4 text-white">
+          <h2 className="ml-[16px] pb-2 uppercase">Subject</h2>
           <div>
-            <h2 className="ml-[16px] pb-2 uppercase">Subject</h2>
-            <div>
-              <input
-                className=" w-full rounded-3xl border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-[7px] focus:outline-none"
-                type={"text"}
-                onChange={(e) => {
-                  setSubject(e.target.value);
-                }}
-              />
-            </div>
+            <input
+              className=" w-full rounded-3xl border-[1px] border-babbleGray bg-babbleDarkGray px-[15px] py-[7px] focus:outline-none"
+              type={"text"}
+              onChange={(e) => {
+                setSubject(e.target.value);
+              }}
+            />
           </div>
 
           <div>
