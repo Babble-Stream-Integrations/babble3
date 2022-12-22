@@ -28,7 +28,7 @@ export default function Settings() {
         text="Save"
         buttonClick={() => {
           toast.success("Settings saved!");
-          navigate("/");
+          navigate(-1);
         }}
       />
     </motion.div>

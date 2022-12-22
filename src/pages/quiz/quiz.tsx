@@ -89,7 +89,9 @@ export default function Quiz() {
 
   function disConnect() {
     console.log("disconnecting");
+    console.log(socket);
     socket?.disconnect();
+    console.log(socket);
   }
 
   useEffect(() => {
@@ -160,40 +162,9 @@ export default function Quiz() {
     }
   }, [start]);
 
-  //when the user tries to leave the page, show a toast to confirm the action
-  //issue, when returning to this page via nav(-1), it will show the toast again.
-  //temporary fix: always navigate to / from settings page (instead of -1)
-  if (start) {
-    window.history.pushState(null, window.location.href);
-    window.onpopstate = function () {
-      toast.loading(
-        (t) => (
-          <ResolvableToast
-            t={t}
-            text="Are you sure you want to quit?"
-            confirm="Quit"
-            cancel="Continue"
-            func={() => {
-              setStart(false);
-              disConnect();
-              history.pushState(null, "", "/");
-              navigate("/");
-            }}
-          />
-        ),
-        {
-          icon: <></>,
-          id: "exit",
-        }
-      );
-    };
-  } else {
-    window.onpopstate = function () {
-      disConnect();
-      history.pushState(null, "", "/");
-      navigate("/");
-    };
-  }
+  window.onpopstate = function () {
+    disConnect();
+  };
 
   //useLocalStorageState hook to save the layout
   const [layout, setLayout, { removeItem }] = useLocalStorageState(
