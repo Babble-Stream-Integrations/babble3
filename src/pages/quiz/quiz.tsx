@@ -189,6 +189,7 @@ export default function Quiz() {
     };
   } else {
     window.onpopstate = function () {
+      disConnect();
       history.pushState(null, "", "/");
       navigate("/");
     };
@@ -299,7 +300,11 @@ export default function Quiz() {
                   id: "exit",
                 }
               );
-            } else navigate("/");
+            } else {
+              disConnect();
+              console.log("disconnected");
+              navigate("/");
+            }
           }}
           className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
         >
@@ -352,6 +357,7 @@ export default function Quiz() {
             streamer={streamer}
             platform={account.platform}
             announcements={quiz.announcements}
+            socket={socket}
           />
         </motion.div>
         <motion.div

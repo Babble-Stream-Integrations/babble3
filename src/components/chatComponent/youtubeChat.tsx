@@ -1,37 +1,36 @@
 import React, { useEffect } from "react";
 import { Message, Streamer } from "../../types";
-import { io, Socket } from "socket.io-client";
-import { appConfig } from "../../config/app";
+import type { Socket } from "socket.io-client";
 import axios from "axios";
+import { appConfig } from "../../config/app";
 
 type Props = {
   streamer: Streamer;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  socket: Socket | undefined;
 };
 export default function YoutubeChat({
   streamer,
   messages,
   setMessages,
+  socket,
 }: Props) {
   useEffect(() => {
-    const client: Socket = io(appConfig.backendUrl);
+    if (!socket) return;
     axios
-      .get(
-        "https://europe-west1-babble-d6ef3.cloudfunctions.net/default/youtube/livechat/" +
-          streamer.channel
-      )
+      .get(`${appConfig.base}/youtube/livechat/` + streamer.channel)
       .then((data) => {
-        client.emit("youtube-livechat-start", {
+        socket.emit("youtube-livechat-start", {
           liveChatId: data.data.liveChatId,
         });
       });
 
-    client.on("message", (data) => {
+    socket.on("message", (data) => {
       console.log(data);
       setMessages((messages) => [...messages, data]);
     });
-  }, []);
+  }, [socket]);
 
   //remove first message if there are more than 30 messages
   useEffect(() => {
