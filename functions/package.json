@@ -2,7 +2,7 @@
   "name": "functions",
   "type": "commonjs",
   "scripts": {
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "eslint --ext .js,.ts src --cache",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
