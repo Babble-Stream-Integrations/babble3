@@ -6,7 +6,7 @@ import {
 import "./global.css";
 import Quiz from "./pages/quiz/quiz";
 import Login from "./pages/login";
-import QuizResults from "./pages/quiz/quizResults";
+import QuizResults from "./pages/quizResults";
 import Tutorial from "./pages/tutorial";
 import Settings from "./pages/settings";
 import useSessionStorageState from "use-session-storage-state";

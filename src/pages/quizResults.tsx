@@ -1,8 +1,8 @@
 import { Navigate, useLocation } from "react-router-dom";
-import hexToHSLGradient from "../../common/hexToHSLGradient";
-import IconGradient from "../../common/iconGradient";
+import hexToHSLGradient from "../common/hexToHSLGradient";
+import IconGradient from "../common/iconGradient";
 import { FaTrophy } from "react-icons/fa";
-import { DefaultButton } from "../../components/defaultButton/defaultButton";
+import { DefaultButton } from "../components/defaultButton/defaultButton";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
