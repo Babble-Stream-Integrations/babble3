@@ -10,7 +10,8 @@ export type Message = {
 
 //type for streamer info
 export type Streamer = {
-  channel: string;
+  platform: string;
+  username: string;
   uid: string;
 };
 
