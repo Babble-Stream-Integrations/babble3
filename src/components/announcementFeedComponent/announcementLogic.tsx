@@ -12,8 +12,10 @@ export default function AnnouncementLogic({
   announcements: Announcements;
   setFeedList: React.Dispatch<React.SetStateAction<FeedList[]>>;
 }) {
+  //create a local state to store the announcements in order to show a new announcement after 1 second instead of immediately
   const [localFeed, setLocalFeed] = useState<FeedList[]>([]);
   useEffect(() => {
+    // go through the announcements and add them to the list
     for (const [key, value] of Object.entries(announcements)) {
       if (typeof value === "string") {
         const announcement = {
@@ -45,7 +47,7 @@ export default function AnnouncementLogic({
               announcement.endColor = "#A47200";
               announcement.key =
                 announcement.type + announcement.name + announcement.value;
-              //wait 1 second before adding a new announcement, check if the announcement is already in the list
+              //add the announcement to the local feed
               setLocalFeed((localFeed: FeedList[]) => {
                 return [...localFeed, announcement];
               });

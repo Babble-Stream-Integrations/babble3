@@ -10,20 +10,15 @@ import { Announcements, Message, Streamer } from "../../types";
 import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { AutoTextSize } from "auto-text-size";
 import type { Socket } from "socket.io-client";
-// import invertColor from "../../common/invertColor";
 import { motion } from "framer-motion";
 
 export default function ChatComponent({
   streamer,
-  platform,
   announcements,
   socket,
 }: {
   streamer: Streamer;
-  platform: string;
   announcements: Announcements;
-  messages?: Message[];
-  setMessages?: React.Dispatch<React.SetStateAction<Message[]>>;
   socket?: Socket;
 }) {
   //usestate for chat messages
@@ -31,9 +26,8 @@ export default function ChatComponent({
 
   //usestate for viewcount
   const [viewCount, setViewCount] = useState<string>("");
-
   const Icon = () => {
-    switch (platform) {
+    switch (streamer.platform) {
       case "twitch":
         return <ImTwitch />;
       case "youtube":
@@ -45,19 +39,19 @@ export default function ChatComponent({
     }
   };
 
-  if (platform === "twitch") {
+  if (streamer.platform === "twitch") {
     TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
       streamer: streamer,
       setViewCount,
     });
-  } else if (platform === "youtube") {
+  } else if (streamer.platform === "youtube") {
     YoutubeChat({ streamer: streamer, messages, setMessages, socket });
     YoutubeViewCount({
       streamer: streamer,
       setViewCount,
     });
-  } else if (platform === "tiktok") {
+  } else if (streamer.platform === "tiktok") {
     TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
       streamer: streamer,
@@ -128,7 +122,7 @@ export default function ChatComponent({
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
-              dangerouslySetInnerHTML={{ __html: streamer.channel }}
+              dangerouslySetInnerHTML={{ __html: streamer.username }}
             />
           </div>
         </div>
