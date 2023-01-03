@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
+  useRouteError,
 } from "react-router-dom";
 import "./global.css";
 import Quiz from "./pages/quiz/quiz";
@@ -14,12 +15,15 @@ import Callback from "./pages/callback";
 import Home from "./pages/home";
 import Feedback from "./pages/feedback";
 import { DefaultLayout } from "./layouts/defaultLayout";
-import { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
+import clsx from "clsx";
+import ResolvableToast from "./components/toasts/resolvableToast";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
     defaultValue: {
       babbleToken: "",
+      platform: "twitch",
     },
   });
 
@@ -38,6 +42,57 @@ export default function App() {
     }
     return <Navigate to="/login" />;
   };
+  function ErrorBoundary() {
+    const error = useRouteError();
+    console.error(error);
+    return (
+      <>
+        <Toaster />
+        <div className="flex h-screen w-screen flex-col items-center justify-center gap-8 text-4xl font-bold text-babbleWhite">
+          <h1>Sorry, something went wrong</h1>
+          <button
+            className={clsx(
+              "rounded-md p-2 text-xl",
+              session.platform === "youtube" ? " bg-youtube" : "bg-twitch"
+            )}
+          >
+            <a href="/">Go back to home</a>
+          </button>
+          <button
+            className={clsx(
+              "rounded-md border-2 p-2 text-xl",
+              session.platform === "youtube"
+                ? " border-youtube"
+                : "border-twitch"
+            )}
+            onClick={() => {
+              toast.loading(
+                (t) => (
+                  <ResolvableToast
+                    t={t}
+                    text="Are you sure you want to reset all settings?"
+                    confirm="Yes, reset all settings"
+                    cancel="Nope, cancel"
+                    func={() => {
+                      localStorage.clear();
+                      sessionStorage.clear();
+                      window.location.href = "/login";
+                    }}
+                  />
+                ),
+                {
+                  icon: <></>,
+                  id: "reset",
+                }
+              );
+            }}
+          >
+            Reset all settings
+          </button>
+        </div>
+      </>
+    );
+  }
 
   const router = createBrowserRouter([
     {
@@ -52,6 +107,7 @@ export default function App() {
           </PrivateRoutes>
         </>
       ),
+      errorElement: <ErrorBoundary />,
     },
     {
       path: "/login",
