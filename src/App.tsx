@@ -6,7 +6,6 @@ import {
 import "./global.css";
 import Quiz from "./pages/quiz/quiz";
 import Login from "./pages/login";
-import QuizStart from "./pages/quiz/quizStart";
 import QuizResults from "./pages/quiz/quizResults";
 import Tutorial from "./pages/tutorial";
 import Settings from "./pages/settings";
@@ -71,17 +70,6 @@ export default function App() {
         <>
           <Toaster />
           <Callback />
-        </>
-      ),
-    },
-    {
-      path: "/quizStart",
-      element: (
-        <>
-          <Toaster />
-          <PrivateRoutes>
-            <QuizStart />
-          </PrivateRoutes>
         </>
       ),
     },
