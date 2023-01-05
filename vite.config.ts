@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { VitePWA } from "vite-plugin-pwa";
 
 import react from "@vitejs/plugin-react";
 import dns from "dns";
@@ -25,7 +26,11 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), tsconfigPaths()],
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    VitePWA({ registerType: "autoUpdate", injectRegister: "auto" }),
+  ],
 
   server: {
     port: 3000,
