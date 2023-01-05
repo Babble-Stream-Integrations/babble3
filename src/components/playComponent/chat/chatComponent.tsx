@@ -1,16 +1,16 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { AutoTextSize } from "auto-text-size";
+import { FaUserAlt } from "react-icons/fa";
+import { ImTwitch, ImYoutube } from "react-icons/im";
+import { IoLogoTiktok } from "react-icons/io5";
+import hexToHSLGradient from "common/hexToHSLGradient";
 import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
 import YoutubeChat from "./youtubeChat";
 import YoutubeViewCount from "./youtubeViewCount";
-import { FaUserAlt } from "react-icons/fa";
-import { ImTwitch, ImYoutube } from "react-icons/im";
-import { IoLogoTiktok } from "react-icons/io5";
-import { Announcements, Message, Streamer } from "../../types";
-import hexToHSLGradient from "../../common/hexToHSLGradient";
-import { AutoTextSize } from "auto-text-size";
+import type { Announcements, Message, Streamer } from "types";
 import type { Socket } from "socket.io-client";
-import { motion } from "framer-motion";
 
 export default function ChatComponent({
   streamer,

@@ -1,6 +1,6 @@
-import { QuizComponentData } from "../../types";
-import QuizInner from "./quizInner";
 import { motion } from "framer-motion";
+import QuizInner from "./quizInner";
+import type { QuizComponentData } from "types";
 
 export default function QuizComponent({
   quiz,

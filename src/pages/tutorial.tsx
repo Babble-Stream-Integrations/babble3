@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { DefaultButton } from "../components/defaultButton/defaultButton";
+import { DefaultButton } from "default/defaultButton";
 
 export default function Tutorial() {
   const navigate = useNavigate();

@@ -1,9 +1,8 @@
-import { Announcements } from "../../types";
 import { useEffect, useState } from "react";
-import IconGradient from "../../common/iconGradient";
-import AnnouncementLogic from "./announcementLogic";
-import { FeedList } from "../../types";
 import { motion } from "framer-motion";
+import IconGradient from "common/iconGradient";
+import AnnouncementLogic from "./announcementLogic";
+import type { Announcements, FeedList } from "types";
 
 export default function AnnouncementFeedComponent({
   announcements,

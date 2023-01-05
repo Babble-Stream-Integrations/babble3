@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useSessionStorageState from "use-session-storage-state";
-import LoadingSpinner from "../components/loadingComponent/loadingComponent";
+import LoadingSpinner from "components/loadingComponent/loadingComponent";
 
 export default function CallBack() {
   const [searchParams] = useSearchParams();

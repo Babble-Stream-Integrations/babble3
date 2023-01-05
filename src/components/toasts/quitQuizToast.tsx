@@ -1,6 +1,5 @@
 import toast from "react-hot-toast";
-
-import ResolvableToast from "../../components/toasts/resolvableToast";
+import ResolvableToast from "./resolvableToast";
 
 export default function QuitQuizToast({
   setStart,

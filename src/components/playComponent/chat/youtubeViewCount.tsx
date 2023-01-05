@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { Streamer } from "../../types";
-import { appConfig } from "../../config/app";
+import { appConfig } from "config/app";
+import type { Streamer } from "types";
 
 type Props = {
   streamer: Streamer;

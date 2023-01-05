@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillFire } from "react-icons/ai";
 import { FaTrophy } from "react-icons/fa";
 import { IoSpeedometerSharp } from "react-icons/io5";
-import { Announcements } from "../../types";
-import { FeedList } from "../../types";
+import type { Announcements, FeedList } from "types";
 
 export default function AnnouncementLogic({
   announcements,

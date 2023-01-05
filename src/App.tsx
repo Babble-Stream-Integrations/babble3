@@ -4,20 +4,20 @@ import {
   RouterProvider,
   useRouteError,
 } from "react-router-dom";
-import "./global.css";
-import Quiz from "./pages/quiz/quiz";
-import Login from "./pages/login";
-import QuizResults from "./pages/quizResults";
-import Tutorial from "./pages/tutorial";
-import Settings from "./pages/settings";
-import useSessionStorageState from "use-session-storage-state";
-import Callback from "./pages/callback";
-import Home from "./pages/home";
-import Feedback from "./pages/feedback";
-import { DefaultLayout } from "./layouts/defaultLayout";
 import { toast, Toaster } from "react-hot-toast";
+import useSessionStorageState from "use-session-storage-state";
 import clsx from "clsx";
-import ResolvableToast from "./components/toasts/resolvableToast";
+import { DefaultLayout } from "layouts/defaultLayout";
+import Play from "pages/play";
+import Login from "pages/login";
+import QuizResults from "pages/quizResults";
+import Tutorial from "pages/tutorial";
+import Settings from "pages/settings";
+import Callback from "pages/callback";
+import Home from "pages/home";
+import Feedback from "pages/feedback";
+import ResolvableToast from "components/toasts/resolvableToast";
+import "./global.css";
 
 export default function App() {
   const [session] = useSessionStorageState("account", {
@@ -130,12 +130,12 @@ export default function App() {
       ),
     },
     {
-      path: "/quiz",
+      path: "/play/quiz",
       element: (
         <>
           <Toaster />
           <PrivateRoutes>
-            <Quiz />
+            <Play />
           </PrivateRoutes>
         </>
       ),

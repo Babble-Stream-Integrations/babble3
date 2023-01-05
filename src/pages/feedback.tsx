@@ -1,15 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { FaLightbulb, FaBug, FaComment, FaSpinner } from "react-icons/fa";
 import { useState } from "react";
-import { DefaultButton } from "../components/defaultButton/defaultButton";
-
+import { motion } from "framer-motion";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { FaLightbulb, FaBug, FaComment, FaSpinner } from "react-icons/fa";
 import useSessionStorageState from "use-session-storage-state";
 import clsx from "clsx";
-import RadioButton from "../components/defaultButton/radioButton";
-import { toast } from "react-hot-toast";
-import { appConfig } from "../config/app";
+import { DefaultButton } from "default/defaultButton";
+import RadioButton from "default/radioButton";
+import { appConfig } from "config/app";
 
 export default function Feedback() {
   const navigate = useNavigate();

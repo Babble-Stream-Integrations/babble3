@@ -1,13 +1,12 @@
-import { AutoTextSize } from "auto-text-size";
 import { useMemo } from "react";
-import useLocalStorageState, {
-  type LocalStorageState,
-} from "use-local-storage-state";
-import hexToHSLGradient from "../../common/hexToHSLGradient";
-import { Percentages, QuizComponentData } from "../../types";
-import TimerComponent from "../timerComponent/timerComponent";
 import { motion } from "framer-motion";
+import { AutoTextSize } from "auto-text-size";
 import useMeasure from "react-use-measure";
+import useLocalStorageState from "use-local-storage-state";
+import hexToHSLGradient from "common/hexToHSLGradient";
+import TimerComponent from "./timerComponent";
+import type { LocalStorageState } from "use-local-storage-state";
+import type { Percentages, QuizComponentData } from "types";
 
 export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
   //get color from localstorage and convert to gradient with HSL

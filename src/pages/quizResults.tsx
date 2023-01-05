@@ -1,10 +1,9 @@
-import { Navigate, useLocation } from "react-router-dom";
-import hexToHSLGradient from "../common/hexToHSLGradient";
-import IconGradient from "../common/iconGradient";
-import { FaTrophy } from "react-icons/fa";
-import { DefaultButton } from "../components/defaultButton/defaultButton";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { FaTrophy } from "react-icons/fa";
+import hexToHSLGradient from "common/hexToHSLGradient";
+import IconGradient from "common/iconGradient";
+import { DefaultButton } from "default/defaultButton";
 
 type Results = {
   correctAnswers: number;
@@ -20,7 +19,7 @@ export default function QuizResults() {
   const quizResults = useLocation().state?.results;
 
   if (!quizResults) {
-    return <Navigate to="/quiz" />;
+    return <Navigate to="/play/quiz" />;
   }
 
   quizResults.sort((a: Results, b: Results) => b.points - a.points);

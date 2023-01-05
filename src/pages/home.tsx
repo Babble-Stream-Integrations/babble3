@@ -1,10 +1,10 @@
-import { FaPlay, FaGraduationCap, FaCaretDown } from "react-icons/fa";
-import { MdSettings } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import useSessionStorageState from "use-session-storage-state";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { FaPlay, FaGraduationCap, FaCaretDown } from "react-icons/fa";
+import { MdSettings } from "react-icons/md";
+import useSessionStorageState from "use-session-storage-state";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function Login() {
     {
       name: "Play Game",
       icon: <FaPlay size={25} />,
-      nav: "quiz",
+      nav: "play/quiz",
     },
     {
       name: "Tutorial",

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { QuizBackend, TriviaSettings } from "../../types";
-import type { Socket } from "socket.io-client";
 import { useNavigate } from "react-router";
+import type { Socket } from "socket.io-client";
+import type { QuizBackend, TriviaSettings } from "types";
 
 export default function QuizLogic({
   start,

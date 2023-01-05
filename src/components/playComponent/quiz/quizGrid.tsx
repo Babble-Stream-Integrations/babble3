@@ -1,14 +1,14 @@
-import clsx from "clsx";
-import type { Socket } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
-import { MdDragIndicator } from "react-icons/md";
 import useLocalStorageState from "use-local-storage-state";
-import AnnouncementFeedComponent from "../../components/announcementFeedComponent/announcementFeedComponent";
-import ChatComponent from "../../components/chatComponent/chatComponent";
-import QuizComponent from "../../components/quizComponent/quizComponent";
-import { quizLayout } from "./quizLayout";
-import type { QuizBackend, Streamer } from "../../types";
+import { MdDragIndicator } from "react-icons/md";
+import clsx from "clsx";
+import ChatComponent from "chat/chatComponent";
+import QuizComponent from "./quizComponent/quizComponent";
+import AnnouncementFeedComponent from "announcementFeed/announcementFeedComponent";
+import { quizLayout } from "./quizGridLayout";
+import type { Socket } from "socket.io-client";
+import type { QuizBackend, Streamer } from "types";
 
 export default function QuizGrid({
   editable,

@@ -1,5 +1,4 @@
-import React from "react";
-import logoBig from "../../assets/logo-full.png";
+import logoBig from "assets/logo-full.png";
 
 export default function footerComponent() {
   return (

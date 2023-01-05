@@ -1,7 +1,7 @@
-import { Colors, HandleChange, TriviaSettings } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
-import { categories } from "./options";
 import clsx from "clsx";
+import { categories } from "play/quiz/quizComponent/options";
+import type { Colors, HandleChange, TriviaSettings } from "../../types";
 
 export default function QuizSettings() {
   const [quizSettings, setQuizSettings] = useLocalStorageState<TriviaSettings>(
