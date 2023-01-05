@@ -7,6 +7,7 @@ import hexToHSLGradient from "../../common/hexToHSLGradient";
 import { Percentages, QuizComponentData } from "../../types";
 import TimerComponent from "../timerComponent/timerComponent";
 import { motion } from "framer-motion";
+import useMeasure from "react-use-measure";
 
 export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
   //get color from localstorage and convert to gradient with HSL
@@ -43,23 +44,47 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
         hex = colors.a;
         break;
     }
+
+    //generate a gradient for the background of the answers
     const hslGradient = useMemo(
       () => hexToHSLGradient(hex, "right", "50", "darker"),
       [hex]
     );
     return hslGradient;
   }
+
+  /*
+      use the useMeasure hook to get the width and height of the div.
+      This is used to calculate the width of the background of the answers.
+  */
+  const [ref, bounds] = useMeasure();
+
+  /*
+      caluculate the width of the background of the answers.
+      default is a square around the letter.
+      when the answers are received from the back end,
+      the width is calculated based on the percentage of people who gave that answer.
+   */
+
   function Width(index: number, percentages: Percentages[]) {
     if (percentages[index] === undefined) {
-      return "0%";
+      return `${bounds.height}px`;
     } else {
       let percentage = percentages[index].percentage + 10;
       if (percentage > 100) {
         percentage = 98;
       }
+      if (percentage < bounds.height) {
+        return `${bounds.height}px`;
+      }
       return `${percentage}%`;
     }
   }
+
+  //calculate the padding for the letter to be perfectly centered
+  const Padding = useMemo(() => {
+    return bounds.height === 0 ? "0px 0px" : `0 ${bounds.height / 2 - 12}px`;
+  }, [bounds.height]);
 
   //check what answer is correct, and if it is correct, show the checkmark
   function RightAnswer(answer: string, rightAnswer: string) {
@@ -108,7 +133,7 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
       <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
         <div className="flex h-full items-center py-5">
           <AutoTextSize
-            multiline={true}
+            mode="box"
             maxFontSizePx={28}
             dangerouslySetInnerHTML={{ __html: quiz.question }}
           />
@@ -139,20 +164,22 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
           <motion.div
             variants={item}
             key={index}
+            ref={ref}
             className="relative flex h-1/6 items-center rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
           >
             <div
-              className="absolute z-0 flex h-full min-w-[min(17%,_80px)] items-center rounded-l-babbleSmall pl-[min(5%,_25px)] text-left font-[1000] italic text-white"
+              className="absolute z-0 flex h-full items-center rounded-l-babbleSmall text-left font-[1000] italic text-white"
               style={{
                 width: Width(index, quiz.percentages),
                 backgroundImage: Color(letter),
+                padding: Padding,
               }}
             >
               <h1>{letter}</h1>
             </div>
             <div className="z-10 ml-20 w-full max-w-full justify-center text-center ">
               <AutoTextSize
-                multiline={true}
+                mode="box"
                 maxFontSizePx={20}
                 dangerouslySetInnerHTML={{ __html: answer }}
               />
