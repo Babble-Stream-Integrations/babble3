@@ -80,10 +80,7 @@ export default function Quiz() {
   }, []);
 
   function disconnect() {
-    console.log("disconnecting");
-    console.log(socket);
     socket?.disconnect();
-    console.log(socket);
   }
 
   //the quizLogic function is a custom function that handles all the socket logic
@@ -155,7 +152,13 @@ export default function Quiz() {
         <button
           onClick={() => {
             if (start) {
-              QuitQuizToast({ setStart, disconnect });
+              console.log("quit quiz");
+              QuitQuizToast({
+                setStart,
+                disconnect,
+                navigate,
+                path: "/settings",
+              });
             } else {
               navigate("/settings");
             }
@@ -168,7 +171,7 @@ export default function Quiz() {
         <button
           onClick={() => {
             if (start) {
-              QuitQuizToast({ setStart, disconnect });
+              QuitQuizToast({ setStart, disconnect, navigate, path: "/" });
             } else {
               disconnect();
               console.log("disconnected");

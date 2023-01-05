@@ -1,15 +1,18 @@
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+
 import ResolvableToast from "../../components/toasts/resolvableToast";
 
 export default function QuitQuizToast({
   setStart,
   disconnect,
+  navigate,
+  path,
 }: {
   setStart: (value: boolean) => void;
   disconnect: () => void;
+  navigate: (path: string) => void;
+  path: string;
 }) {
-  const navigate = useNavigate();
   return toast.loading(
     (t) => (
       <ResolvableToast
@@ -20,7 +23,7 @@ export default function QuitQuizToast({
         func={() => {
           setStart(false);
           disconnect();
-          navigate("/settings");
+          navigate(path);
           //add this page to the history so the user can go back to it
         }}
       />
