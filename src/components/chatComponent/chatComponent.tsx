@@ -116,6 +116,7 @@ export default function ChatComponent({
         once: true,
       }}
       className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  "
+      data-theme={streamer.platform}
     >
       <div className="z-40 mx-4 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
         <div className="relative flex items-center justify-end gap-0.5 text-[18px] font-normal uppercase">

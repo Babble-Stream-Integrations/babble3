@@ -8,7 +8,7 @@ import AnnouncementFeedComponent from "../../components/announcementFeedComponen
 import ChatComponent from "../../components/chatComponent/chatComponent";
 import QuizComponent from "../../components/quizComponent/quizComponent";
 import { quizLayout } from "./quizLayout";
-import type { Layout, QuizBackend, Streamer } from "../../types";
+import type { QuizBackend, Streamer } from "../../types";
 
 export default function QuizGrid({
   editable,
@@ -52,13 +52,16 @@ export default function QuizGrid({
       rowHeight={height / 12 - 52.75}
       isBounded={true}
       useCSSTransforms={true}
-      // allowOverlap={true}
+      allowOverlap={true}
+      maxRows={12}
       compactType={"vertical"}
       resizeHandles={["se"]}
       margin={[50, 50]}
       isResizable={editable && !start}
       isDraggable={editable && !start}
-      onLayoutChange={(layout: Layout[]) => {
+      //onDragStop does the same as onLayoutChange, but because of allowOverlap, onLayoutChange is not triggered
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onDragStop={(layout: any) => {
         setLayout((prevState) => ({
           ...prevState,
           lg: layout,
