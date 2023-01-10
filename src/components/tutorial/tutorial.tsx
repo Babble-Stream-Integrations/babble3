@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ReactJoyride, { ACTIONS, EVENTS, STATUS, Step } from "react-joyride";
+import ReactJoyride, { ACTIONS, EVENTS, Step } from "react-joyride";
 import { useLocation } from "react-router-dom";
 import useLocalStorageState from "use-local-storage-state";
 import type { CallBackProps } from "react-joyride";
@@ -38,7 +38,7 @@ export default function Tutorial({ steps }: Props) {
   });
 
   function callBack(data: CallBackProps) {
-    const { action, index, status, type } = data;
+    const { action, index, type, lifecycle } = data;
     if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
       // Update state to advance the tour
       setRun({
@@ -49,23 +49,13 @@ export default function Tutorial({ steps }: Props) {
         },
       });
     }
-    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+    if (action === "skip" || lifecycle === "complete") {
       // Need to set our running state to false, so we can restart if we click start again.
       setRun({
         ...run,
         [page]: {
           ...run[page],
           initialRun: false,
-          active: false,
-          step: 0,
-        },
-      });
-    }
-    if (action === "skip") {
-      setRun({
-        ...run,
-        [page]: {
-          ...run[page],
           active: false,
           step: 0,
         },
@@ -83,7 +73,7 @@ export default function Tutorial({ steps }: Props) {
     }
   }
 
-  //wait 2 seconds before showing tutorial if initialrun is true
+  //wait 2 seconds before showing tutorial if initialrun is true and page is ""
   useEffect(() => {
     //only show the steps after all animations have been loaded
     setRun({
@@ -93,7 +83,7 @@ export default function Tutorial({ steps }: Props) {
         active: false,
       },
     });
-    if (run[page].initialRun) {
+    if (run[page].initialRun && page === "") {
       setTimeout(() => {
         setRun({
           ...run,
@@ -102,7 +92,15 @@ export default function Tutorial({ steps }: Props) {
             active: true,
           },
         });
-      }, 2000);
+      }, 1700);
+    } else if (run[page].initialRun && page !== "") {
+      setRun({
+        ...run,
+        [page]: {
+          ...run[page],
+          active: true,
+        },
+      });
     }
   }, []);
   return (
