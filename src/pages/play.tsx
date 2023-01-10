@@ -85,6 +85,7 @@ export default function Play() {
     socket,
     start,
     setConnect,
+    quiz,
     setQuiz,
     triviaSettings,
     disconnect,

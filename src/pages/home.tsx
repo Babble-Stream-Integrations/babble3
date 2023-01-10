@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay, FaGraduationCap, FaCaretDown } from "react-icons/fa";
 import { MdSettings } from "react-icons/md";
 import useSessionStorageState from "use-session-storage-state";
+import TutorialComponent from "components/tutorial/tutorialComponent";
 import Tutorial from "tutorial/tutorial";
 import { homeSteps } from "components/tutorial/steps";
 
@@ -41,7 +42,7 @@ export default function Login() {
       //TODO implement a way to start tutorials
       //posible implementation: set the initial
       func: () => {
-        return;
+        setTutorial(true);
       },
       id: "tutorial",
     },
@@ -52,10 +53,11 @@ export default function Login() {
       id: "settings",
     },
   ];
+  const [tutorial, setTutorial] = useState(false);
 
   function buttonClicked(nav?: string, func?: () => void) {
     if (func) {
-      return;
+      func();
     } else {
       if (nav) navigate(nav);
     }
@@ -116,6 +118,7 @@ export default function Login() {
 
   return (
     <div className="font-thin">
+      {tutorial && <TutorialComponent setTutorial={setTutorial} />}
       <Tutorial steps={homeSteps} />
       <div className="flex items-center justify-center gap-2 text-[#A8A8A8]">
         <img
