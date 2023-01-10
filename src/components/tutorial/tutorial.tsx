@@ -41,71 +41,70 @@ export default function Tutorial({ steps }: Props) {
     const { action, index, status, type } = data;
     if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
       // Update state to advance the tour
-      setRun((prevState) => ({
-        ...prevState,
+      setRun({
+        ...run,
         [page]: {
-          ...prevState[page],
+          ...run[page],
           step: index + (action === ACTIONS.PREV ? -1 : 1),
         },
-      }));
+      });
     }
     if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
       // Need to set our running state to false, so we can restart if we click start again.
-      setRun((prevState) => ({
-        ...prevState,
+      setRun({
+        ...run,
         [page]: {
-          ...prevState[page],
+          ...run[page],
           initialRun: false,
           active: false,
           step: 0,
         },
-      }));
+      });
     }
     if (action === "skip") {
-      setRun((prevState) => ({
-        ...prevState,
+      setRun({
+        ...run,
         [page]: {
-          ...prevState[page],
+          ...run[page],
           active: false,
           step: 0,
         },
-      }));
+      });
     }
     if (action === "close") {
-      setRun((prevState) => ({
-        ...prevState,
+      setRun({
+        ...run,
         [page]: {
-          ...prevState[page],
+          ...run[page],
           active: false,
-          step: prevState[page].step - 1,
+          step: run[page].step - 1,
         },
-      }));
+      });
     }
   }
 
   //wait 2 seconds before showing tutorial if initialrun is true
   useEffect(() => {
     //only show the steps after all animations have been loaded
-    setRun((prevState) => ({
-      ...prevState,
+    setRun({
+      ...run,
       [page]: {
-        ...prevState[page],
+        ...run[page],
         active: false,
       },
-    }));
+    });
     if (run[page].initialRun) {
       setTimeout(() => {
-        setRun((prevState) => ({
-          ...prevState,
+        setRun({
+          ...run,
           [page]: {
-            ...prevState[page],
+            ...run[page],
             active: true,
           },
-        }));
+        });
       }, 2000);
     }
   }, []);
-  console.log(steps[run[page].step]);
   return (
     <ReactJoyride
       continuous={true}

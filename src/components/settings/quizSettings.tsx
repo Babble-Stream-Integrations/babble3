@@ -30,18 +30,18 @@ export default function QuizSettings() {
   });
 
   function handleChange(p: string, e: HandleChange) {
-    setQuizSettings((prevState) => ({
-      ...prevState,
+    setQuizSettings({
+      ...quizSettings,
       [p]: e.target.value,
-    }));
+    });
   }
 
   function handleSwitch(p: string) {
     const eliminations = !quizSettings.eliminations;
-    setQuizSettings((prevState) => ({
-      ...prevState,
+    setQuizSettings({
+      ...quizSettings,
       [p]: eliminations,
-    }));
+    });
   }
 
   const handleNumberChange = (p: string, e: HandleChange) => {
@@ -52,25 +52,25 @@ export default function QuizSettings() {
       if (numValue % 1 === 0) {
         if (numValue <= Number(e.target.max)) {
           //check if number is smaller than max and if it is a whole number
-          setQuizSettings((prevState) => ({
-            ...prevState,
+          setQuizSettings({
+            ...quizSettings,
             [p]: numValue,
-          }));
+          });
         } else {
-          setQuizSettings((prevState) => ({
-            ...prevState,
+          setQuizSettings({
+            ...quizSettings,
             [p]: max,
-          }));
+          });
         }
       }
     }
   };
 
   function handleColorChange(letter: string, e: HandleChange) {
-    setColors((prevState) => ({
-      ...prevState,
+    setColors({
+      ...colors,
       [letter]: e.target.value,
-    }));
+    });
   }
 
   return (

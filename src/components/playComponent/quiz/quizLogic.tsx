@@ -9,6 +9,7 @@ export default function QuizLogic({
   setConnect,
   disconnect,
   triviaSettings,
+  quiz,
   setQuiz,
   socket,
 }: {
@@ -16,6 +17,7 @@ export default function QuizLogic({
   setConnect: (value: boolean) => void;
   disconnect: () => void;
   triviaSettings: TriviaSettings;
+  quiz: QuizBackend;
   setQuiz: React.Dispatch<React.SetStateAction<QuizBackend>>;
   socket?: Socket;
 }) {
@@ -28,32 +30,29 @@ export default function QuizLogic({
 
       //give countdown before first question
       socket.on("game-starting", (data) => {
-        setQuiz((prevState) => ({
-          ...prevState,
-          time: data.in,
-        }));
+        setQuiz({ ...quiz, time: data.in });
         //confirm the connection with back-end
         setConnect(true);
       });
 
       //when getting a new question, update the data
       socket.on("question-new", (data) => {
-        setQuiz((prevState) => ({
-          ...prevState,
+        setQuiz({
+          ...quiz,
           question: data.question,
           possibilities: data.possibilities,
           rightAnswer: "",
           percentages: [],
           questionIndex: data.questionIndex,
           time: data.time,
-        }));
+        });
       });
 
       //after {timePerQuestion} show the right answer and the percentages
       socket.on("question-finished", (data) => {
         console.log(data);
-        setQuiz((prevState) => ({
-          ...prevState,
+        setQuiz({
+          ...quiz,
           rightAnswer: data.rightAnswer,
           percentages: data.percentages,
           announcements: {
@@ -63,15 +62,12 @@ export default function QuizLogic({
             onStreak: data.contestantData[0]?.username ?? "",
             onStreakAmount: data.contestantData[0]?.currentStreak ?? "",
           },
-        }));
+        });
       });
 
       //when the game is finished, show the results
       socket.on("game-finished", (data) => {
-        setQuiz((prevState) => ({
-          ...prevState,
-          results: data.results,
-        }));
+        setQuiz({ ...quiz, results: data.results });
         console.log(data.results);
         //wait 5 seconds before navigating to the results page
         setTimeout(() => {

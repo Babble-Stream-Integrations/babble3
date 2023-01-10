@@ -62,10 +62,10 @@ export default function QuizGrid({
       //onDragStop does the same as onLayoutChange, but because of allowOverlap, onLayoutChange is not triggered
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       onDragStop={(layout: any) => {
-        setLayout((prevState) => ({
-          ...prevState,
+        setLayout({
+          ...layout,
           lg: layout,
-        }));
+        });
       }}
     >
       <div
