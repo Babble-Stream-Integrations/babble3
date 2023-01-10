@@ -21,12 +21,12 @@ export default function YoutubeChat({
     axios
       .get(`${appConfig.base}/youtube/livechat/` + streamer.channel)
       .then((data) => {
-        socket.emit("youtube-livechat-start", {
+        socket.emit("preflight-trivia:youtube", {
           liveChatId: data.data.liveChatId,
         });
       });
 
-    socket.on("message", (data) => {
+    socket.on("trivia-youtube:message", (data) => {
       console.log(data);
       setMessages((messages) => [...messages, data]);
     });

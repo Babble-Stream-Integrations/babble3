@@ -98,8 +98,7 @@ export default function Quiz() {
     if (start) {
       if (!socket) return;
       //on first connection, send quiz to back-end
-      socket.emit("trivia-start", triviaSettings);
-
+      socket.emit(`start-trivia:${account.platform}`, triviaSettings);
       //give countdown before first question
       socket.on("game-starting", (data) => {
         setQuiz((prevState) => ({
