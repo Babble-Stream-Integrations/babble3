@@ -115,6 +115,7 @@ export default function ChatComponent({
       viewport={{
         once: true,
       }}
+      id="chatComponent"
       className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  "
       data-theme={streamer.platform}
     >

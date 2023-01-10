@@ -39,6 +39,7 @@ export default function QuizMenu({
     <>
       <div className="absolute top-[50px] left-[50px] z-40 flex flex-col gap-6 text-[25px] font-[1000] uppercase text-babbleLightGray">
         <button
+          id="play"
           onClick={() => {
             toast.promise(
               new Promise<void>((resolve) => {
@@ -61,9 +62,9 @@ export default function QuizMenu({
           <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
         </button>
         <button
+          id="settings"
           onClick={() => {
             if (start) {
-              console.log("quit quiz");
               QuitQuizToast({
                 setStart,
                 disconnect,
@@ -80,6 +81,7 @@ export default function QuizMenu({
           <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100" />
         </button>
         <button
+          id="home"
           onClick={() => {
             if (start) {
               QuitQuizToast({ setStart, disconnect, navigate, path: "/" });
@@ -98,6 +100,7 @@ export default function QuizMenu({
       <div className="absolute bottom-[50px] left-[50px] z-40 flex flex-col gap-[25px] text-[25px] font-[1000]">
         {editable && !start && (
           <button
+            id="reset"
             className="group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-white shadow-babbleOuter backdrop-blur-babble hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
             onClick={() => {
               resetLayoutToast({ removeItem });
@@ -111,6 +114,7 @@ export default function QuizMenu({
           <div />
         ) : (
           <button
+            id="edit"
             className={
               editable
                 ? "group relative flex h-[75px] w-[75px] items-center justify-center overflow-hidden whitespace-nowrap rounded-babble border-2 border-babbleOrange bg-babbleOrange/5 bg-gradient-to-br from-babbleOrange/20 to-babbleOrange/0 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble transition duration-300 hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite "
@@ -125,6 +129,7 @@ export default function QuizMenu({
           </button>
         )}
         <button
+          id="fullscreen"
           onClick={() => {
             setFullscreen(!fullscreen);
             if (fullscreen) {

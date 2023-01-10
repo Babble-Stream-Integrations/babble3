@@ -10,6 +10,8 @@ import QuizMenu from "play/quiz/quizMenu";
 import { appConfig } from "config/app";
 import type { QuizBackend, TriviaSettings } from "types";
 import "play/quiz/quizGrid.css";
+import Joyride from "components/tutorial/tutorial";
+import { playSteps } from "components/tutorial/steps";
 
 export default function Play() {
   const navigate = useNavigate();
@@ -111,6 +113,7 @@ export default function Play() {
       className="overflow-hidden"
       data-theme={account.platform}
     >
+      <Joyride steps={playSteps} />
       <QuizMenu
         socket={socket}
         start={start}

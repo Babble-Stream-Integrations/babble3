@@ -39,6 +39,7 @@ export default function AnnouncementFeedComponent({
       viewport={{
         once: true,
       }}
+      id="announcementFeedComponent"
       className="h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble"
     >
       {feedList.length <= 0 ? (

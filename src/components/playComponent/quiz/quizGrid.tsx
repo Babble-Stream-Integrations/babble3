@@ -76,7 +76,10 @@ export default function QuizGrid({
         key="chat-component"
       >
         {editable && !start && (
-          <MdDragIndicator className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white" />
+          <MdDragIndicator
+            id="move"
+            className="absolute inset-y-2 left-2 z-20 m-auto text-xl text-white"
+          />
         )}
         <ChatComponent
           streamer={account}

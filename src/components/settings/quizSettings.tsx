@@ -1,6 +1,6 @@
 import useLocalStorageState from "use-local-storage-state";
 import clsx from "clsx";
-import { categories } from "play/quiz/quizComponent/options";
+import { categories } from "quiz/quizComponent/options";
 import type { Colors, HandleChange, TriviaSettings } from "../../types";
 
 export default function QuizSettings() {
@@ -83,7 +83,7 @@ export default function QuizSettings() {
           <div className="mb-5 h-px w-[395px] bg-babbleGray"></div>
         </div>
         <div className="ph-full z-10 flex w-full flex-col items-start gap-[1.563rem] pr-[0.938rem]  text-babbleGray">
-          <div>
+          <div id="category">
             <h2 className="pb-[10px]">Category</h2>
             <div>
               <select
@@ -103,7 +103,7 @@ export default function QuizSettings() {
               </select>
             </div>
           </div>
-          <div>
+          <div id="amount">
             <h2 className="pb-[10px]">Amount of questions</h2>
             <div>
               <input
@@ -116,7 +116,7 @@ export default function QuizSettings() {
               ></input>
             </div>
           </div>
-          <div>
+          <div id="difficulty">
             <h2 className="pb-[10px]">Difficulty</h2>
             <div>
               <select

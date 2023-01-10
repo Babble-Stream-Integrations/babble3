@@ -23,6 +23,7 @@
       "config/*": ["config/*"],
       "layouts/*": ["layouts/*"],
       "default/*": ["components/defaultButton/*"],
+      "tutorial/*": ["components/tutorial/*"],
       "pages/*": ["pages/*"],
       "play/*": ["components/playComponent/*"],
       "settings/*": ["components/settings/*"],

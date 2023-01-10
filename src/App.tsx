@@ -11,7 +11,6 @@ import { DefaultLayout } from "layouts/defaultLayout";
 import Play from "pages/play";
 import Login from "pages/login";
 import QuizResults from "pages/quizResults";
-import Tutorial from "pages/tutorial";
 import Settings from "pages/settings";
 import Callback from "pages/callback";
 import Home from "pages/home";
@@ -149,24 +148,6 @@ export default function App() {
           <PrivateRoutes>
             <DefaultLayout title="Winners">
               <QuizResults />
-            </DefaultLayout>
-          </PrivateRoutes>
-        </>
-      ),
-    },
-    {
-      path: "/tutorial",
-      element: (
-        <>
-          <Toaster />
-          <PrivateRoutes>
-            <DefaultLayout
-              title="Tutorial"
-              subtitle="When you hit the 'Play Game' button your chat will be loaded in and the games can begin!
-A series of 10 trivia questions will appear on screen. You and your chat can answer by typing the corresponding letter in the chatbox. Keep in mind that you will get rewarded with points. Answering fast and scoring combo's will give you extra!
-When the game is over you'll be able to see how everyone performed."
-            >
-              <Tutorial />
             </DefaultLayout>
           </PrivateRoutes>
         </>

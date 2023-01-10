@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay, FaGraduationCap, FaCaretDown } from "react-icons/fa";
 import { MdSettings } from "react-icons/md";
 import useSessionStorageState from "use-session-storage-state";
+import Tutorial from "tutorial/tutorial";
+import { homeSteps } from "components/tutorial/steps";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,28 +27,38 @@ export default function Login() {
   );
 
   const [menuOpen, setMenuOpen] = useState(false);
-
   //define different sign in methods
   const buttonOptions = [
     {
       name: "Play Game",
       icon: <FaPlay size={25} />,
       nav: "play/quiz",
+      id: "play",
     },
     {
       name: "Tutorial",
       icon: <FaGraduationCap size={30} />,
-      nav: "tutorial",
+      //TODO implement a way to start tutorials
+      //posible implementation: set the initial
+      func: () => {
+        return;
+      },
+      id: "tutorial",
     },
     {
       name: "Settings",
       icon: <MdSettings size={30} />,
       nav: "settings",
+      id: "settings",
     },
   ];
 
-  function buttonClicked(nav: string) {
-    navigate(nav);
+  function buttonClicked(nav?: string, func?: () => void) {
+    if (func) {
+      return;
+    } else {
+      if (nav) navigate(nav);
+    }
   }
 
   function signOut() {
@@ -61,6 +73,7 @@ export default function Login() {
     //     body: JSON.stringify(session.babbleToken),
     //   }
     // );
+
     setSession({
       avatar: "",
       babbleToken: "",
@@ -103,6 +116,7 @@ export default function Login() {
 
   return (
     <div className="font-thin">
+      <Tutorial steps={homeSteps} />
       <div className="flex items-center justify-center gap-2 text-[#A8A8A8]">
         <img
           src={session.avatar}
@@ -112,7 +126,7 @@ export default function Login() {
         <p className="pl-[5px] text-xl text-[#A8A8A8]">
           {decodeURIComponent(session.displayName)}
         </p>
-        <button onClick={() => setMenuOpen(!menuOpen)}>
+        <button onClick={() => setMenuOpen(!menuOpen)} id="logoutDropdown">
           {menuOpen ? (
             <FaCaretDown
               size={30}
@@ -129,7 +143,7 @@ export default function Login() {
         </button>
       </div>
       {menuOpen && (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center" id="logoutDropdown">
           <button onClick={() => signOut()}>
             <p className="mt-2 text-xl text-[#A8A8A8] hover:text-babbleWhite">
               Sign out
@@ -151,9 +165,12 @@ export default function Login() {
                   type="radio"
                   name="option"
                   className="peer hidden"
-                  onChange={() => buttonClicked(options.nav)}
+                  onClick={() => buttonClicked(options.nav, options.func)}
                 />
-                <div className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite">
+                <div
+                  className="group relative flex h-[80px] w-[300px] cursor-pointer items-center justify-center overflow-hidden rounded-babble border border-[#A8A8A8] bg-babbleLightGray/5 text-white shadow-babbleOuter hover:overflow-hidden hover:border-babbleOrange hover:text-babbleWhite"
+                  id={options.id}
+                >
                   <div className="z-10 pl-8">{options.icon}</div>
                   <div className="z-10 flex w-full justify-center text-xl">
                     <p>{options.name}</p>

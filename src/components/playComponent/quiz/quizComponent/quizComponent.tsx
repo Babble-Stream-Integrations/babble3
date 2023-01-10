@@ -26,6 +26,7 @@ export default function QuizComponent({
       viewport={{
         once: true,
       }}
+      id="quizComponent"
       className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble"
     >
       {!start ? (

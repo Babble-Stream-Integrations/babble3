@@ -17,5 +17,8 @@
   <body>
     <div id="root"></div>
   </body>
+  <script>
+    global = typeof global !== "undefined" ? global : window;
+  </script>
   <script type="module" src="/src/index.tsx"></script>
 </html>
