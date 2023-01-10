@@ -114,13 +114,12 @@ const handleTwitchCallback = (req: Request, res: Response) => {
           }
           const profile: TwitchProfile = {
             uid: userData.id,
-            username: userData.login,
-            displayName: userData.display_name,
+            username: encodeURIComponent(userData.login),
+            displayName: encodeURIComponent(userData.display_name),
             email: userData.email,
             avatar: avatar,
             platform: req.params.platform.toLowerCase(),
           };
-
           const accountDocument: AccountDocument = {
             ...profile,
             token: token,

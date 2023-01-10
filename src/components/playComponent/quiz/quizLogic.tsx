@@ -28,8 +28,7 @@ export default function QuizLogic({
 
       //give countdown before first question
       socket.on("game-starting", (data) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setQuiz((prevState: any) => ({
+        setQuiz((prevState) => ({
           ...prevState,
           time: data.in,
         }));
@@ -39,8 +38,6 @@ export default function QuizLogic({
 
       //when getting a new question, update the data
       socket.on("question-new", (data) => {
-        console.log(data);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setQuiz((prevState) => ({
           ...prevState,
           question: data.question,

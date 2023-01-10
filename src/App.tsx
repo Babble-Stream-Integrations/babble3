@@ -50,14 +50,15 @@ export default function App() {
         <Toaster />
         <div className="flex h-screen w-screen flex-col items-center justify-center gap-8 text-4xl font-bold text-babbleWhite">
           <h1>Sorry, something went wrong</h1>
-          <button
+          <a
             className={clsx(
               "rounded-md p-2 text-xl",
               session.platform === "youtube" ? " bg-youtube" : "bg-twitch"
             )}
+            href="/"
           >
-            <a href="/">Go back to home</a>
-          </button>
+            Go back to home
+          </a>
           <button
             className={clsx(
               "rounded-md border-2 p-2 text-xl",

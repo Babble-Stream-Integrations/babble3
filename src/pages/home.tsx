@@ -109,7 +109,9 @@ export default function Login() {
           className="h-10 w-10 rounded-full shadow-babble"
           alt=""
         />
-        <p className="pl-[5px] text-xl text-[#A8A8A8]">{session.username}</p>
+        <p className="pl-[5px] text-xl text-[#A8A8A8]">
+          {decodeURIComponent(session.displayName)}
+        </p>
         <button onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? (
             <FaCaretDown

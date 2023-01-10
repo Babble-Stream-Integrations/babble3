@@ -123,7 +123,9 @@ export default function ChatComponent({
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
-              dangerouslySetInnerHTML={{ __html: streamer.username }}
+              dangerouslySetInnerHTML={{
+                __html: decodeURIComponent(streamer.username),
+              }}
             />
           </div>
         </div>

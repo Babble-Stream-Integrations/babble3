@@ -12,7 +12,9 @@ export default async function YoutubeViewCount({
   streamer,
   setViewCount,
 }: Props) {
-  const url = `${appConfig.base}/view-count/youtube/${streamer.username}`;
+  const url = `${appConfig.base}/view-count/youtube/${decodeURIComponent(
+    streamer.username
+  )}`;
   //get viewCount
 
   useEffect(() => {

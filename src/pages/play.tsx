@@ -27,7 +27,7 @@ export default function Play() {
   const [triviaSettings, setTriviaSettings] =
     useLocalStorageState<TriviaSettings>("quizSettings", {
       defaultValue: {
-        channel: account.username,
+        channel: decodeURIComponent(account.username),
         startAfter: 0.000000000001,
         questionAmount: 10,
         timePerQuestion: 15,
@@ -41,7 +41,7 @@ export default function Play() {
   //set channel to streamer channel (temporary, want to change to channel id?)
   setTriviaSettings((prevState) => ({
     ...prevState,
-    channel: account.username,
+    channel: decodeURIComponent(account.username),
   }));
 
   const [start, setStart] = useState(false);

@@ -12,7 +12,9 @@ export default async function TwitchViewCount({
   streamer,
   setViewCount,
 }: Props) {
-  const url = `${appConfig.base}/view-count/twitch/${streamer.username}`;
+  const url = `${appConfig.base}/view-count/twitch/${decodeURIComponent(
+    streamer.username
+  )}`;
   //get viewCount
   useEffect(() => {
     //retrieve viewCount for the first time and check if online. if not online stop the function

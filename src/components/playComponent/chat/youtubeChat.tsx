@@ -19,7 +19,10 @@ export default function YoutubeChat({
   useEffect(() => {
     if (!socket) return;
     axios
-      .get(`${appConfig.base}/youtube/livechat/` + streamer.username)
+      .get(
+        `${appConfig.base}/youtube/livechat/` +
+          decodeURIComponent(streamer.username)
+      )
       .then((data) => {
         socket.emit("youtube-livechat-start", {
           liveChatId: data.data.liveChatId,

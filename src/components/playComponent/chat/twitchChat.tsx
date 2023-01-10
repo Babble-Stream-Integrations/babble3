@@ -45,7 +45,7 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
 
   //connect to twitch chat
   const client = new tmi.Client({
-    channels: [streamer.username],
+    channels: [decodeURIComponent(streamer.username)],
   });
 
   useEffect(() => {

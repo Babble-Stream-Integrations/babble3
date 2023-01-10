@@ -69,7 +69,9 @@ export default function Feedback() {
           <a
             className="text-blue-500 underline"
             target="_blank"
-            href={`mailto:jarno.akkerman@student.hu.nl?subject=from ${account.username}, ${subject}&body=${body}`}
+            href={`mailto:jarno.akkerman@student.hu.nl?subject=from ${decodeURIComponent(
+              account.username
+            )}, ${subject}&body=${body}`}
             rel="noreferrer"
           >
             here
@@ -94,7 +96,7 @@ export default function Feedback() {
         axios
           .post(`${appConfig.base}/feedback`, {
             type: type,
-            username: account.username,
+            username: decodeURIComponent(account.username),
             subject: subject,
             feedback: body,
           })

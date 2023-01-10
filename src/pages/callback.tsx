@@ -26,6 +26,7 @@ export default function CallBack() {
         [key]: value,
       }));
     });
+    console.log(searchParams);
     if (session) {
       toast.success("Logged in successfully!");
       navigate("/");
