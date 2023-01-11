@@ -1,9 +1,9 @@
-import { ImTwitch, ImYoutube } from "react-icons/im";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { DefaultButton } from "../components/defaultButton/defaultButton";
 import { toast } from "react-hot-toast";
-import { appConfig } from "../config/app";
+import { ImTwitch, ImYoutube } from "react-icons/im";
+import { appConfig } from "config/app";
+import { DefaultButton } from "default/defaultButton";
 
 export default function Login() {
   const [platform, setPlatform] = useState("");
@@ -126,9 +126,7 @@ export default function Login() {
                     <div
                       className={`absolute inset-0 h-full w-full bg-gradient-to-br shadow-babble from-${platform}Light/30 to-${platform}Dark/10 opacity-0 transition duration-300 hover:opacity-100 group-hover:opacity-100`}
                     />
-                    <div
-                      className={`z-10 flex items-center justify-center [filter:_drop-shadow(3px_2px_4px_rgb(0,0,0,40%));]`}
-                    >
+                    <div className="z-10 flex items-center justify-center [filter:_drop-shadow(3px_2px_4px_rgb(0,0,0,40%))]">
                       {options.icon}
                     </div>
                   </motion.div>

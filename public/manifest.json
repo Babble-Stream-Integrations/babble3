@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Babble",
+  "name": "Babble",
   "icons": [
     {
       "src": "maskable_icon.png",
@@ -24,8 +24,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "start_url": "/",
+  "display_override": ["window-control-overlay", "minimal-ui"],
+  "display": "minimal-ui",
+  "theme_color": "#FF0000",
+  "background_color": "#141416"
 }

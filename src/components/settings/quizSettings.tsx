@@ -1,6 +1,7 @@
-import { Colors, HandleChange, TriviaSettings } from "../../types";
 import useLocalStorageState from "use-local-storage-state";
-import { categories } from "./options";
+import clsx from "clsx";
+import { categories } from "play/quiz/quizComponent/options";
+import type { Colors, HandleChange, TriviaSettings } from "../../types";
 
 export default function QuizSettings() {
   const [quizSettings, setQuizSettings] = useLocalStorageState<TriviaSettings>(
@@ -163,13 +164,22 @@ export default function QuizSettings() {
           </div>
           <div>
             <h2 className="pb-[10px]">Elimination</h2>
-            <label className="switch mt-[0.25rem]">
+            <label
+              htmlFor="check"
+              className={clsx(
+                "relative mt-[0.25rem] flex h-9 w-16 cursor-pointer rounded-full border-[2px] border-babbleGray",
+                quizSettings.eliminations &&
+                  "border-babbleWhite shadow-[0px_0px_8px] shadow-babbleWhite"
+              )}
+            >
               <input
                 type="checkbox"
+                id="check"
+                className="peer sr-only"
                 checked={quizSettings.eliminations}
                 onChange={() => handleSwitch("eliminations")}
-              ></input>
-              <span className="slider"></span>
+              />
+              <span className="absolute left-1 top-1 h-6 w-6 rounded-full bg-babbleGray transition-all duration-200 peer-checked:left-[32px] peer-checked:bg-babbleWhite"></span>
             </label>
           </div>
         </div>

@@ -1,29 +1,24 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { AutoTextSize } from "auto-text-size";
+import { FaUserAlt } from "react-icons/fa";
+import { ImTwitch, ImYoutube } from "react-icons/im";
+import { IoLogoTiktok } from "react-icons/io5";
+import hexToHSLGradient from "common/hexToHSLGradient";
 import TwitchChat from "./twitchChat";
 import TwitchViewCount from "./twitchViewCount";
 import YoutubeChat from "./youtubeChat";
 import YoutubeViewCount from "./youtubeViewCount";
-import { FaUserAlt } from "react-icons/fa";
-import { ImTwitch, ImYoutube } from "react-icons/im";
-import { IoLogoTiktok } from "react-icons/io5";
-import { Announcements, Message, Streamer } from "../../types";
-import hexToHSLGradient from "../../common/hexToHSLGradient";
-import { AutoTextSize } from "auto-text-size";
+import type { Announcements, Message, Streamer } from "types";
 import type { Socket } from "socket.io-client";
-// import invertColor from "../../common/invertColor";
-import { motion } from "framer-motion";
 
 export default function ChatComponent({
   streamer,
-  platform,
   announcements,
   socket,
 }: {
   streamer: Streamer;
-  platform: string;
   announcements: Announcements;
-  messages?: Message[];
-  setMessages?: React.Dispatch<React.SetStateAction<Message[]>>;
   socket?: Socket;
 }) {
   //usestate for chat messages
@@ -31,9 +26,8 @@ export default function ChatComponent({
 
   //usestate for viewcount
   const [viewCount, setViewCount] = useState<string>("");
-
   const Icon = () => {
-    switch (platform) {
+    switch (streamer.platform) {
       case "twitch":
         return <ImTwitch />;
       case "youtube":
@@ -45,19 +39,19 @@ export default function ChatComponent({
     }
   };
 
-  if (platform === "twitch") {
+  if (streamer.platform === "twitch") {
     TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
       streamer: streamer,
       setViewCount,
     });
-  } else if (platform === "youtube") {
+  } else if (streamer.platform === "youtube") {
     YoutubeChat({ streamer: streamer, messages, setMessages, socket });
     YoutubeViewCount({
       streamer: streamer,
       setViewCount,
     });
-  } else if (platform === "tiktok") {
+  } else if (streamer.platform === "tiktok") {
     TwitchChat({ streamer: streamer, messages, setMessages });
     TwitchViewCount({
       streamer: streamer,
@@ -122,13 +116,16 @@ export default function ChatComponent({
         once: true,
       }}
       className="z-10 h-full w-full overflow-hidden rounded-babble border border-babbleGray bg-babbleLightGray/5 py-4 text-babbleWhite shadow-babbleOuter backdrop-blur-babble  "
+      data-theme={streamer.platform}
     >
       <div className="z-40 mx-4 flex h-[50px] items-center justify-between rounded-babbleSmall bg-gradient-to-tr from-platformDark to-platformLight px-[10%] ">
         <div className="relative flex items-center justify-end gap-0.5 text-[18px] font-normal uppercase">
           <Icon />
           <div className="w-max pl-2 pr-4 text-left">
             <AutoTextSize
-              dangerouslySetInnerHTML={{ __html: streamer.channel }}
+              dangerouslySetInnerHTML={{
+                __html: decodeURIComponent(streamer.username),
+              }}
             />
           </div>
         </div>

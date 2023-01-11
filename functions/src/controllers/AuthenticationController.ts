@@ -107,15 +107,19 @@ const handleTwitchCallback = (req: Request, res: Response) => {
         })
         .then(async (response) => {
           const userData = response.data.data[0];
+          //get perfect avatar size
+          let avatar = userData.profile_image_url;
+          if (avatar.includes("300x300")) {
+            avatar = avatar.replace("300x300", "150x150");
+          }
           const profile: TwitchProfile = {
             uid: userData.id,
-            username: userData.login,
-            displayName: userData.display_name,
+            username: encodeURIComponent(userData.login),
+            displayName: encodeURIComponent(userData.display_name),
             email: userData.email,
-            avatar: userData.profile_image_url,
+            avatar: avatar,
             platform: req.params.platform.toLowerCase(),
           };
-
           const accountDocument: AccountDocument = {
             ...profile,
             token: token,

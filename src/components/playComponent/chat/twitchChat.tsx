@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import tmi from "tmi.js";
 import { parseBadges, parseEmotes } from "emotettv";
-import { Message, Streamer } from "../../types";
+import type { Message, Streamer } from "types";
 
 type Props = {
   streamer: Streamer;
@@ -45,7 +45,7 @@ export default function TwitchChat({ streamer, messages, setMessages }: Props) {
 
   //connect to twitch chat
   const client = new tmi.Client({
-    channels: [streamer.channel],
+    channels: [decodeURIComponent(streamer.username)],
   });
 
   useEffect(() => {

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { Message, Streamer } from "../../types";
-import type { Socket } from "socket.io-client";
+import { useEffect } from "react";
 import axios from "axios";
-import { appConfig } from "../../config/app";
+import { appConfig } from "config/app";
+import type { Socket } from "socket.io-client";
+import type { Message, Streamer } from "types";
 
 type Props = {
   streamer: Streamer;
@@ -19,7 +19,10 @@ export default function YoutubeChat({
   useEffect(() => {
     if (!socket) return;
     axios
-      .get(`${appConfig.base}/youtube/livechat/` + streamer.channel)
+      .get(
+        `${appConfig.base}/youtube/livechat/` +
+          decodeURIComponent(streamer.username)
+      )
       .then((data) => {
         socket.emit("youtube-livechat-start", {
           liveChatId: data.data.liveChatId,

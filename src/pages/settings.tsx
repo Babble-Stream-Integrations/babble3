@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import QuizSettings from "../components/quizComponent/quizSettings";
-import { DefaultButton } from "../components/defaultButton/defaultButton";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import QuizSettings from "settings/quizSettings";
+import { DefaultButton } from "default/defaultButton";
 
 export default function Settings() {
   const navigate = useNavigate();

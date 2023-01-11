@@ -1,9 +1,8 @@
-import { Announcements } from "../../types";
 import { useEffect, useState } from "react";
-import IconGradient from "../../common/iconGradient";
-import AnnouncementLogic from "./announcementLogic";
-import { FeedList } from "../../types";
 import { motion } from "framer-motion";
+import IconGradient from "common/iconGradient";
+import AnnouncementLogic from "./announcementLogic";
+import type { Announcements, FeedList } from "types";
 
 export default function AnnouncementFeedComponent({
   announcements,
@@ -13,8 +12,8 @@ export default function AnnouncementFeedComponent({
   const [feedList, setFeedList] = useState<FeedList[]>([]);
   AnnouncementLogic({ announcements, setFeedList });
 
+  //remove the first item in the list after there are 3 items in the list
   useEffect(() => {
-    //remove the first item in the list after there are 3 items in the list
     if (feedList.length > 3) {
       setFeedList((feedList: FeedList[]) => {
         feedList.shift();
@@ -48,12 +47,11 @@ export default function AnnouncementFeedComponent({
         </div>
       ) : (
         <div className="flex h-full flex-col justify-evenly gap-3">
+          {/* reverse the list so the newest announcement is on top */}
           {feedList
             .slice(0)
             .reverse()
             .map((announcement: FeedList) => {
-              console.log(announcement);
-
               const key = Math.random();
               return (
                 <div
@@ -85,32 +83,3 @@ export default function AnnouncementFeedComponent({
     </motion.div>
   );
 }
-// useEffect(() => {
-//   for (const [key, value] of Object.entries(announcements)) {
-//     if (typeof value === "string") {
-//       const announcement = {
-//         type: key,
-//         name: value,
-//         icon: <></>,
-//         title: "",
-//         value: 0,
-//       };
-//       switch (announcement.type) {
-//         case "mostPoints":
-//           announcement.icon = <FaTrophy />;
-//           announcement.title = "Most Points";
-//           announcement.value = announcements.mostPointsAmount;
-//           break;
-//         case "onStreak":
-//           announcement.icon = <IoSpeedometerSharp />;
-//           announcement.title = "On Streak";
-//           break;
-//         case "firstToGuess":
-//           announcement.icon = <AiFillFire />;
-//           announcement.title = "First To Guess";
-//           break;
-//       }
-//       setFeedList((feedList: any) => [...feedList, announcement]);
-//     }
-//   }
-// }, []);

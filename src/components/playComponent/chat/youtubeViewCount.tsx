@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { Streamer } from "../../types";
-import { appConfig } from "../../config/app";
+import { appConfig } from "config/app";
+import type { Streamer } from "types";
 
 type Props = {
   streamer: Streamer;
@@ -12,7 +12,9 @@ export default async function YoutubeViewCount({
   streamer,
   setViewCount,
 }: Props) {
-  const url = `${appConfig.base}/view-count/youtube/${streamer.channel}`;
+  const url = `${appConfig.base}/view-count/youtube/${decodeURIComponent(
+    streamer.username
+  )}`;
   //get viewCount
 
   useEffect(() => {
