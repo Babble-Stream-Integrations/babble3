@@ -38,7 +38,7 @@ export default function Tutorial({ steps }: Props) {
   });
 
   function callBack(data: CallBackProps) {
-    const { action, index, type, lifecycle } = data;
+    const { action, index, type, status } = data;
     if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
       // Update state to advance the tour
       setRun({
@@ -49,7 +49,7 @@ export default function Tutorial({ steps }: Props) {
         },
       });
     }
-    if (action === "skip" || lifecycle === "complete") {
+    if (action === "skip" || status === "finished") {
       // Need to set our running state to false, so we can restart if we click start again.
       setRun({
         ...run,
@@ -61,13 +61,14 @@ export default function Tutorial({ steps }: Props) {
         },
       });
     }
+
     if (action === "close") {
       setRun({
         ...run,
         [page]: {
           ...run[page],
           active: false,
-          step: run[page].step - 1,
+          step: run[page].step,
         },
       });
     }
@@ -83,6 +84,7 @@ export default function Tutorial({ steps }: Props) {
         active: false,
       },
     });
+
     if (run[page].initialRun && page === "") {
       setTimeout(() => {
         setRun({
