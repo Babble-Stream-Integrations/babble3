@@ -111,7 +111,7 @@ export default function Play() {
       viewport={{
         once: true,
       }}
-      className="overflow-hidden"
+      className="h-screen overflow-hidden"
       data-theme={account.platform}
     >
       <Joyride steps={playSteps} />

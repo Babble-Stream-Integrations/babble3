@@ -14,7 +14,7 @@ export default function Login() {
     } else if (platform === "youtube") {
       window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly https://www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&zstate=state_parameter_passthrough_value&redirect_uri=${appConfig.base}/oauth2/callback/youtube&response_type=code&client_id=608727980458-c8dr1t3dmlo5jmpcjvh01rjjnvl8acb4.apps.googleusercontent.com`;
     } else {
-      toast.error("please select an platform first");
+      toast.error("Please select a platform first");
       return;
     }
   }
