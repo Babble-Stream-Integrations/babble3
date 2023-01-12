@@ -2,7 +2,9 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { AutoTextSize } from "auto-text-size";
 import useMeasure from "react-use-measure";
+import { BsCheck } from "react-icons/bs";
 import useLocalStorageState from "use-local-storage-state";
+import clsx from "clsx";
 import hexToHSLGradient from "common/hexToHSLGradient";
 import TimerComponent from "./timerComponent";
 import type { LocalStorageState } from "use-local-storage-state";
@@ -71,9 +73,9 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
     } else {
       let percentage = percentages[index].percentage + 10;
       if (percentage > 100) {
-        percentage = 98;
+        percentage = 100;
       }
-      if (percentage < bounds.height) {
+      if ((bounds.width / 100) * percentage < bounds.height) {
         return `${bounds.height}px`;
       }
       return `${percentage}%`;
@@ -84,17 +86,6 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
   const Padding = useMemo(() => {
     return bounds.height === 0 ? "0px 0px" : `0 ${bounds.height / 2 - 12}px`;
   }, [bounds.height]);
-
-  //check what answer is correct, and if it is correct, show the checkmark
-  function RightAnswer(answer: string, rightAnswer: string) {
-    if (rightAnswer === "") {
-      return "#E6E6E6";
-    } else if (answer === rightAnswer) {
-      return "#1D981D";
-    } else {
-      return "#D22A2A";
-    }
-  }
 
   const variants = {
     hidden: {
@@ -127,7 +118,7 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
       variants={variants}
       initial="hidden"
       animate="show"
-      className="flex h-full flex-col gap-[15px] overflow-hidden text-center text-[30px] font-[500] text-babbleWhite"
+      className="flex h-full flex-col gap-[15px] overflow-hidden p-3.5 text-center text-[30px] font-[500] text-babbleWhite"
     >
       <div className="flex h-[40%] flex-col items-center justify-between rounded-babbleSmall bg-babbleDarkerGray px-6 text-[10rem] shadow-babble backdrop-blur-babble">
         <div className="flex h-full items-center py-5">
@@ -143,9 +134,10 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
             <div
               key={i}
               //if the current question is the same as the row number, color it
-              className={`flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleBlack from-platformDark to-platformLight text-sm ${
+              className={clsx(
+                "flex h-7 w-7 items-center justify-center rounded-babbleSmall bg-babbleBlack from-platformDark to-platformLight text-sm",
                 quiz.questionIndex === i + 1 && " bg-gradient-to-tr"
-              }`}
+              )}
             >
               <h3>{i + 1}</h3>
             </div>
@@ -164,7 +156,7 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
             variants={item}
             key={index}
             ref={ref}
-            className="relative flex h-1/6 items-center rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
+            className="relative flex h-1/6 items-center overflow-hidden rounded-babbleSmall bg-babbleDarkerGray text-center shadow-babble backdrop-blur-babble"
           >
             <div
               className="absolute z-0 flex h-full items-center rounded-l-babbleSmall text-left font-[1000] italic text-white"
@@ -176,7 +168,7 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
             >
               <h1>{letter}</h1>
             </div>
-            <div className="z-10 ml-20 w-full max-w-full justify-center text-center ">
+            <div className="z-10 ml-20 w-full max-w-full justify-center rounded-babbleSmall text-center ">
               <AutoTextSize
                 mode="box"
                 maxFontSizePx={20}
@@ -184,11 +176,16 @@ export default function QuizInner({ quiz }: { quiz: QuizComponentData }) {
               />
             </div>
             <div
-              className="z-10 h-full w-4 rounded-r-babbleSmall shadow-babble backdrop-blur-babble"
-              style={{
-                backgroundColor: RightAnswer(answer, quiz.rightAnswer),
-              }}
-            ></div>
+              className={clsx(
+                "absolute right-4 z-20 h-6 w-6 items-center justify-center rounded-full bg-white text-left font-[1000] italic text-green-600",
+                quiz.rightAnswer && quiz.rightAnswer === answer
+                  ? "flex"
+                  : "hidden",
+                !quiz.rightAnswer && "hidden"
+              )}
+            >
+              <BsCheck />
+            </div>
           </motion.div>
         );
       })}

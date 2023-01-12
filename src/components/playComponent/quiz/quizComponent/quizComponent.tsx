@@ -27,7 +27,7 @@ export default function QuizComponent({
         once: true,
       }}
       id="quizComponent"
-      className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 p-3.5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble"
+      className="relative h-full w-full rounded-babble border border-babbleGray bg-babbleLightGray/5 text-babbleWhite shadow-babbleOuter backdrop-blur-babble"
     >
       {!start ? (
         <div className="flex h-full items-center justify-center">

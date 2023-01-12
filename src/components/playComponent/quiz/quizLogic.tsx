@@ -37,22 +37,21 @@ export default function QuizLogic({
 
       //when getting a new question, update the data
       socket.on("question-new", (data) => {
-        setQuiz({
-          ...quiz,
+        setQuiz((prevState) => ({
+          ...prevState,
           question: data.question,
           possibilities: data.possibilities,
           rightAnswer: "",
           percentages: [],
           questionIndex: data.questionIndex,
           time: data.time,
-        });
+        }));
       });
 
       //after {timePerQuestion} show the right answer and the percentages
       socket.on("question-finished", (data) => {
-        console.log(data);
-        setQuiz({
-          ...quiz,
+        setQuiz((prevState) => ({
+          ...prevState,
           rightAnswer: data.rightAnswer,
           percentages: data.percentages,
           announcements: {
@@ -62,13 +61,15 @@ export default function QuizLogic({
             onStreak: data.contestantData[0]?.username ?? "",
             onStreakAmount: data.contestantData[0]?.currentStreak ?? "",
           },
-        });
+        }));
       });
 
       //when the game is finished, show the results
       socket.on("game-finished", (data) => {
-        setQuiz({ ...quiz, results: data.results });
-        console.log(data.results);
+        setQuiz((prevState) => ({
+          ...prevState,
+          results: data.results,
+        }));
         //wait 5 seconds before navigating to the results page
         setTimeout(() => {
           toast.dismiss();
