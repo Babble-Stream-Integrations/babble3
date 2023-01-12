@@ -117,10 +117,22 @@ export default function Tutorial({ steps }: Props) {
       debug={true}
       styles={{
         options: {
-          primaryColor: "var(--platform-color)",
-          arrowColor: "var(--platform-color)",
-          backgroundColor: "#212125",
-          textColor: "#F2F2F4",
+          primaryColor: "#1A1A1D",
+          arrowColor: "#F2F2F4",
+          backgroundColor: "#F2F2F4",
+          textColor: "#1A1A1D",
+        },
+        tooltip: {
+          borderRadius: "25px",
+        },
+        buttonNext: {
+          borderRadius: "25px",
+        },
+        tooltipContent: {
+          fontWeight: "lighter",
+        },
+        spotlight: {
+          borderRadius: "32px",
         },
       }}
       callback={(data) => callBack(data)}
